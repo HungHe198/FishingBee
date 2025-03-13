@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace Data_FishingBee.Models
 {
-    public class Product
+    public class Manufacturer
     {
         public int Id { get; set; }
-        public int CategoryId { get; set; }
-        public int ManufacturerId { get; set; }
+        public string Name { get; set; }
 
         public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
-        public DateTime? ModifiedTime { get; set; }
-        public string? Status { get; set; }
-        
+        public string Status { get; set; }
+        public string? Description { get; set; }
     }
 }

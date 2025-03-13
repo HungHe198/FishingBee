@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,16 +10,18 @@ namespace Data_FishingBee.Models
 {
     public class Cart
     {
-        public Guid Id { get; set; }
-        public Guid CustomerId { get; set; }
-        public Customer? Customer { get; set; }
-        public ICollection<Cart_Product>? Cart_Products { get; set; }
-        public Guid? CreatedBy { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
-        public DateTime? ModifiedTime { get; set; }
+        [Key]
+        public int Id { get; set; }  // Primary Key
+
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; } // Foreign Key
+
+        public string? CreatedBy { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime LastUpdateTime { get; set; }
+        public string Status { get; set; } = "Active"; // Mặc định là Active
+
+        // Navigation Property
+        public virtual Customer Customer { get; set; } = null!;
     }
 }

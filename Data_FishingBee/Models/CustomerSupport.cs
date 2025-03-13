@@ -8,17 +8,27 @@ namespace Data_FishingBee.Models
 {
     public class CustomerSupport
     {
-        public Guid Id { get; set; }
-        //public Guid CustomerId { get; set; }
-        //public Customer? Customer { get; set; }
-        //public Guid EmployeeId { get; set; }
-        //public Employee? Employee { get; set; }
-        public Guid? CreatedBy { get; set; }
+        public int Id { get; set; }  // Khóa chính
+
+        public int AdminId { get; set; } // FK đến Admin
+        public int CustomerId { get; set; } // FK đến Customer
+
+        public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
+        public string? Status { get; set; }
+
+        public string Subject { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string? Resolution { get; set; }
+        public DateTime? ResolvedAt { get; set; }
+
+        public string? CustomerFeedback { get; set; }
+        public int? RatingForSupport { get; set; } // Đánh giá hỗ trợ, có thể null
+
+        // Navigation Properties
+        public Admin Admin { get; set; } = null!;
+        public Customer Customer { get; set; } = null!;
     }
 }

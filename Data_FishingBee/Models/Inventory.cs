@@ -8,17 +8,17 @@ namespace Data_FishingBee.Models
 {
     public class Inventory
     {
-        public Guid Id { get; set; }
-        public int QuantityStock { get; set; }
-        public int ReOderLevel { get; set; } // 1 - 5
-        public Guid ProductDetailId { get; set; }
-        public ProductDetail? ProductDetail { get; set; }
-        public Guid? CreatedBy { get; set; }
+        public int Id { get; set; }
+        public int ProductDetailId { get; set; }
+
+        public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
+        public string? Status { get; set; }
+        public int Stock { get; set; }
+
+        public ProductDetail ProductDetail { get; set; } = null!;
+        public ImportHistory ImportHistory { get; set; } = null!;
     }
 }
