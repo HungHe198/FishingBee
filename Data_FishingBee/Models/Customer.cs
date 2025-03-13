@@ -10,15 +10,12 @@ namespace Data_FishingBee.Models
 {
     public class Customer
     {
-        
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
 
-       
-        public int UserId { get; set; }
-
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
         public string FullName { get; set; } = string.Empty;
@@ -26,5 +23,11 @@ namespace Data_FishingBee.Models
         public string? Address { get; set; }
         public DateTime? DoB { get; set; }
         public int LoyaltyPoints { get; set; }
+
+        public ICollection<CustomerActivityLog>? CustomerActivityLogs { get; set; } = new List<CustomerActivityLog>();
+        public ICollection<Cart>? Carts { get; set; } = new List<Cart>();
+        public ICollection<Bill>? Bills { get; set; } = new List<Bill>();
+        public ICollection<CustomerSupport>? CustomerSupports { get; set; } = new List<CustomerSupport>();
+        public User? User { get; set; }
     }
 }

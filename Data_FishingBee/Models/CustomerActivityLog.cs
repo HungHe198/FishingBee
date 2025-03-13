@@ -11,10 +11,10 @@ namespace Data_FishingBee.Models
     public class CustomerActivityLog
     {
         [Key]
-        public int Id { get; set; }  // Primary Key
+        public Guid Id { get; set; }  // Primary Key
 
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; } // Foreign Key
+        public Guid CustomerId { get; set; } // Foreign Key
 
         public DateTime Time { get; set; }
         public string ActivityType { get; set; } = string.Empty;

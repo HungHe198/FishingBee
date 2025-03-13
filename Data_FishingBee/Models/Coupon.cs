@@ -8,11 +8,11 @@ namespace Data_FishingBee.Models
 {
     public class Coupon
     {
-        public int Id { get; set; }  // Khóa chính
+        public Guid Id { get; set; }  // Khóa chính
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 
@@ -28,6 +28,6 @@ namespace Data_FishingBee.Models
         public int QuantityAvailable { get; set; }
 
         public string? Description { get; set; }
-        public Bill? Bill { get; set; }
+        public ICollection<Bill> Bills { get; set; } = new List<Bill>();
     }
 }

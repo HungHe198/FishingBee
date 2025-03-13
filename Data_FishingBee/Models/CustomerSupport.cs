@@ -8,14 +8,14 @@ namespace Data_FishingBee.Models
 {
     public class CustomerSupport
     {
-        public int Id { get; set; }  // Khóa chính
+        public Guid Id { get; set; }  // Khóa chính
 
-        public int AdminId { get; set; } // FK đến Admin
-        public int CustomerId { get; set; } // FK đến Customer
+        public Guid AdminId { get; set; } // FK đến Admin
+        public Guid CustomerId { get; set; } // FK đến Customer
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 

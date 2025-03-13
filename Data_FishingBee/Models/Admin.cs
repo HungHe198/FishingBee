@@ -8,8 +8,8 @@ namespace Data_FishingBee.Models
 {
     public class Admin
     {
-        public int Id { get; set; }  // Khóa chính riêng của Admin
-        public int UserId { get; set; }  // Khóa ngoại tham chiếu đến User.Id
+        public Guid Id { get; set; }  // Khóa chính riêng của Admin
+        public Guid UserId { get; set; }  // Khóa ngoại tham chiếu đến User.Id
 
         public string? FullName { get; set; }
         public string? Permissions { get; set; }
@@ -17,14 +17,14 @@ namespace Data_FishingBee.Models
         public string? Descriptions { get; set; }
 
         public DateTime? CreatedTime { get; set; }
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
 
         // Navigation Property
-        public User User { get; set; } = null!;
-        public CustomerSupport? CustomerSupport { get; set; }
-        public Bill? Bill { get; set; }
+        public User? User { get; set; } = null!;
+        public ICollection<CustomerSupport>? CustomerSupports { get; set; }
+        public ICollection<Bill>? Bills { get; set; }
 
     }
 }
