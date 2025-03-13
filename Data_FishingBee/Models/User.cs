@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,27 +8,23 @@ namespace Data_FishingBee.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        [EmailAddress]
-        public string Email { get; set; }
-        [Phone]
-        public string PhoneNumber { get; set; }
-        public int RoleLevel { get; set; }
-        public string RoleName { get; set; }
-        public Guid RoleId { get; set; }
-        public Role? Role { get; set; }
-        public ICollection<Admin>? Admins { get; set; }
-        public ICollection<Employee>? Employees { get; set; }
-        public ICollection<Customer>? Customers { get; set; }
+        public int Id { get; set; }  // Khóa chính
 
-        public Guid? CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
+        public string? Status { get; set; }
+
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
+        public string? UserType { get; set; }
+
+        // Navigation property để liên kết với Admin (nếu có)
+        public Admin? Admin { get; set; }
+        public Customer? Customer { get; set; }
+        public Employee? Employee { get; set; }
     }
 }

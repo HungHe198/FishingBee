@@ -8,17 +8,15 @@ namespace Data_FishingBee.Models
 {
     public class Category
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ICollection<Product_Category>? Product_Categories { get; set; }
-        public CategoryRevenue? CategoryRevenue { get; set; }
-        public Guid? CreatedBy { get; set; }
+        public int Id { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
+        public string? Status { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

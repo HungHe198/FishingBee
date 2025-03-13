@@ -1,4 +1,4 @@
-﻿using Data_FishingBee.Models;
+﻿using Data_FishingBee.ContextFile;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

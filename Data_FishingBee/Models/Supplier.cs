@@ -8,24 +8,26 @@ namespace Data_FishingBee.Models
 {
     public class Supplier
     {
-        public Guid Id { get; set; }
-        public string SupplierName { get; set; }
-        public string ContactName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public int Id { get; set; }  // Khóa chính
 
-        public string? Website { get; set; }
-        public string? Notes { get; set; }
-        public ICollection<PurchaseHistory>? PurchaseHistories { get; set; }
-        public Guid? CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool? IsDeleted { get; set; }
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public Guid? ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
+        public string? Status { get; set; }
+
+        public string SupplierName { get; set; } = string.Empty;
+        public string? ContactName { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public string? Country { get; set; }
+
+        public string? PhoneNumber { get; set; }
+        public string? Email { get; set; }
+        public string? Website { get; set; }
+
+        public string? Notes { get; set; }
+
+        public ImportHistory? ImportHistory { get; set; }
     }
 }
