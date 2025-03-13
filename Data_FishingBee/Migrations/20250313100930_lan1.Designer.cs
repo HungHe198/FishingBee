@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_FishingBee.Migrations
 {
     [DbContext(typeof(FishingBeeDbContext))]
-    [Migration("20250313093613_db-update-31")]
-    partial class dbupdate31
+    [Migration("20250313100930_lan1")]
+    partial class lan1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -392,6 +392,9 @@ namespace Data_FishingBee.Migrations
                     b.Property<Guid>("AdminId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AdminId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -433,6 +436,8 @@ namespace Data_FishingBee.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("AdminId1");
 
                     b.HasIndex("CustomerId");
 
@@ -955,15 +960,19 @@ namespace Data_FishingBee.Migrations
             modelBuilder.Entity("Data_FishingBee.Models.CustomerSupport", b =>
                 {
                     b.HasOne("Data_FishingBee.Models.Admin", "Admin")
-                        .WithMany("CustomerSupports")
+                        .WithMany()
                         .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data_FishingBee.Models.Admin", null)
+                        .WithMany("CustomerSupports")
+                        .HasForeignKey("AdminId1");
+
                     b.HasOne("Data_FishingBee.Models.Customer", "Customer")
                         .WithMany("CustomerSupports")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Admin");
