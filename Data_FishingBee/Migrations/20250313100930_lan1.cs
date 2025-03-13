@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data_FishingBee.Migrations
 {
-    public partial class dbupdate31 : Migration
+    public partial class lan1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -318,7 +318,8 @@ namespace Data_FishingBee.Migrations
                     Resolution = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResolvedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CustomerFeedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RatingForSupport = table.Column<int>(type: "int", nullable: true)
+                    RatingForSupport = table.Column<int>(type: "int", nullable: true),
+                    AdminId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -330,11 +331,15 @@ namespace Data_FishingBee.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_CustomerSupports_Admins_AdminId1",
+                        column: x => x.AdminId1,
+                        principalTable: "Admins",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_CustomerSupports_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -604,6 +609,11 @@ namespace Data_FishingBee.Migrations
                 name: "IX_CustomerSupports_AdminId",
                 table: "CustomerSupports",
                 column: "AdminId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerSupports_AdminId1",
+                table: "CustomerSupports",
+                column: "AdminId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerSupports_CustomerId",

@@ -54,6 +54,27 @@ namespace Data_FishingBee.ContextFile
             .HasOne(i => i.ProductDetail)
             .WithOne(p => p.Inventory)
             .HasForeignKey<Inventory>(i => i.Id);
+
+            modelBuilder.Entity<CustomerSupport>(entity =>
+            {
+                entity.HasKey(cs => cs.Id);
+
+                entity.HasOne(cs => cs.Admin)
+                    .WithMany() // Không cần danh sách ngược nếu không dùng
+                    .HasForeignKey(cs => cs.AdminId)
+                    .OnDelete(DeleteBehavior.Cascade); // Chỉ giữ CASCADE ở một chỗ
+
+                entity.HasOne(cs => cs.Customer)
+                    .WithMany(c => c.CustomerSupports) // Nếu Customer có danh sách CustomerSupports
+                    .HasForeignKey(cs => cs.CustomerId)
+                    .OnDelete(DeleteBehavior.NoAction); // Đổi thành NoAction để tránh lỗi
+
+                entity.Property(cs => cs.Subject)
+                    .IsRequired();
+
+                entity.Property(cs => cs.Description)
+                    .IsRequired();
+            });
         }
     }
 }

@@ -390,6 +390,9 @@ namespace Data_FishingBee.Migrations
                     b.Property<Guid>("AdminId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AdminId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -431,6 +434,8 @@ namespace Data_FishingBee.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("AdminId1");
 
                     b.HasIndex("CustomerId");
 
@@ -953,15 +958,19 @@ namespace Data_FishingBee.Migrations
             modelBuilder.Entity("Data_FishingBee.Models.CustomerSupport", b =>
                 {
                     b.HasOne("Data_FishingBee.Models.Admin", "Admin")
-                        .WithMany("CustomerSupports")
+                        .WithMany()
                         .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data_FishingBee.Models.Admin", null)
+                        .WithMany("CustomerSupports")
+                        .HasForeignKey("AdminId1");
+
                     b.HasOne("Data_FishingBee.Models.Customer", "Customer")
                         .WithMany("CustomerSupports")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Admin");
