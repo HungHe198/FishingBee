@@ -8,13 +8,13 @@ namespace Data_FishingBee.Models
 {
     public class ProductDetail
     {
-        public int Id { get; set; }  // Khóa chính
+        public Guid Id { get; set; }  // Khóa chính
 
-        public int ProductId { get; set; } // FK đến Product
+        public Guid ProductId { get; set; } // FK đến Product
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 
@@ -28,9 +28,9 @@ namespace Data_FishingBee.Models
         public decimal Price { get; set; }
 
         // Navigation Property
+        public ICollection<BillDetail>? BillDetails { get; set; } = new List<BillDetail>();
+        public ICollection<Cart_PD>? Cart_PDs { get; set; } = new List<Cart_PD>();
         public Product Product { get; set; } = null!;
-        public Cart_PD Cart_PD { get; set; } = null!;
-        public BillDetail BillDetail { get; set; } = null!;
         public Inventory Inventory { get; set; } = null!;
     }
 }

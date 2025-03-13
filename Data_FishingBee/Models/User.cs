@@ -8,11 +8,11 @@ namespace Data_FishingBee.Models
 {
     public class User
     {
-        public int Id { get; set; }  // Khóa chính
+        public Guid Id { get; set; }  // Khóa chính
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 

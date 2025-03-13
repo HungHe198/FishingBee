@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data_FishingBee.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,25 @@ namespace Data_FishingBee.ContextFile
         public FishingBeeDbContext(DbContextOptions options) : base(options)
         {
         }
-
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillDetail> BillDetails { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Cart_PD> Cart_PDs { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerActivityLog> CustomerActivityLogs { get; set; }
+        public DbSet<CustomerSupport> CustomerSupports { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<ImportHistory> ImportHistories { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Notifications> Notifications { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             base.ConfigureConventions(configurationBuilder);
@@ -31,6 +50,10 @@ namespace Data_FishingBee.ContextFile
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Inventory>()
+            .HasOne(i => i.ProductDetail)
+            .WithOne(p => p.Inventory)
+            .HasForeignKey<Inventory>(i => i.Id);
         }
     }
 }

@@ -8,26 +8,26 @@ namespace Data_FishingBee.Models
 {
     public class Bill
     {
-        public int Id { get; set; }  // Khóa chính
+        public Guid Id { get; set; }  // Khóa chính
 
-        public int AdminId { get; set; } // FK đến Admin
-        public int EmployeeId { get; set; } // FK đến Employee
-        public int CustomerId { get; set; } // FK đến Customer
-        public int? CouponId { get; set; } // FK đến Coupon (nullable)
+        public Guid? AdminId { get; set; } // FK đến Admin
+        public Guid? EmployeeId { get; set; } // FK đến Employee
+        public Guid CustomerId { get; set; } // FK đến Customer
+        public Guid? CouponId { get; set; } // FK đến Coupon (nullable)
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public string? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 
         public string InvoiceCode { get; set; } = string.Empty;
         public decimal TotalPrice { get; set; }
         public string CustomerName { get; set; } = string.Empty;
-        public string PaymentMethod { get; set; } = string.Empty;
+        public string PaymentMethod { get; set; } = string.Empty; 
 
         // Navigation Properties
-        public ICollection<BillDetail> BillDetails { get; set; } = new List<BillDetail>();
+        public ICollection<BillDetail>? BillDetails { get; set; } = new List<BillDetail>();
 
     }
 }
