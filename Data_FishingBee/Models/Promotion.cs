@@ -13,7 +13,7 @@ namespace Data_FishingBee.Models
         public string Name { get; set; }
         public string PromotionType { get; set; }
         public ICollection<Bill>? Bills { get; set; }
-        public PromotionDetail? PromotionDetail { get; set; }
+        
         public Guid? CreatedBy { get; set; }
         public DateTime? CreatedTime { get; set; }
         public bool? IsDeleted { get; set; }
