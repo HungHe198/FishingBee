@@ -42,7 +42,7 @@ namespace Data_FishingBee.Models
         public DbSet<CategoryRevenue> CategoryRevenues { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<PromotionDetail> PromotionDetails { get; set; }
+       
         public DbSet<WishList> WishLists { get; set; }
         public DbSet<TransactionHistory> TransactionHistories { get; set; }
         //public DbSet<Coupon> Coupons { get; set; }
@@ -52,7 +52,7 @@ namespace Data_FishingBee.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=LEVANHUNG\\LEVANHUNG;Initial Catalog=PRO131_FishingBee;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-MUUEIFA;Initial Catalog=FishingBee;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
