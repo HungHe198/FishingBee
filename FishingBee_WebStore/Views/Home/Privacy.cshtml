@@ -1,6 +1,25 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<h2>Privacy Policy</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<p>Đây là trang chính sách bảo mật.</p>
+
+<script>
+    setTimeout(function () {
+        var message = document.getElementById("successMessage");
+        if (message) {
+            message.style.transition = "opacity 0.5s ease-out";
+            message.style.opacity = "0";
+            setTimeout(() => message.style.display = "none", 500);
+        }
+    }, 1000);
+</script>
