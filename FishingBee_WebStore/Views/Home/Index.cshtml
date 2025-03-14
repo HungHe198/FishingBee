@@ -3,6 +3,21 @@
 	ViewData["Title"] = "PRO131_FishingBee";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+	<div id="success-message" class="alert alert-success text-center">
+		@TempData["SuccessMessage"]
+	</div>
+
+	<script>
+		setTimeout(function () {
+			var msg = document.getElementById("success-message");
+			if (msg) {
+				msg.style.display = "none";
+			}
+		}, 1000);
+	</script>
+}
 <div class="col-sm-3">
 	<partial name="_SidebarPartial" />
 </div>
@@ -24,12 +39,7 @@
 						<h2>5600</h2>
 						<p>can cau tay</p>
 						<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>them gio hang</a>
-						
-
-
 						</div>
-
-
 					</div>
 					<div class="choose">
 						<ul class="nav nav-pills nav-justified">
