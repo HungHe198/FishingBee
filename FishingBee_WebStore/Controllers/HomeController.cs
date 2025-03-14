@@ -1,4 +1,5 @@
-﻿using FishingBee_WebStore.Models;
+﻿using Data_FishingBee.ContextFile;
+using FishingBee_WebStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +8,16 @@ namespace FishingBee_WebStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly FishingBeeDbContext _dbContext;
+        public HomeController(ILogger<HomeController> logger, FishingBeeDbContext context)
         {
+            _dbContext = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            var Productdetail = _dbContext.Products.ToList();
             return View();
         }
 

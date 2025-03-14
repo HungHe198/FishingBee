@@ -1,8 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Data_FishingBee.Models.ProductDetail>
+@{
+	ViewData["Title"] = "PRO131_FishingBee";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="col-sm-3">
+	<partial name="_SidebarPartial" />
+</div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="col-sm-9 padding-right">
+	<div class="features_items">
+		<!--features_items-->
+		<h2 class="title text-center">Features Items</h2>
+
+		@* @foreach(var item in Model){ *@
+
+			<div class="col-sm-4">
+				<div class="product-image-wrapper">
+					<div class="single-products">
+
+
+						<div class="productinfo text-center">
+						<img></img>
+						<h2>5600</h2>
+						<p>can cau tay</p>
+						<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>them gio hang</a>
+						
+
+
+						</div>
+
+
+					</div>
+					<div class="choose">
+						<ul class="nav nav-pills nav-justified">
+							<li><a href="#"><i class="fa fa-plus-square"></i> add to wishlist</a></li>
+						<li><a href="#"><i class="fa fa-plus-square"></i> add to compar</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div><!--features_items-->
 </div>

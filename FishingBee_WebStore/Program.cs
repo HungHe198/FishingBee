@@ -1,5 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using Data_FishingBee.ContextFile;
+using Microsoft.EntityFrameworkCore;
+using System;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<FishingBeeDbContext>(options =>
+{
+	options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
