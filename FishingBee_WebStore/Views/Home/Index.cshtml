@@ -3,7 +3,8 @@
 	ViewData["Title"] = "PRO131_FishingBee";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (TempData["SuccessMessage"] != null)
+
+@* @if (TempData["SuccessMessage"] != null)
 {
 	<div id="success-message" class="alert alert-success text-center">
 		@TempData["SuccessMessage"]
@@ -17,7 +18,7 @@
 			}
 		}, 1000);
 	</script>
-}
+} *@
 <div class="col-sm-3">
 	<partial name="_SidebarPartial" />
 </div>
@@ -26,29 +27,40 @@
 	<div class="features_items">
 		<!--features_items-->
 		<h2 class="title text-center">Features Items</h2>
+		@if (Model != null && Model.Any())
+		{
+			@foreach (var item in Model)
+			{
+				<div class="col-sm-4">
+					<div class="product-image-wrapper">
+						<div class="single-product">
+							<a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.ProductId" >							<div class="productinfo text-center">
+									<img src="~/images/anhmoi.jpg" width="100px" height="200px" />
+									<h2>@item.Price.</h2>
+									<p>@item.Name</p>
+								
+							</div>
+							</a>
 
-		@* @foreach(var item in Model){ *@
-
-			<div class="col-sm-4">
-				<div class="product-image-wrapper">
-					<div class="single-products">
-
-
-						<div class="productinfo text-center">
-						<img></img>
-						<h2>5600</h2>
-						<p>can cau tay</p>
-						<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>them gio hang</a>
 						</div>
-					</div>
-					<div class="choose">
-						<ul class="nav nav-pills nav-justified">
-							<li><a href="#"><i class="fa fa-plus-square"></i> add to wishlist</a></li>
-						<li><a href="#"><i class="fa fa-plus-square"></i> add to compar</a></li>
-						</ul>
+						@* <div class="choose">
+							@if (User.Identity?.IsAuthenticated ?? false)
+							{
+								<ul class="nav nav-pills nav-justified">
+									<li><button class="btn btn-danger add-btn-wishlist" data-product_id="@item.Id">Yêu thích</button></li>
+									<li><button class="btn btn-primary add-btn-compare" data-product_id="@item.Id">So sánh</button></li>
+								</ul>
+							}
+						</div> *@
 					</div>
 				</div>
-			</div>
+			}
+
+		}
+
+		else
+		{
+			<p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
 		}
 
 	</div><!--features_items-->

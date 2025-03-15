@@ -11,16 +11,15 @@ namespace Data_FishingBee.Repositories
 {
     public class AllRepositories<H> : IAllRepositories<H> where H : class
     {
-        private readonly FishingBeeDbContext _db;
-        DbSet<H> _dbSet;
+		private readonly FishingBeeDbContext _db;
+		private readonly DbSet<H> _dbSet;
 
-        public AllRepositories(FishingBeeDbContext db, DbSet<H> dbSet)
-        {
-            _db = db;
-            _dbSet = dbSet;
-        }
-
-        public async Task<H> Create(H Obj)
+		public AllRepositories(FishingBeeDbContext db)
+		{
+			_db = db;
+			_dbSet = db.Set<H>(); // ✅ Lấy DbSet từ DbContext
+		}
+		public async Task<H> Create(H Obj)
         {
             try
             {
