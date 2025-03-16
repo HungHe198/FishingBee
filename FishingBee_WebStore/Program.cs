@@ -2,15 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using Data_FishingBee.Models;
 using FishingBee_WebStore.Controllers.Account;
 using Data_FishingBee.ContextFile;
+using Data_FishingBee.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<FishingBeeDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<FishingBeeDbContext>(options => { });
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<EmailService>();
+//builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IAllRepositories<Product>,AllRepositories<Product>>();
+builder.Services.AddScoped<IAllRepositories<ProductDetail>,AllRepositories<ProductDetail>>();
+
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
