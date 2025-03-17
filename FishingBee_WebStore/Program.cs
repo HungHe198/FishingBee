@@ -63,7 +63,10 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.MapControllerRoute(
+	name: "search",
+	pattern: "search",
+	defaults: new { controller = "ProductDetails", action = "Search" });
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -2523,4 +2523,98 @@ h2.title {
   color: #FE980F;
 }
 
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+}
 
+/* Định dạng tiêu đề */
+header {
+	background-color:cadetblue;
+	color: #fff;
+	padding: 10px 0;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/* Định dạng phần chính */
+main {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 20px;
+}
+
+/* Định dạng hình ảnh sản phẩm */
+.product-images {
+	flex: 1;
+	max-width: 500px;
+	margin-right: 20px;
+}
+
+	.product-images img {
+		width: 100%;
+		height: auto;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+	}
+
+/* Định dạng chi tiết sản phẩm */
+.product-details {
+	flex: 1;
+	max-width: 500px;
+}
+
+	.product-details h2 {
+		color: #333;
+	}
+
+	.product-details p {
+		margin: 10px 0;
+	}
+
+	.product-details ul {
+		list-style-type: disc;
+		margin-left: 20px;
+	}
+
+	.product-details form {
+		margin-top: 20px;
+	}
+
+	.product-details label {
+		display: block;
+		margin-top: 10px;
+	}
+
+	.product-details select {
+		width: 100%;
+		padding: 5px;
+		margin-top: 5px;
+	}
+
+	.product-details button {
+		background-color: #28a745;
+		color: #fff;
+		padding: 10px;
+		border: none;
+		cursor: pointer;
+		margin-top: 10px;
+	}
+
+		.product-details button:hover {
+			background-color: #218838;
+		}
+
+/* Định dạng chân trang */
+footer {
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	padding: 10px 0;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
