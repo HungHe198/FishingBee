@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Data_FishingBee.Models
 {
@@ -8,14 +11,10 @@ namespace Data_FishingBee.Models
         public Guid Id { get; set; }  // Khóa chính riêng của Admin
         public Guid UserId { get; set; }  // Khóa ngoại tham chiếu đến User.Id
 
-        public string? Username { get; set; }  // Tên tài khoản
-        public string? Password { get; set; }  // Mật khẩu
-
         public string? FullName { get; set; }
         public string? Permissions { get; set; }
         public string? Status { get; set; }
         public string? Descriptions { get; set; }
-        public string? UserType { get; set; }
 
         public DateTime? CreatedTime { get; set; }
         public Guid? CreatedBy { get; set; }
@@ -26,5 +25,6 @@ namespace Data_FishingBee.Models
         public User? User { get; set; } = null!;
         public ICollection<CustomerSupport>? CustomerSupports { get; set; }
         public ICollection<Bill>? Bills { get; set; }
+
     }
 }
