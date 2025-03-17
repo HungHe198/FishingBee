@@ -15,20 +15,34 @@ namespace FishingBee_WebStore.Controllers.ProductManager
     {
         private readonly IAllRepositories<ProductDetail> _productDetailRepo;
         private readonly IAllRepositories<Product> _productRepo;
+        private readonly IAllRepositories<Category> _categoryRepo;
+        private readonly IAllRepositories<Manufacturer> _manuRepo;
 
-        public ProductDetailsController(
-            IAllRepositories<ProductDetail> productDetailRepo,
-            IAllRepositories<Product> productRepo)
+        public ProductDetailsController(IAllRepositories<ProductDetail> productDetailRepo, IAllRepositories<Product> productRepo, IAllRepositories<Category> categoryRepo, IAllRepositories<Manufacturer> manuRepo)
         {
             _productDetailRepo = productDetailRepo;
             _productRepo = productRepo;
+            _categoryRepo = categoryRepo;
+            _manuRepo = manuRepo;
         }
+
+
 
         // GET: ProductDetails
         public async Task<IActionResult> Index()
         {
-            var productDetails = await _productDetailRepo.GetAll();
-            return View(productDetails);
+            var lstProductDetails = await _productDetailRepo.GetAll();
+
+            // Kiểm tra dữ liệu
+            Console.WriteLine($"Số lượng sản phẩm: {lstProductDetails?.Count()}");
+
+            if (lstProductDetails == null || !lstProductDetails.Any())
+            {
+                TempData["ErrorMessage"] = "Không có sản phẩm nào!";
+                return View(new List<ProductDetail>());
+            }
+
+            return View(lstProductDetails);
         }
 
         // GET: ProductDetails/Details/5
@@ -39,13 +53,32 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 return NotFound();
             }
 
-            var productDetail = await _productDetailRepo.GetById(id.Value);
+            // Đợi dữ liệu từ GetAll() hoàn tất
+            var productDetailsList = await _productDetailRepo.GetAll();
+
+            // Lọc ra sản phẩm theo Id
+            var productDetail = productDetailsList
+                .FirstOrDefault(pd => pd.Id == id.Value);
+
             if (productDetail == null)
             {
                 return NotFound();
             }
 
+            // Load thủ công Category và Manufacturer nếu chưa được load
+            if (productDetail.Product != null)
+            {
+                var categories = await _categoryRepo.GetAll(); // Lấy danh sách danh mục trước
+                productDetail.Product.Category = categories.FirstOrDefault(e => e.Id == productDetail.Product.CategoryId);
+                 var manufacturers = await _manuRepo.GetAll(); // Lấy danh sách danh mục trước
+                productDetail.Product.Manufacturer = manufacturers.FirstOrDefault(e => e.Id == productDetail.Product.ManufacturerId);
+
+                //productDetail.Product.Manufacturer = await _context.Manufacturers
+                //    .FirstOrDefaultAsync(m => m.Id == productDetail.Product.ManufacturerId);
+            }
+
             return View(productDetail);
+
         }
 
         // GET: ProductDetails/Create

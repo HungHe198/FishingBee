@@ -1,101 +1,53 @@
-﻿@model IEnumerable<Data_FishingBee.Models.ProductDetail>
+﻿@model Data_FishingBee.Models.ProductDetail
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttributeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttributeValue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttributeUnit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttributeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttributeValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttributeUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cần Câu Barfilon Thuyết Huyết Long Vệ - LaoMa Fishing</title>
+    <!-- Thêm các thẻ meta và liên kết tới CSS tại đây -->
+</head>
+<body>
+    <header>
+        <h1>@Model.Name</h1>
+        <!-- Thông tin liên hệ và giỏ hàng -->
+    </header>
+    <main>
+        <section class="product-images">
+            <img src="~/images/anhmoi.jpg" width="100px" height="200px" />
+        </section>
+        <section class="product-details">
+            <p>@Model</p>
+            <p>Cần câu đài Thuyết Huyết Long Vệ là một dòng sản phẩm cần câu chất lượng cao được nhiều người chơi câu đài ưa chuộng. Dưới đây là một số đặc điểm nổi bật của dòng cần này:</p>
+            <ul>
+                <li>Thẩm mỹ độc đáo: Cần được thiết kế với họa tiết Huyết Long, mang phong cách mạnh mẽ và sang trọng, tạo cảm giác uy quyền và đẳng cấp.</li>
+                <li>Chất liệu cao cấp: Sử dụng vật liệu carbon siêu nhẹ và bền, giúp cần vừa có độ cứng cáp, vừa đảm bảo sự linh hoạt trong thao tác.</li>
+                <li>Độ cứng cao: Thích hợp để câu cá lớn hoặc câu cá tốc độ.</li>
+                <li>Khả năng chịu tải vượt trội: Dễ dàng chinh phục cá lớn.</li>
+                <li>Trọng lượng siêu nhẹ: Nhẹ, dễ cầm nắm trong thời gian dài mà không gây cảm giác mỏi tay.</li>
+                <li>Thiết kế thông minh: Thiết kế tối ưu cho trọng tâm cần nằm gần tay cầm, tạo sự cân bằng và thoải mái.</li>
+            </ul>
+            <form action="#" method="post">
+                <label for="size">Kích thước:</label>
+                <select id="size" name="size">
+                    <option value="3m6">3m6</option>
+                </select>
+                <label for="hardness">Độ cứng:</label>
+                <select id="hardness" name="hardness">
+                    <option value="9H">9H</option>
+                    <option value="10H">10H</option>
+                    <option value="11H">11H</option>
+                </select>
+                <button type="submit">Thêm vào giỏ hàng</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <!-- Thông tin liên hệ và các liên kết quan trọng -->
+    </footer>
+</body>

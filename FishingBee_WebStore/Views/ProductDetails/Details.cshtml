@@ -1,90 +1,67 @@
 ﻿@model Data_FishingBee.Models.ProductDetail
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Details</h1>
+<h1>Index</h1>
 
-<div>
-    <h4>ProductDetail</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AttributeName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AttributeName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AttributeValue)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AttributeValue)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AttributeUnit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AttributeUnit)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cần Câu Barfilon Thuyết Huyết Long Vệ - LaoMa Fishing</title>
+    <!-- Thêm các thẻ meta và liên kết tới CSS tại đây -->
+</head>
+<body>
+    <header>
+        <h1>@Model.Name</h1>
+        <!-- Thông tin liên hệ và giỏ hàng -->
+    </header>
+    <main>
+        <section class="product-images">
+            <img src="~/images/anhmoi.jpg" width="100px" height="200px" />
+        </section>
+        <section class="product-details">
+            <p>@Model.Price</p>
+            <p>
+                @if (Model?.Product?.Category != null)
+                {
+                <p>Danh mục: @Model.Product.Category.Name</p>
+                }
+                else
+                {
+                <p>Danh mục: Không xác định</p>
+                }
+                </p>
+         @*    <p>@Model.Price</p> *@
+            <p>Cần câu đài Thuyết Huyết Long Vệ là một dòng sản phẩm cần câu chất lượng cao được nhiều người chơi câu đài ưa chuộng. Dưới đây là một số đặc điểm nổi bật của dòng cần này:</p>
+            <ul>
+                <li>Thẩm mỹ độc đáo: Cần được thiết kế với họa tiết Huyết Long, mang phong cách mạnh mẽ và sang trọng, tạo cảm giác uy quyền và đẳng cấp.</li>
+                <li>Chất liệu cao cấp: Sử dụng vật liệu carbon siêu nhẹ và bền, giúp cần vừa có độ cứng cáp, vừa đảm bảo sự linh hoạt trong thao tác.</li>
+                <li>Độ cứng cao: Thích hợp để câu cá lớn hoặc câu cá tốc độ.</li>
+                <li>Khả năng chịu tải vượt trội: Dễ dàng chinh phục cá lớn.</li>
+                <li>Trọng lượng siêu nhẹ: Nhẹ, dễ cầm nắm trong thời gian dài mà không gây cảm giác mỏi tay.</li>
+                <li>Thiết kế thông minh: Thiết kế tối ưu cho trọng tâm cần nằm gần tay cầm, tạo sự cân bằng và thoải mái.</li>
+            </ul>
+            <form action="#" method="post">
+                <label for="size">Kích thước:</label>
+                <select id="size" name="size">
+                    <option value="3m5 ">
+                      3m5
+
+                    </option>
+                </select>
+                <label for="hardness">Độ cứng:</label>
+                <select id="hardness" name="hardness">
+                    <option value="9H">9H</option>
+                    <option value="10H">10H</option>
+                    <option value="11H">11H</option>
+                </select>
+                <button type="submit">Thêm vào giỏ hàng</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <!-- Thông tin liên hệ và các liên kết quan trọng -->
+    </footer>
+</body>

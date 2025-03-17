@@ -34,5 +34,27 @@ namespace FishingBee_WebStore.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                TempData["ErrorMessage"] = "Vui lòng nhập từ khóa tìm kiếm!";
+                return View("Index", new List<ProductDetail>());
+            }
+
+            var results = await _repo.GetAll();
+
+            var filteredResults = results
+                .Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!filteredResults.Any())
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy sản phẩm nào!";
+            }
+
+            return View("Search", "HomeController");
+        }
     }
 }

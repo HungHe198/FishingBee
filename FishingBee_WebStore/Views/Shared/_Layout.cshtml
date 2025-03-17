@@ -98,7 +98,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> </a></li>
 
 								@if (User.Identity?.IsAuthenticated ?? false)
 								{
@@ -156,13 +156,26 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<form asp-controller="Product" asp-action="Search" method="post">
+						@* <form asp-controller="Product" asp-action="Search" method="post">
 							<div class="search_box pull-right">
 								<input type="text" placeholder="Search" name="searchTerm" />
 								<button class="btn btn-warning" type="submit">Search</button>
 
 							</div>
+						</form> *@
+						<form asp-controller="Home" asp-action="Search" method="get">
+							<div class="search_box pull-right">
+								<input type="text" id="searchBox" placeholder="Nhập tên sản phẩm...">
+								<button id="searchBtn" class="btn btn-warning">Tìm kiếm</button>
+							@* <input type="text" name="searchTerm" placeholder="Nhập tên sản phẩm..." required />
+							<button class="btn btn-warning" type="submit">Tìm kiếm</button> *@
+							</div>
 						</form>
+
+						@if (TempData["ErrorMessage"] != null)
+						{
+							<p style="color:red">@TempData["ErrorMessage"]</p>
+						}
 					</div>
 				</div>
 			</div>
