@@ -7,36 +7,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data_FishingBee.ContextFile;
 using Data_FishingBee.Models;
+using Data_FishingBee.Repositories;
 
 namespace FishingBee_WebStore.Controllers.ProductManager
 {
     public class ProductDetailsController : Controller
     {
-        private readonly FishingBeeDbContext _context;
+        private readonly IAllRepositories<ProductDetail> _productDetailRepo;
+        private readonly IAllRepositories<Product> _productRepo;
 
-        public ProductDetailsController(FishingBeeDbContext context)
+        public ProductDetailsController(
+            IAllRepositories<ProductDetail> productDetailRepo,
+            IAllRepositories<Product> productRepo)
         {
-            _context = context;
+            _productDetailRepo = productDetailRepo;
+            _productRepo = productRepo;
         }
 
         // GET: ProductDetails
         public async Task<IActionResult> Index()
         {
-            var fishingBeeDbContext = _context.ProductDetails.Include(p => p.Product);
-            return View(await fishingBeeDbContext.ToListAsync());
+            var productDetails = await _productDetailRepo.GetAll();
+            return View(productDetails);
         }
 
         // GET: ProductDetails/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.ProductDetails == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var productDetail = await _context.ProductDetails
-                .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var productDetail = await _productDetailRepo.GetById(id.Value);
             if (productDetail == null)
             {
                 return NotFound();
@@ -46,53 +49,49 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
         // GET: ProductDetails/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name");
             return View();
         }
 
         // POST: ProductDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,Name,Description,AttributeName,AttributeValue,AttributeUnit,Price")] ProductDetail productDetail)
+        public async Task<IActionResult> Create(ProductDetail productDetail)
         {
             if (ModelState.IsValid)
             {
-                productDetail.Id = Guid.NewGuid();
-                _context.Add(productDetail);
-                await _context.SaveChangesAsync();
+                await _productDetailRepo.Create(productDetail);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
+
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", productDetail.ProductId);
             return View(productDetail);
         }
 
         // GET: ProductDetails/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.ProductDetails == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var productDetail = await _context.ProductDetails.FindAsync(id);
+            var productDetail = await _productDetailRepo.GetById(id.Value);
             if (productDetail == null)
             {
                 return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
+
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", productDetail.ProductId);
             return View(productDetail);
         }
 
         // POST: ProductDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,Name,Description,AttributeName,AttributeValue,AttributeUnit,Price")] ProductDetail productDetail)
+        public async Task<IActionResult> Edit(Guid id, ProductDetail productDetail)
         {
             if (id != productDetail.Id)
             {
@@ -103,12 +102,12 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             {
                 try
                 {
-                    _context.Update(productDetail);
-                    await _context.SaveChangesAsync();
+                    await _productDetailRepo.Update(id, productDetail);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductDetailExists(productDetail.Id))
+                    bool exists = await _productDetailRepo.EntityExists(productDetail.Id);
+                    if (!exists)
                     {
                         return NotFound();
                     }
@@ -119,21 +118,20 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
+
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", productDetail.ProductId);
             return View(productDetail);
         }
 
         // GET: ProductDetails/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.ProductDetails == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var productDetail = await _context.ProductDetails
-                .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var productDetail = await _productDetailRepo.GetById(id.Value);
             if (productDetail == null)
             {
                 return NotFound();
@@ -147,23 +145,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.ProductDetails == null)
-            {
-                return Problem("Entity set 'FishingBeeDbContext.ProductDetails'  is null.");
-            }
-            var productDetail = await _context.ProductDetails.FindAsync(id);
+            var productDetail = await _productDetailRepo.GetById(id);
             if (productDetail != null)
             {
-                _context.ProductDetails.Remove(productDetail);
+                await _productDetailRepo.Delete(id);
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
-        private bool ProductDetailExists(Guid id)
-        {
-          return (_context.ProductDetails?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
+
 }

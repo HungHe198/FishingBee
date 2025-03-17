@@ -7,36 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data_FishingBee.ContextFile;
 using Data_FishingBee.Models;
+using Data_FishingBee.Repositories;
 
 namespace FishingBee_WebStore.Controllers.ProductManager
 {
     public class SuppliersController : Controller
     {
-        private readonly FishingBeeDbContext _context;
+        private readonly IAllRepositories<Supplier> _supplierRepo;
 
-        public SuppliersController(FishingBeeDbContext context)
+        public SuppliersController(IAllRepositories<Supplier> supplierRepo)
         {
-            _context = context;
+            _supplierRepo = supplierRepo;
         }
 
         // GET: Suppliers
         public async Task<IActionResult> Index()
         {
-              return _context.Suppliers != null ? 
-                          View(await _context.Suppliers.ToListAsync()) :
-                          Problem("Entity set 'FishingBeeDbContext.Suppliers'  is null.");
+            var suppliers = await _supplierRepo.GetAll();
+            return View(suppliers);
         }
 
         // GET: Suppliers/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Suppliers == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var supplier = await _supplierRepo.GetById(id.Value);
             if (supplier == null)
             {
                 return NotFound();
@@ -52,17 +51,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
         // POST: Suppliers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,SupplierName,ContactName,Address,City,Country,PhoneNumber,Email,Website,Notes")] Supplier supplier)
+        public async Task<IActionResult> Create(Supplier supplier)
         {
             if (ModelState.IsValid)
             {
                 supplier.Id = Guid.NewGuid();
-                _context.Add(supplier);
-                await _context.SaveChangesAsync();
+                await _supplierRepo.Create(supplier);
                 return RedirectToAction(nameof(Index));
             }
             return View(supplier);
@@ -71,25 +67,24 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         // GET: Suppliers/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Suppliers == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _supplierRepo.GetById(id.Value);
             if (supplier == null)
             {
                 return NotFound();
             }
+
             return View(supplier);
         }
 
         // POST: Suppliers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,SupplierName,ContactName,Address,City,Country,PhoneNumber,Email,Website,Notes")] Supplier supplier)
+        public async Task<IActionResult> Edit(Guid id, Supplier supplier)
         {
             if (id != supplier.Id)
             {
@@ -100,12 +95,12 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             {
                 try
                 {
-                    _context.Update(supplier);
-                    await _context.SaveChangesAsync();
+                    await _supplierRepo.Update(id, supplier);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.Id))
+                    bool exists = await _supplierRepo.EntityExists(supplier.Id);
+                    if (!exists)
                     {
                         return NotFound();
                     }
@@ -116,19 +111,19 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(supplier);
         }
 
         // GET: Suppliers/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Suppliers == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var supplier = await _supplierRepo.GetById(id.Value);
             if (supplier == null)
             {
                 return NotFound();
@@ -142,23 +137,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Suppliers == null)
-            {
-                return Problem("Entity set 'FishingBeeDbContext.Suppliers'  is null.");
-            }
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _supplierRepo.GetById(id);
             if (supplier != null)
             {
-                _context.Suppliers.Remove(supplier);
+                await _supplierRepo.Delete(id);
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
-        private bool SupplierExists(Guid id)
-        {
-          return (_context.Suppliers?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
+
 }

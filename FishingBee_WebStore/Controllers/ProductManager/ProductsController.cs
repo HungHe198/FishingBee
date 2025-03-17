@@ -7,37 +7,43 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data_FishingBee.ContextFile;
 using Data_FishingBee.Models;
+using Microsoft.CodeAnalysis.Diagnostics;
+using Data_FishingBee.Repositories;
 
 namespace FishingBee_WebStore.Controllers.ProductManager
 {
     public class ProductsController : Controller
     {
-        private readonly FishingBeeDbContext _context;
+        private readonly IAllRepositories<Product> _productRepo;
+        private readonly IAllRepositories<Category> _categoryRepo;
+        private readonly IAllRepositories<Manufacturer> _manufacturerRepo;
 
-        public ProductsController(FishingBeeDbContext context)
+        public ProductsController(
+            IAllRepositories<Product> productRepo,
+            IAllRepositories<Category> categoryRepo,
+            IAllRepositories<Manufacturer> manufacturerRepo)
         {
-            _context = context;
+            _productRepo = productRepo;
+            _categoryRepo = categoryRepo;
+            _manufacturerRepo = manufacturerRepo;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var fishingBeeDbContext = _context.Products.Include(p => p.Category).Include(p => p.Manufacturer);
-            return View(await fishingBeeDbContext.ToListAsync());
+            var products = await _productRepo.GetAll();
+            return View(products);
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Products == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturer)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _productRepo.GetById(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -47,56 +53,52 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
         // GET: Products/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name");
+            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name");
             return View();
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryId,ManufacturerId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                product.Id = Guid.NewGuid();
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                await _productRepo.Create(product);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", product.ManufacturerId);
+
+            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Products == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepo.GetById(id.Value);
             if (product == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", product.ManufacturerId);
+
+            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CategoryId,ManufacturerId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status")] Product product)
+        public async Task<IActionResult> Edit(Guid id, Product product)
         {
             if (id != product.Id)
             {
@@ -107,12 +109,12 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _productRepo.Update(id, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    bool exists = await _productRepo.EntityExists(product.Id);
+                    if (!exists)
                     {
                         return NotFound();
                     }
@@ -123,23 +125,21 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", product.ManufacturerId);
+
+            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Products == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturer)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _productRepo.GetById(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -153,23 +153,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'FishingBeeDbContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepo.GetById(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                await _productRepo.Delete(id);
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
-        private bool ProductExists(Guid id)
-        {
-          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
+
 }
