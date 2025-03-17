@@ -1,0 +1,80 @@
+﻿@model Data_FishingBee.Models.Coupon
+
+@{
+    ViewData["Title"] = "Tạo mã giảm giá";
+}
+
+<h2>Tạo mã giảm giá</h2>
+
+<form asp-action="Create" method="post" onsubmit="return validateForm()">
+    <div class="form-group">
+        <label>Tên mã giảm giá</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Phần trăm giảm</label>
+        <input asp-for="Percent" class="form-control" type="number" required />
+        <span asp-validation-for="Percent" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày bắt đầu</label>
+        <input asp-for="DateStart" class="form-control" type="date" required />
+        <span asp-validation-for="DateStart" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày kết thúc</label>
+        <input asp-for="DateEnd" class="form-control" type="date" required />
+        <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Số lượng</label>
+        <input asp-for="QuantityAvailable" class="form-control" type="number" required />
+        <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Mô tả</label>
+        <input asp-for="Description" class="form-control" required />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Trạng thái</label>
+        <select asp-for="Status" class="form-control" required>
+            <option value="Active">Hoạt động</option>
+            <option value="Inactive">Ngừng hoạt động</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Tạo</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+<script>
+    function validateForm() {
+        let percent = document.querySelector('[name="Percent"]').value;
+        let dateStart = new Date(document.querySelector('[name="DateStart"]').value);
+        let dateEnd = new Date(document.querySelector('[name="DateEnd"]').value);
+        let today = new Date();
+
+        if (percent <= 0 || percent >= 100) {
+            alert("Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 100.");
+            return false;
+        }
+        if (dateStart <= today) {
+            alert("Ngày bắt đầu phải lớn hơn ngày hiện tại.");
+            return false;
+        }
+        if (dateEnd <= today || dateEnd < dateStart) {
+            alert("Ngày kết thúc phải lớn hơn ngày hiện tại và không được nhỏ hơn ngày bắt đầu.");
+            return false;
+        }
+        return true;
+    }
+</script>

@@ -4,6 +4,17 @@
 
 <h2>Đăng nhập</h2>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
 @if (ViewBag.ErrorMessage != null)
 {
     <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
@@ -30,3 +41,12 @@
 <p class="mt-3">
     <a asp-action="Register">Chưa có tài khoản? Đăng ký</a>
 </p>
+
+<script>
+    setTimeout(function () {
+        var message = document.getElementById("successMessage");
+        if (message) {
+            message.style.display = "none";
+        }
+    }, 1000); // 1 giây
+</script>

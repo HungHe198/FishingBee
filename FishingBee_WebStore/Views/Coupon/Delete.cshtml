@@ -1,0 +1,14 @@
+﻿@model Data_FishingBee.Models.Coupon
+
+@{
+    ViewData["Title"] = "Xóa mã giảm giá";
+}
+
+<h2>Xóa mã giảm giá</h2>
+<p>Bạn có chắc chắn muốn xóa mã <strong>@Model.Name</strong> không?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
