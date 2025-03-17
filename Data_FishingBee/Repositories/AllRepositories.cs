@@ -43,6 +43,15 @@ namespace Data_FishingBee.Repositories
             }
         }
 
+        public async Task<bool> EntityExists(Guid id)
+        {
+            return await _dbSet.AnyAsync(e => EF.Property<Guid>(e, "Id") == id);
+        }
+        //private bool CategoryExists(Guid id)
+        //{
+        //  return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
+        //}
+
         public async Task<IEnumerable<H>> GetAll()
         {
             return await _dbSet.ToListAsync();
