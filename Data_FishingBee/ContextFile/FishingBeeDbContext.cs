@@ -35,6 +35,7 @@ namespace Data_FishingBee.ContextFile
 		public DbSet<Notifications> Notifications { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<ProductDetail> ProductDetails { get; set; }
+		public DbSet<ProductImage> ProductImages { get; set; }
 		public DbSet<Supplier> Suppliers { get; set; }
 		public DbSet<User> Users { get; set; }
 		protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -44,7 +45,7 @@ namespace Data_FishingBee.ContextFile
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Server=PHẠM-TIẾN-DŨNG;Database=FishingBee14.03;Trusted_Connection=True;MultipleActiveResultSets=true");
+			optionsBuilder.UseSqlServer("Server=LEVANHUNG\\LEVANHUNG;Database=FishingBee;Trusted_Connection=True;MultipleActiveResultSets=true");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

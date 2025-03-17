@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_FishingBee.Migrations
 {
     [DbContext(typeof(FishingBeeDbContext))]
-    [Migration("20250313100930_lan1")]
+    [Migration("20250317083813_lan1")]
     partial class lan1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -246,6 +246,15 @@ namespace Data_FishingBee.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2664),
+                            Name = "Electronics",
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.Coupon", b =>
@@ -611,6 +620,15 @@ namespace Data_FishingBee.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Manufacturers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2489),
+                            Name = "Apple",
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.Notifications", b =>
@@ -704,6 +722,24 @@ namespace Data_FishingBee.Migrations
                     b.HasIndex("ManufacturerId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2685),
+                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            Status = "Available"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
+                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2687),
+                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            Status = "Available"
+                        });
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.ProductDetail", b =>
@@ -754,6 +790,58 @@ namespace Data_FishingBee.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("08cd05ae-e8ab-40a9-aeb4-a8104b984777"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2710),
+                            Name = "iPhone 15 Pro",
+                            Price = 999.99m,
+                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            Status = "In Stock"
+                        },
+                        new
+                        {
+                            Id = new Guid("5ebc808f-c931-418e-b14a-261767c30d9b"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2713),
+                            Name = "Samsung Galaxy S23 Ultra",
+                            Price = 1199.99m,
+                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            Status = "In Stock"
+                        },
+                        new
+                        {
+                            Id = new Guid("5d12b5ac-ca43-42ff-9233-1d8ab9f91dfc"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2715),
+                            Name = "Sony Bravia 4K TV",
+                            Price = 1499.99m,
+                            ProductId = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
+                            Status = "In Stock"
+                        });
+                });
+
+            modelBuilder.Entity("Data_FishingBee.Models.ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ProductId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId1");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.Supplier", b =>
@@ -1070,6 +1158,17 @@ namespace Data_FishingBee.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Data_FishingBee.Models.ProductImage", b =>
+                {
+                    b.HasOne("Data_FishingBee.Models.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Data_FishingBee.Models.Admin", b =>
                 {
                     b.Navigation("Bills");
@@ -1128,6 +1227,8 @@ namespace Data_FishingBee.Migrations
             modelBuilder.Entity("Data_FishingBee.Models.Product", b =>
                 {
                     b.Navigation("ProductDetails");
+
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.ProductDetail", b =>

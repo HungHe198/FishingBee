@@ -248,8 +248,8 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bdd65fb7-1514-4f6d-8933-66247dc23396"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2519),
+                            Id = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2664),
                             Name = "Electronics",
                             Status = "Active"
                         });
@@ -622,8 +622,8 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fa24e457-1d0b-4b1b-aaa9-3f888d65fadc"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2329),
+                            Id = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2489),
                             Name = "Apple",
                             Status = "Active"
                         });
@@ -724,18 +724,18 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c497b4f7-5555-441f-888a-478a90172f11"),
-                            CategoryId = new Guid("bdd65fb7-1514-4f6d-8933-66247dc23396"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2534),
-                            ManufacturerId = new Guid("fa24e457-1d0b-4b1b-aaa9-3f888d65fadc"),
+                            Id = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2685),
+                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("85f6cbe0-2537-4453-a99d-5fcec49508bd"),
-                            CategoryId = new Guid("bdd65fb7-1514-4f6d-8933-66247dc23396"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2535),
-                            ManufacturerId = new Guid("fa24e457-1d0b-4b1b-aaa9-3f888d65fadc"),
+                            Id = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
+                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2687),
+                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
                             Status = "Available"
                         });
                 });
@@ -792,31 +792,54 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("606ec0f7-7760-4cfd-b9b3-be505636d03c"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2551),
+                            Id = new Guid("08cd05ae-e8ab-40a9-aeb4-a8104b984777"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2710),
                             Name = "iPhone 15 Pro",
                             Price = 999.99m,
-                            ProductId = new Guid("c497b4f7-5555-441f-888a-478a90172f11"),
+                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
                             Status = "In Stock"
                         },
                         new
                         {
-                            Id = new Guid("aa530ad7-a7f1-4f37-ae75-9884e758a6d0"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2553),
+                            Id = new Guid("5ebc808f-c931-418e-b14a-261767c30d9b"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2713),
                             Name = "Samsung Galaxy S23 Ultra",
                             Price = 1199.99m,
-                            ProductId = new Guid("c497b4f7-5555-441f-888a-478a90172f11"),
+                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
                             Status = "In Stock"
                         },
                         new
                         {
-                            Id = new Guid("5be2b9d9-9c5f-40bb-bf8c-df7e109fe49f"),
-                            CreatedTime = new DateTime(2025, 3, 15, 17, 7, 28, 860, DateTimeKind.Local).AddTicks(2554),
+                            Id = new Guid("5d12b5ac-ca43-42ff-9233-1d8ab9f91dfc"),
+                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2715),
                             Name = "Sony Bravia 4K TV",
                             Price = 1499.99m,
-                            ProductId = new Guid("85f6cbe0-2537-4453-a99d-5fcec49508bd"),
+                            ProductId = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
                             Status = "In Stock"
                         });
+                });
+
+            modelBuilder.Entity("Data_FishingBee.Models.ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ProductId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId1");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.Supplier", b =>
@@ -1133,6 +1156,17 @@ namespace Data_FishingBee.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Data_FishingBee.Models.ProductImage", b =>
+                {
+                    b.HasOne("Data_FishingBee.Models.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Data_FishingBee.Models.Admin", b =>
                 {
                     b.Navigation("Bills");
@@ -1191,6 +1225,8 @@ namespace Data_FishingBee.Migrations
             modelBuilder.Entity("Data_FishingBee.Models.Product", b =>
                 {
                     b.Navigation("ProductDetails");
+
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("Data_FishingBee.Models.ProductDetail", b =>

@@ -18,6 +18,7 @@ namespace Data_FishingBee.Models
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
         public ICollection<ProductDetail>? ProductDetails { get; set; } = new List<ProductDetail>();
+        public ICollection<ProductImage>? ProductImages { get; set; } = new List<ProductImage>();
         public Category? Category { get; set; }
         public Manufacturer? Manufacturer { get; set; }
     }

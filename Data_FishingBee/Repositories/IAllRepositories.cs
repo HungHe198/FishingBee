@@ -13,6 +13,12 @@ namespace Data_FishingBee.Repositories
         public Task<T> Create(T Obj);
         public Task Update(Guid id, T Obj);
         public Task Delete(Guid id);
-        
+        public Task<bool> EntityExists(Guid id);
+
+        //private bool CategoryExists(Guid id)
+        //{
+        //  return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
+        //}
+
     }
 }

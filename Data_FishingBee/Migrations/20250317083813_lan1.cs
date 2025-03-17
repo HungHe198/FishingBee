@@ -256,6 +256,26 @@ namespace Data_FishingBee.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductImages_Products_ProductId1",
+                        column: x => x.ProductId1,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Carts",
                 columns: table => new
                 {
@@ -543,6 +563,41 @@ namespace Data_FishingBee.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Status" },
+                values: new object[] { new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2664), null, null, null, "Electronics", "Active" });
+
+            migrationBuilder.InsertData(
+                table: "Manufacturers",
+                columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "Name", "Status" },
+                values: new object[] { new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2489), null, "Apple", "Active" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedTime", "ManufacturerId", "ModifiedBy", "ModifiedTime", "Status" },
+                values: new object[] { new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2685), new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, null, "Available" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedTime", "ManufacturerId", "ModifiedBy", "ModifiedTime", "Status" },
+                values: new object[] { new Guid("7e19e53c-0742-4c73-bdde-53f447057193"), new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2687), new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, null, "Available" });
+
+            migrationBuilder.InsertData(
+                table: "ProductDetails",
+                columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
+                values: new object[] { new Guid("08cd05ae-e8ab-40a9-aeb4-a8104b984777"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2710), null, null, null, "iPhone 15 Pro", 999.99m, new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), "In Stock" });
+
+            migrationBuilder.InsertData(
+                table: "ProductDetails",
+                columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
+                values: new object[] { new Guid("5d12b5ac-ca43-42ff-9233-1d8ab9f91dfc"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2715), null, null, null, "Sony Bravia 4K TV", 1499.99m, new Guid("7e19e53c-0742-4c73-bdde-53f447057193"), "In Stock" });
+
+            migrationBuilder.InsertData(
+                table: "ProductDetails",
+                columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
+                values: new object[] { new Guid("5ebc808f-c931-418e-b14a-261767c30d9b"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2713), null, null, null, "Samsung Galaxy S23 Ultra", 1199.99m, new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), "In Stock" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_UserId",
                 table: "Admins",
@@ -657,6 +712,11 @@ namespace Data_FishingBee.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductImages_ProductId1",
+                table: "ProductImages",
+                column: "ProductId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -686,6 +746,9 @@ namespace Data_FishingBee.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "ProductImages");
 
             migrationBuilder.DropTable(
                 name: "Bills");
