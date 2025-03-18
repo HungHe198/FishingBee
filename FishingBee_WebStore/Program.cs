@@ -11,38 +11,41 @@ builder.Services.AddDbContext<FishingBeeDbContext>(options => { });
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
 
-var entityTypes = new Type[]
-{
-    typeof(Admin),
-    typeof(Bill),
-    typeof(BillDetail),
-    typeof(Cart),
-    typeof(Cart_PD),
-    typeof(Category),
-    typeof(Coupon),
-    typeof(Customer),
-    typeof(CustomerActivityLog),
-    typeof(CustomerSupport),
-    typeof(Employee),
-    typeof(ImportHistory),
-    typeof(Inventory),
-    typeof(Manufacturer),
-    typeof(Notifications),
-    typeof(Product),
-    typeof(ProductDetail),
-    typeof(ProductImage),
-    typeof(Supplier),
-    typeof(User)
 
-};
+//builder.Services.AddScoped<IAllRepositories<ProductDetail>, AllRepositories<ProductDetail>>();
+//var entityTypes = new Type[]
+//{
+//    typeof(Admin),
+//    typeof(Bill),
+//    typeof(BillDetail),
+//    typeof(Cart),
+//    typeof(Cart_PD),
+//    typeof(Category),
+//    typeof(Coupon),
+//    typeof(Customer),
+//    typeof(CustomerActivityLog),
+//    typeof(CustomerSupport),
+//    typeof(Employee),
+//    typeof(ImportHistory),
+//    typeof(Inventory),
+//    typeof(Manufacturer),
+//    typeof(Notifications),
+//    typeof(Product),
+//    typeof(ProductDetail),
+//    typeof(ProductImage),
+//    typeof(Supplier),
+//    typeof(User)
 
-foreach (var type in entityTypes)
-{
-    var repoType = typeof(IAllRepositories<>).MakeGenericType(type);
-    var implType = typeof(AllRepositories<>).MakeGenericType(type);
-    builder.Services.AddScoped(repoType, implType);
-}
+//};
+
+//foreach (var type in entityTypes)
+//{
+//    var repoType = typeof(IAllRepositories<>).MakeGenericType(type);
+//    var implType = typeof(AllRepositories<>).MakeGenericType(type);
+//    builder.Services.AddScoped(repoType, implType);
+//}
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

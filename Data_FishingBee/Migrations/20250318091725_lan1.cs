@@ -149,10 +149,13 @@ namespace Data_FishingBee.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Permissions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -566,37 +569,37 @@ namespace Data_FishingBee.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Status" },
-                values: new object[] { new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2664), null, null, null, "Electronics", "Active" });
+                values: new object[] { new Guid("219a40be-00af-42d8-84ba-597741bbefa4"), null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1336), null, null, null, "Electronics", "Active" });
 
             migrationBuilder.InsertData(
                 table: "Manufacturers",
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "Name", "Status" },
-                values: new object[] { new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2489), null, "Apple", "Active" });
+                values: new object[] { new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"), null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1174), null, "Apple", "Active" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedTime", "ManufacturerId", "ModifiedBy", "ModifiedTime", "Status" },
-                values: new object[] { new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2685), new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, null, "Available" });
+                values: new object[] { new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"), new Guid("219a40be-00af-42d8-84ba-597741bbefa4"), null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1352), new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"), null, null, "Available" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedTime", "ManufacturerId", "ModifiedBy", "ModifiedTime", "Status" },
-                values: new object[] { new Guid("7e19e53c-0742-4c73-bdde-53f447057193"), new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"), null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2687), new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"), null, null, "Available" });
+                values: new object[] { new Guid("3d757a85-c496-4984-96c9-7d0125d2d7d4"), new Guid("219a40be-00af-42d8-84ba-597741bbefa4"), null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1354), new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"), null, null, "Available" });
 
             migrationBuilder.InsertData(
                 table: "ProductDetails",
                 columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
-                values: new object[] { new Guid("08cd05ae-e8ab-40a9-aeb4-a8104b984777"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2710), null, null, null, "iPhone 15 Pro", 999.99m, new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), "In Stock" });
+                values: new object[] { new Guid("2c668a78-c5e8-4987-9c3e-9e2d5e8c152e"), null, null, null, null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1381), null, null, null, "Sony Bravia 4K TV", 1499.99m, new Guid("3d757a85-c496-4984-96c9-7d0125d2d7d4"), "In Stock" });
 
             migrationBuilder.InsertData(
                 table: "ProductDetails",
                 columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
-                values: new object[] { new Guid("5d12b5ac-ca43-42ff-9233-1d8ab9f91dfc"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2715), null, null, null, "Sony Bravia 4K TV", 1499.99m, new Guid("7e19e53c-0742-4c73-bdde-53f447057193"), "In Stock" });
+                values: new object[] { new Guid("5789d520-07ce-4783-8dd4-b09804159b64"), null, null, null, null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1377), null, null, null, "iPhone 15 Pro", 999.99m, new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"), "In Stock" });
 
             migrationBuilder.InsertData(
                 table: "ProductDetails",
                 columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Price", "ProductId", "Status" },
-                values: new object[] { new Guid("5ebc808f-c931-418e-b14a-261767c30d9b"), null, null, null, null, new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2713), null, null, null, "Samsung Galaxy S23 Ultra", 1199.99m, new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"), "In Stock" });
+                values: new object[] { new Guid("b1c8134d-f99a-4c3b-bb5e-289966364ed2"), null, null, null, null, new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1379), null, null, null, "Samsung Galaxy S23 Ultra", 1199.99m, new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"), "In Stock" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_UserId",

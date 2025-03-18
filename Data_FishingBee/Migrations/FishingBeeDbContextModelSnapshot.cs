@@ -46,6 +46,9 @@ namespace Data_FishingBee.Migrations
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Permissions")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,6 +57,12 @@ namespace Data_FishingBee.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -248,8 +257,8 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2664),
+                            Id = new Guid("219a40be-00af-42d8-84ba-597741bbefa4"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1336),
                             Name = "Electronics",
                             Status = "Active"
                         });
@@ -622,8 +631,8 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2489),
+                            Id = new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1174),
                             Name = "Apple",
                             Status = "Active"
                         });
@@ -724,18 +733,18 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
-                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2685),
-                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            Id = new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"),
+                            CategoryId = new Guid("219a40be-00af-42d8-84ba-597741bbefa4"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1352),
+                            ManufacturerId = new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"),
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
-                            CategoryId = new Guid("ae56a447-3ea9-47c4-aa70-75f769dd93d6"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2687),
-                            ManufacturerId = new Guid("e597d363-8d6b-4135-994b-abd0bcfe434b"),
+                            Id = new Guid("3d757a85-c496-4984-96c9-7d0125d2d7d4"),
+                            CategoryId = new Guid("219a40be-00af-42d8-84ba-597741bbefa4"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1354),
+                            ManufacturerId = new Guid("34caa65f-f71c-4b00-9fa4-a13004199c8f"),
                             Status = "Available"
                         });
                 });
@@ -792,29 +801,29 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("08cd05ae-e8ab-40a9-aeb4-a8104b984777"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2710),
+                            Id = new Guid("5789d520-07ce-4783-8dd4-b09804159b64"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1377),
                             Name = "iPhone 15 Pro",
                             Price = 999.99m,
-                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            ProductId = new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"),
                             Status = "In Stock"
                         },
                         new
                         {
-                            Id = new Guid("5ebc808f-c931-418e-b14a-261767c30d9b"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2713),
+                            Id = new Guid("b1c8134d-f99a-4c3b-bb5e-289966364ed2"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1379),
                             Name = "Samsung Galaxy S23 Ultra",
                             Price = 1199.99m,
-                            ProductId = new Guid("0a6d2215-6248-4be2-ba14-bf952e6d16fd"),
+                            ProductId = new Guid("37cbab76-79a5-4a2c-a508-6cd5177b2ed6"),
                             Status = "In Stock"
                         },
                         new
                         {
-                            Id = new Guid("5d12b5ac-ca43-42ff-9233-1d8ab9f91dfc"),
-                            CreatedTime = new DateTime(2025, 3, 17, 15, 38, 12, 100, DateTimeKind.Local).AddTicks(2715),
+                            Id = new Guid("2c668a78-c5e8-4987-9c3e-9e2d5e8c152e"),
+                            CreatedTime = new DateTime(2025, 3, 18, 16, 17, 24, 206, DateTimeKind.Local).AddTicks(1381),
                             Name = "Sony Bravia 4K TV",
                             Price = 1499.99m,
-                            ProductId = new Guid("7e19e53c-0742-4c73-bdde-53f447057193"),
+                            ProductId = new Guid("3d757a85-c496-4984-96c9-7d0125d2d7d4"),
                             Status = "In Stock"
                         });
                 });
