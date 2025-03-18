@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace FishingBee_WebStore.Controllers.Account
 {
@@ -43,7 +45,7 @@ namespace FishingBee_WebStore.Controllers.Account
                 }
                 if (_context.Users.Any(u => u.PhoneNumber == model.PhoneNumber))
                 {
-                    ModelState.AddModelError("SDT", "Số điện thoại đã được sử dụng. Vui lòng nhập số khác.");
+                    ModelState.AddModelError("PhoneNumber", "Số điện thoại đã được sử dụng. Vui lòng nhập số khác.");
                     return View(model);
                 }
                 if (!IsPasswordSecure(model.Password, model.Username))
@@ -52,26 +54,55 @@ namespace FishingBee_WebStore.Controllers.Account
                     return View(model);
                 }
 
-                // Hash mật khẩu trước khi lưu
+                // Hash mật khẩu
                 model.Password = HashPassword(model.Password);
                 model.Id = Guid.NewGuid();
                 model.CreatedTime = DateTime.Now;
+                model.Status = "Active";
 
                 _context.Users.Add(model);
                 _context.SaveChanges();
 
-                // Lưu thông báo vào TempData
-                TempData["SuccessMessage"] = "Đăng ký thành công! Chào mừng bạn đến với hệ thống.";
-
-                // Gửi email thông báo
                 var emailService = HttpContext.RequestServices.GetRequiredService<EmailService>();
-                string subject = "Chào mừng bạn đến với FishingBee!";
-                string body = $"<h2>Xin chào {model.Username},</h2><p>Bạn đã đăng ký thành công trên FishingBee. Cảm ơn bạn đã tham gia!</p>";
-                await emailService.SendEmailAsync(model.Email, subject, body);
+                await emailService.SendEmailAsync
+                (
+                    model.Email,
+                    "Chào mừng bạn đến với FishingBee",
+                    "<h2>Chúc mừng!</h2><p>Bạn đã đăng ký tài khoản thành công.</p>"
+                );
 
-                return RedirectToAction("Index", "Home");
+                TempData["SuccessMessage"] = "Đăng ký thành công! Kiểm tra email để nhận xác nhận.";
+                return RedirectToAction("Login", "Account"); ;
             }
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ToggleUserStatus([FromBody] ToggleUserStatusRequest request)
+        {
+            if (request == null || request.UserId == Guid.Empty)
+            {
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ!" });
+            }
+
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Người dùng không tồn tại!" });
+            }
+
+            // Đảo trạng thái
+            user.Status = user.Status == "Active" ? "Inactive" : "Active";
+            user.ModifiedTime = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, newStatus = user.Status });
+        }
+
+        // Định nghĩa request model
+        public class ToggleUserStatusRequest
+        {
+            public Guid UserId { get; set; }
         }
 
         private bool IsPasswordSecure(string password, string username)
@@ -90,17 +121,40 @@ namespace FishingBee_WebStore.Controllers.Account
         }
 
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             var hashedPassword = HashPassword(password);
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
-
-            if (user != null)
+            var admin = _context.Admins.FirstOrDefault(a => a.Username == username && a.Password == password);
+            if (user != null && user.Status == "Inactive")
             {
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
+                ViewBag.ErrorMessage = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.";
+                return View();
+            }
 
-                // Lưu thông báo vào TempData
-                TempData["SuccessMessage"] = "Đăng nhập thành công! Chào mừng bạn trở lại.";
+            if (user != null || admin != null)
+            {
+                var role = user != null ? "User" : "Admin";
+
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.NameIdentifier, (user?.Id ?? admin?.Id).ToString()),
+            new Claim(ClaimTypes.Role, role)
+        };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties
+                );
 
                 return RedirectToAction("Index", "Home");
             }
@@ -126,10 +180,11 @@ namespace FishingBee_WebStore.Controllers.Account
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(); // Đăng xuất khỏi authentication cookie
-            HttpContext.Session.Clear(); // Xóa session
-
-            return Json(new { success = true, redirectUrl = Url.Action("Index", "Home") });
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
         }
+
+
+
     }
 }

@@ -6,6 +6,13 @@
 
 <h2>Đăng ký</h2>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <form asp-action="Register" method="post">
     <div>
         <label>Tên đăng nhập</label>
@@ -35,3 +42,12 @@
 </form>
 
 <a asp-action="Login">Đã có tài khoản? Đăng nhập</a>
+
+<script>
+    setTimeout(function () {
+        var message = document.getElementById("successMessage");
+        if (message) {
+            message.style.display = "none";
+        }
+    }, 1000); // 1 giây
+</script>

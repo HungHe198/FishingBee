@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Data_FishingBee.Models.Coupon>
+
+@{
+    ViewData["Title"] = "Danh sách mã giảm giá";
+}
+
+<h2>Danh sách mã giảm giá</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    </p>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Phần trăm giảm</th>
+            <th>Bắt đầu</th>
+            <th>Kết thúc</th>
+            <th>Số lượng</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Percent %</td>
+                <td>@item.DateStart.ToString("dd/MM/yyyy")</td>
+                <td>@item.DateEnd.ToString("dd/MM/yyyy")</td>
+                <td>@item.QuantityAvailable</td>
+                <td>@item.Description</td>
+                <td>@item.Status</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* <script> *@
+@*     document.addEventListener("DOMContentLoaded", function () { *@
+@*         document.querySelectorAll('.toggle-status-btn').forEach(button => { *@
+@*             button.addEventListener('click', async function () { *@
+@*                 const couponId = this.getAttribute('data-id'); *@
+@*                 if (!couponId) return; *@
+
+@*                 // Khóa nút trong khi cập nhật *@
+@*                 this.disabled = true; *@
+@*                 this.innerText = "Đang cập nhật..."; *@
+
+@*                 try { *@
+@*                     const response = await fetch('@Url.Action("ToggleStatus", "Coupons")', { *@
+@*                         method: 'POST', *@
+@*                         headers: { 'Content-Type': 'application/json' }, *@
+@*                         body: JSON.stringify({ id: couponId }) *@
+@*                     }); *@
+
+@*                     const data = await response.json(); *@
+@*                     if (data.success) { *@
+@*                         this.innerText = data.newStatus === "Active" ? "Hoạt động" : "Ngừng hoạt động"; *@
+@*                         this.classList.toggle("btn-success"); *@
+@*                         this.classList.toggle("btn-secondary"); *@
+@*                     } else { *@
+@*                         alert(data.message || "Có lỗi xảy ra."); *@
+@*                     } *@
+@*                 } catch (error) { *@
+@*                     console.error('Lỗi:', error); *@
+@*                     alert("Không thể kết nối tới server."); *@
+@*                 } finally { *@
+@*                     this.disabled = false; *@
+@*                 } *@
+@*             }); *@
+@*         }); *@
+@*     }); *@
+@* </script> *@
