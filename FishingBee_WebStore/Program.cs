@@ -11,8 +11,6 @@ builder.Services.AddDbContext<FishingBeeDbContext>(options => { });
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<EmailService>();
-//builder.Services.AddScoped<IAllRepositories<Product>,AllRepositories<Product>>();
-//builder.Services.AddScoped<IAllRepositories<ProductDetail>,AllRepositories<ProductDetail>>();
 
 var entityTypes = new Type[]
 {
