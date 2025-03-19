@@ -28,9 +28,6 @@ namespace Data_FishingBee.Models
         public Guid Id { get; set; }  // Khóa chính riêng của Admin
         public Guid UserId { get; set; }  // Khóa ngoại tham chiếu đến User.Id
 
-        public string? Username { get; set; }  // Tên tài khoản
-        public string? Password { get; set; }  // Mật khẩu
-
         public string? FullName { get; set; }
         public string? Permissions { get; set; }
         public string? Status { get; set; }

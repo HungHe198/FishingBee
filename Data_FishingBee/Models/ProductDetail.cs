@@ -18,7 +18,7 @@ namespace Data_FishingBee.Models
         public DateTime? ModifiedTime { get; set; }
         public string? Status { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        
         public string? Description { get; set; }
 
         public string? AttributeName { get; set; }
@@ -26,6 +26,7 @@ namespace Data_FishingBee.Models
         public string? AttributeUnit { get; set; }
 
         public decimal Price { get; set; }
+        public decimal Stock { get; set; }
 
         // Navigation Property
         public ICollection<BillDetail>? BillDetails { get; set; } = new List<BillDetail>();

@@ -564,7 +564,9 @@ ul.sub-menu {
   position: absolute;
   top: 50px;
 }
-
+#footer {
+	margin-top: auto; /* Đẩy footer xuống đáy */
+}
 .footer-widget {
   margin-bottom: 68px;
 }

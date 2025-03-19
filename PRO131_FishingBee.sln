@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data_FishingBee", "Data_Fis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingBee_WebStore", "FishingBee_WebStore\FishingBee_WebStore.csproj", "{666F473E-CBCA-4B61-92DD-9853D5320623}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API_FishingBee", "API_FishingBee\API_FishingBee.csproj", "{5943F26B-7951-4D86-8F4F-D7D3E3CD684C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{666F473E-CBCA-4B61-92DD-9853D5320623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{666F473E-CBCA-4B61-92DD-9853D5320623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{666F473E-CBCA-4B61-92DD-9853D5320623}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5943F26B-7951-4D86-8F4F-D7D3E3CD684C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5943F26B-7951-4D86-8F4F-D7D3E3CD684C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5943F26B-7951-4D86-8F4F-D7D3E3CD684C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5943F26B-7951-4D86-8F4F-D7D3E3CD684C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
