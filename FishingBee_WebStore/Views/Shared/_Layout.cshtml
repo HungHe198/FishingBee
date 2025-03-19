@@ -28,6 +28,19 @@
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 
 </head><!--/head-->
+@if (TempData["SuccessMessage"] != null)
+{
+	<div id="successMessage" class="alert alert-success">
+		@TempData["SuccessMessage"]
+	</div>
+
+	<script>
+		setTimeout(function () {
+			document.getElementById("successMessage").style.display = "none";
+		}, 1000); // 1000ms = 1 giây
+	</script>
+}
+
 @section Scripts {
     <script>
         console.log("Scripts section loaded!");
@@ -93,31 +106,27 @@
 									<li><a href="#">Pound</a></li>
 								</ul>
 							</div>
+
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> </a></li>
-
 								@if (User.Identity?.IsAuthenticated ?? false)
 								{
-									<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-									<li><a asp-action="History" asp-controller="Account"><i class="fa fa-user"></i> Account</a></li>
-									<li><a asp-action="Wishlist" asp-controller="Home"><i class="fa fa-heart"></i> Wishlist</a></li>
-									<li><a asp-action="Compare" asp-controller="Home"><i class="fa fa-star"></i> Compare</a></li>
-									<li><a asp-controller="Dashboard" asp-action="Index" asp-area="Admin"><i class="fa fa-lock"></i> Admin CMS</a></li>
-									<li><a asp-controller="Realtime" asp-action="Index"><i class="fa fa-comment"></i> Chat</a></li>
-									<li><a href="#" id="logout-btn"><i class="fa fa-lock"></i> Hi @User.Identity.Name Logout</a></li>
+									<li>
+										<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
+											<button type="submit" class="btn btn-link"><i class="fa fa-lock"></i> Hi @User.Identity.Name Logout</button>
+										</form>
+									</li>
 								}
 								else
 								{
-									<li><a asp-controller="Account" asp-action="Login" id="login-btn"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Login</a></li>
 								}
 							</ul>
-
-
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -152,6 +161,11 @@
 								</li>
 
 								<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+								@if (User.IsInRole("Admin"))
+								{
+									<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
+								}
+
 							</ul>
 						</div>
 					</div>
@@ -193,11 +207,6 @@
 	</section>
 
 	<footer id="footer">
-		<!--Footer-->
-	
-
-		
-
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -207,29 +216,15 @@
 			</div>
 		</div>
 
-	</footer><!--/Footer-->
+	</footer>
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-			var loginBtn = document.getElementById("login-btn");
 			var logoutBtn = document.getElementById("logout-btn");
 
-			// Kiểm tra trạng thái đăng nhập từ Razor
-			var isAuthenticated = "@(User.Identity?.IsAuthenticated.ToString().ToLower())";
-
-			if (isAuthenticated === "true") {
-				if (loginBtn) loginBtn.style.display = "none"; // Ẩn nút Login
-				if (logoutBtn) logoutBtn.style.display = "inline-block"; // Hiện nút Logout
-			} else {
-				if (loginBtn) loginBtn.style.display = "inline-block"; // Hiện nút Login
-				if (logoutBtn) logoutBtn.style.display = "none"; // Ẩn nút Logout
-			}
-
-			// Xử lý sự kiện Logout
 			if (logoutBtn) {
 				logoutBtn.addEventListener("click", function (event) {
 					event.preventDefault();
-
 					fetch('/Account/Logout', {
 						method: 'POST',
 						headers: {
@@ -238,12 +233,8 @@
 						}
 					})
 					.then(response => {
-						if (!response.ok) throw new Error('Network response was not ok');
-						return response.json();
-					})
-					.then(data => {
-						if (data.success) {
-							window.location.href = data.redirectUrl || '/';
+						if (response.redirected) {
+							window.location.href = response.url;
 						}
 					})
 					.catch(error => console.error('Logout error:', error));
@@ -251,6 +242,8 @@
 			}
 		});
 	</script>
+
+
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

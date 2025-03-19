@@ -1,0 +1,54 @@
+﻿@model dynamic
+
+<h2>Chi tiết Khách Hàng</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th colspan="2">Thông tin Tài khoản</th>
+    </tr>
+    <tr>
+        <td><strong>Username:</strong></td>
+        <td>@Model.Username</td>
+    </tr>
+    <tr>
+        <td><strong>Email:</strong></td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td><strong>Số điện thoại:</strong></td>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td><strong>Trạng thái:</strong></td>
+        <td>@Model.Status</td>
+    </tr>
+    <tr>
+        <td><strong>Ngày tạo:</strong></td>
+        <td>@Model.CreatedTime</td>
+    </tr>
+    <tr>
+        <th colspan="2">Thông tin Khách hàng</th>
+    </tr>
+    <tr>
+        <td><strong>Họ và tên:</strong></td>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr>
+        <td><strong>Địa chỉ:</strong></td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td><strong>Số CMND:</strong></td>
+        <td>@Model.IDCardNumber</td>
+    </tr>
+    <tr>
+        <td><strong>Ngày sinh:</strong></td>
+        <td>@(Model.DoB != null ? Model.DoB.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+    </tr>
+    <tr>
+        <td><strong>Điểm tích lũy:</strong></td>
+        <td>@(Model.LoyaltyPoints != null ? Model.LoyaltyPoints : 0)</td>
+    </tr>
+</table>
+
+<a href="@Url.Action("Index")">🔙 Quay lại</a>

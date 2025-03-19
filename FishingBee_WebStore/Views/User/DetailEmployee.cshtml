@@ -1,0 +1,53 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Chi Tiết Nhân Viên";
+}
+
+<h2>Chi Tiết Nhân Viên</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã Nhân Viên:</th>
+        <td>@Model.EmployeeCode</td>
+    </tr>
+    <tr>
+        <th>Họ và Tên:</th>
+        <td>@Model.EmployeeFullName</td>
+    </tr>
+    <tr>
+        <th>Vị Trí:</th>
+        <td>@Model.Position</td>
+    </tr>
+    <tr>
+        <th>Lương:</th>
+        <td>@Model.Salary.ToString("C")</td>
+    </tr>
+    <tr>
+        <th>Ngày Tuyển Dụng:</th>
+        <td>@(Model.HireDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+    </tr>
+    <tr>
+        <th>Số CMND/CCCD:</th>
+        <td>@Model.EmployeeIDCardNumber</td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Số Điện Thoại:</th>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+    <tr>
+        <th>Trạng Thái:</th>
+        <td>@Model.Status</td>
+    </tr>
+    <tr>
+        <th>Ngày Tạo:</th>
+        <td>@(Model.CreatedTime?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</td>
+    </tr>
+</table>
+
+<a href="@Url.Action("Index", "User")" class="btn btn-primary">Quay lại</a>
+<a href="@Url.Action("EditEmployee", "User", new { id = Model.Id })" class="btn btn-primary">Chỉnh Sửa</a>

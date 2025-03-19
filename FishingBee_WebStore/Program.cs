@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Data_FishingBee.Models;
 using FishingBee_WebStore.Controllers.Account;
@@ -6,14 +7,21 @@ using Data_FishingBee.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Cấu hình DbContext
 builder.Services.AddDbContext<FishingBeeDbContext>(options => { });
 
 builder.Services.AddControllersWithViews();
 
+// Cấu hình Authentication với Cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+    });
+
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
-
-
 //builder.Services.AddScoped<IAllRepositories<ProductDetail>, AllRepositories<ProductDetail>>();
 //var entityTypes = new Type[]
 //{
@@ -46,7 +54,6 @@ builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>)
 //    var implType = typeof(AllRepositories<>).MakeGenericType(type);
 //    builder.Services.AddScoped(repoType, implType);
 //}
-
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -64,18 +71,21 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-app.MapControllerRoute(
-	name: "search",
-	pattern: "search",
-	defaults: new { controller = "ProductDetails", action = "Search" });
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseSession();
-
+app.UseAuthentication(); 
 app.UseAuthorization();
+
+
+app.MapControllerRoute(
+    name: "search",
+    pattern: "search",
+    defaults: new { controller = "ProductDetails", action = "Search" });
 
 app.MapControllerRoute(
     name: "forgotpassword",

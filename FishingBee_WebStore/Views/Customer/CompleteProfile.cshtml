@@ -1,0 +1,24 @@
+﻿@model Data_FishingBee.Models.Customer
+
+<h2>Hoàn thành hồ sơ</h2>
+
+<form asp-action="CompleteProfile" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" asp-for="FullName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Số CMND/CCCD</label>
+        <input type="text" asp-for="IDCardNumber" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Địa chỉ</label>
+        <input type="text" asp-for="Address" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+</form>
