@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace FishingBee_WebStore.Controllers.Account
 {
@@ -25,7 +28,6 @@ namespace FishingBee_WebStore.Controllers.Account
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
@@ -36,52 +38,65 @@ namespace FishingBee_WebStore.Controllers.Account
                     ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại.");
                     return View(model);
                 }
+
                 if (_context.Users.Any(u => u.Email == model.Email))
                 {
-                    ModelState.AddModelError("Email", "Email này đã được sử dụng. Vui lòng chọn email khác.");
-                    return View(model);
-                }
-                if (_context.Users.Any(u => u.PhoneNumber == model.PhoneNumber))
-                {
-                    ModelState.AddModelError("SDT", "Số điện thoại đã được sử dụng. Vui lòng nhập số khác.");
-                    return View(model);
-                }
-                if (!IsPasswordSecure(model.Password, model.Username))
-                {
-                    ModelState.AddModelError("Password", "Mật khẩu không an toàn. Vui lòng chọn mật khẩu khác.");
+                    ModelState.AddModelError("Email", "Email này đã được sử dụng.");
                     return View(model);
                 }
 
-                // Hash mật khẩu trước khi lưu
+                if (_context.Users.Any(u => u.PhoneNumber == model.PhoneNumber))
+                {
+                    ModelState.AddModelError("PhoneNumber", "Số điện thoại đã được sử dụng.");
+                    return View(model);
+                }
+                if (!IsPasswordSecure(model.Password))
+                {
+                    ModelState.AddModelError("Password", "Mật khẩu phải có ít nhất 8 ký tự, chữ hoa, chữ thường, ký tự đặc biệt.");
+                    return View(model);
+                }
                 model.Password = HashPassword(model.Password);
                 model.Id = Guid.NewGuid();
                 model.CreatedTime = DateTime.Now;
+                if (string.IsNullOrEmpty(model.UserType))
+                {
+                    model.UserType = "Customer";
+                }
+                model.Status = "Active";
+                using (var transaction = await _context.Database.BeginTransactionAsync())
+                {
+                        _context.Users.Add(model);
+                        await _context.SaveChangesAsync();
 
-                _context.Users.Add(model);
-                _context.SaveChanges();
+                        var customer = new Customer
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = model.Id,
+                            CreatedTime = DateTime.Now,
+                            LoyaltyPoints = 0 
+                        };
+                        _context.Customers.Add(customer);
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
+                }
 
-                // Lưu thông báo vào TempData
-                TempData["SuccessMessage"] = "Đăng ký thành công! Chào mừng bạn đến với hệ thống.";
-
-                // Gửi email thông báo
-                var emailService = HttpContext.RequestServices.GetRequiredService<EmailService>();
-                string subject = "Chào mừng bạn đến với FishingBee!";
-                string body = $"<h2>Xin chào {model.Username},</h2><p>Bạn đã đăng ký thành công trên FishingBee. Cảm ơn bạn đã tham gia!</p>";
-                await emailService.SendEmailAsync(model.Email, subject, body);
-
-                return RedirectToAction("Index", "Home");
+                TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng cập nhật thông tin cá nhân.";
+                return RedirectToAction("CompleteProfile", "Customer", new { userId = model.Id });
             }
+
             return View(model);
         }
 
-        private bool IsPasswordSecure(string password, string username)
+        private bool IsPasswordSecure(string password)
         {
-            if (password.ToLower() == username.ToLower()) return false;
             if (password.Length < 8) return false;
-            bool hasLetter = password.Any(char.IsLetter);
+
+            bool hasUpper = password.Any(char.IsUpper);
+            bool hasLower = password.Any(char.IsLower);
             bool hasDigit = password.Any(char.IsDigit);
             bool hasSpecialChar = password.Any(ch => !char.IsLetterOrDigit(ch));
-            return hasLetter && hasDigit && hasSpecialChar;
+
+            return hasUpper && hasLower && hasSpecialChar;
         }
 
         public IActionResult Login()
@@ -90,24 +105,62 @@ namespace FishingBee_WebStore.Controllers.Account
         }
 
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            var hashedPassword = HashPassword(password);
-            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
             if (user != null)
             {
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
+                if (user.Status == "Inactive")
+                {
+                    ViewBag.ErrorMessage = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.";
+                    return View();
+                }
+                if (user.UserType == "Admin" || user.UserType == "Employee")
+                {
+                    if (user.Password != password)
+                    {
+                        ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng.";
+                        return View();
+                    }
+                }
+                else
+                {
+                    var hashedPassword = HashPassword(password);
+                    if (user.Password != hashedPassword)
+                    {
+                        ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng.";
+                        return View();
+                    }
+                }
 
-                // Lưu thông báo vào TempData
-                TempData["SuccessMessage"] = "Đăng nhập thành công! Chào mừng bạn trở lại.";
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, user.UserType ?? "Customer")
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true
+                };
 
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties
+                );
+
+                TempData["SuccessMessage"] = "Đăng nhập thành công!";
                 return RedirectToAction("Index", "Home");
             }
 
             ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng.";
             return View();
         }
+
+
 
         private string HashPassword(string password)
         {
@@ -126,10 +179,11 @@ namespace FishingBee_WebStore.Controllers.Account
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(); // Đăng xuất khỏi authentication cookie
-            HttpContext.Session.Clear(); // Xóa session
-
-            return Json(new { success = true, redirectUrl = Url.Action("Index", "Home") });
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home"); 
         }
+
+
+
     }
 }

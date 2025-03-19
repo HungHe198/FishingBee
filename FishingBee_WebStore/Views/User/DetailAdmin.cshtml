@@ -1,0 +1,54 @@
+﻿@model dynamic
+
+<h2>Chi Tiết Admin</h2>
+
+@if (Model.AdminId != null)
+{
+    <h3>Thông Tin Tài Khoản</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td><strong>ID:</strong></td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td><strong>Họ Và Tên:</strong></td>
+            <td>@(Model.FullName ?? "Chưa cập nhật")</td>
+        </tr>
+
+        <tr>
+            <td><strong>Tên Đăng Nhập:</strong></td>
+            <td>@Model.Username</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td><strong>Số Điện Thoại:</strong></td>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td><strong>Ngày Tạo:</strong></td>
+            <td>@Model.CreatedTime.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>
+        <tr>
+            <td><strong>Loại Người Dùng:</strong></td>
+            <td>@Model.UserType</td>
+        </tr>
+    </table>
+
+    <h3>Thông Tin Admin</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td><strong>Admin ID:</strong></td>
+            <td>@Model.AdminId</td>
+        </tr>
+    </table>
+}
+else
+{
+    <p class="text-danger">Không tìm thấy thông tin Admin.</p>
+}
+
+<a href="@Url.Action("Index", "User")" class="btn btn-primary">Quay Lại</a>
+<a href="@Url.Action("EditAdmin", "User", new { id = Model.AdminId })" class="btn btn-primary">Chỉnh Sửa</a>

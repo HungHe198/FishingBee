@@ -1,0 +1,34 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Chỉnh Sửa Admin";
+}
+
+<h2>Chỉnh Sửa Admin</h2>
+
+<form method="post" action="@Url.Action("EditAdmin", "User")">
+    <input type="hidden" name="Id" value="@Model.Admin.Id" />
+
+    <div class="form-group">
+        <label><strong>Họ và Tên:</strong></label>
+        <input type="text" name="FullName" class="form-control" value="@Model.Admin.FullName" />
+    </div>
+
+    <div class="form-group">
+        <label><strong>Tên Đăng Nhập:</strong></label>
+        <input type="text" name="Username" class="form-control" value="@Model.Username" required />
+    </div>
+
+    <div class="form-group">
+        <label><strong>Email:</strong></label>
+        <input type="email" name="Email" class="form-control" value="@Model.Email" required />
+    </div>
+
+    <div class="form-group">
+        <label><strong>Số Điện Thoại:</strong></label>
+        <input type="text" name="PhoneNumber" class="form-control" value="@Model.PhoneNumber" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu Thay Đổi</button>
+    <a href="@Url.Action("Details", "User", new { id = Model.Id })" class="btn btn-secondary">Hủy</a>
+</form>

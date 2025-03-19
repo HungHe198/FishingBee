@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Data_FishingBee.Models.User>
+
+<h2>Danh sách User</h2>
+<a asp-action="Create" class="btn btn-primary">Thêm User</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>UserType</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.UserType</td>
+                <td>
+                    <button class="btn btn-sm @(user.Status == "Active" ? "btn-success" : "btn-danger")"
+                            onclick="toggleStatus('@user.Id')">
+                        @(user.Status == "Active" ? "Hoạt động" : "Bị khóa")
+                    </button>
+                </td>
+                <td style="display: flex; align-items: center; gap: 10px;">
+                    @if (user.UserType != "Customer")
+                    {
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Sửa</a>
+                    }
+
+                    <form asp-action="DeleteConfirmed" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa không?');">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+
+                    <a href="@Url.Action("Details", "User", new { id = user.Id })" class="btn btn-info">Chi tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function toggleStatus(userId) {
+        fetch(`/User/ToggleStatus/${userId}`, {
+            method: "POST"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Cập nhật lại trang ngay lập tức
+            } else {
+                alert("Có lỗi xảy ra!");
+            }
+        });
+    }
+</script>
