@@ -45,7 +45,7 @@ namespace Data_FishingBee.ContextFile
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Server=LEVANHUNG\\LEVANHUNG;Database=FishingBee;Trusted_Connection=True;MultipleActiveResultSets=true");
+			optionsBuilder.UseSqlServer("Server=DESKTOP-MUUEIFA;Database=FishingBee;Trusted_Connection=True;MultipleActiveResultSets=true");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,28 +78,62 @@ namespace Data_FishingBee.ContextFile
 			});
 
 			var idManu = Guid.NewGuid();
-			var idCate = Guid.NewGuid();
-			var idSP1 = Guid.NewGuid();
+            var idManu1 = Guid.NewGuid();
+            var idManu2 = Guid.NewGuid();
+            var idManu3 = Guid.NewGuid();
+            var idManu4 = Guid.NewGuid();
+            var idCate1 = Guid.NewGuid();
+            var idCate2 = Guid.NewGuid();
+            var idCate3 = Guid.NewGuid();
+            var idCate4 = Guid.NewGuid();
+            var idCate5 = Guid.NewGuid();
+            var idCate6 = Guid.NewGuid();
+            var idCate7 = Guid.NewGuid();
+            var idCate8 = Guid.NewGuid();
+            var idSP1 = Guid.NewGuid();
 			var idSP2 = Guid.NewGuid();
+            var idSP3 = Guid.NewGuid();
+            var idSP4 = Guid.NewGuid();
+            var idSP5 = Guid.NewGuid();
+            var idSP6 = Guid.NewGuid();
 
-			modelBuilder.Entity<Manufacturer>().HasData(
-				new Manufacturer { Id = idManu, Name = "Apple", Status = "Active", CreatedTime = DateTime.Now }
-			); // Đóng HasData() ✅
+            modelBuilder.Entity<Manufacturer>().HasData(
+				new Manufacturer { Id = idManu, Name = "Barfilon", Status = "Active", CreatedTime = DateTime.Now },
+                new Manufacturer { Id = idManu1, Name = "Rice Fishing", Status = "Active", CreatedTime = DateTime.Now },
+                new Manufacturer { Id = idManu2, Name = "Handing", Status = "Active", CreatedTime = DateTime.Now },
+                new Manufacturer { Id = idManu3, Name = "Guide", Status = "Active", CreatedTime = DateTime.Now },
+                new Manufacturer { Id = idManu4, Name = "Gamma Seiko", Status = "Active", CreatedTime = DateTime.Now }
+            ); // Đóng HasData() ✅
 
 			modelBuilder.Entity<Category>().HasData(
-				new Category { Id = idCate, Name = "Electronics", Status = "Active", CreatedTime = DateTime.Now }
-			); // Đóng HasData() ✅
+				new Category { Id = idCate1, Name = "Cần câu đài", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate2, Name = "Trục", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate3, Name = "Thẻo", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate4, Name = "Phao", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate5, Name = "Thùng câu", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate6, Name = "Giọ", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate7, Name = "Mồi", Status = "Active", CreatedTime = DateTime.Now },
+                new Category { Id = idCate8, Name = "Gác cần", Status = "Active", CreatedTime = DateTime.Now }
+            ); // Đóng HasData() ✅
 
 			modelBuilder.Entity<Product>().HasData(
-				new Product { Id = idSP1, CategoryId = idCate, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
-				new Product { Id = idSP2, CategoryId = idCate, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now }
-			); // Đóng HasData() ✅
+				new Product { Id = idSP1, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
+				new Product { Id = idSP2, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
+                new Product { Id = idSP3, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
+                new Product { Id = idSP4, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
+                new Product { Id = idSP5, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now },
+                new Product { Id = idSP6, CategoryId = idCate1, ManufacturerId = idManu, Status = "Available", CreatedTime = DateTime.Now }
+            ); // Đóng HasData() ✅
 
 			modelBuilder.Entity<ProductDetail>().HasData(
-				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "iPhone 15 Pro", Price = 999.99m, Status = "In Stock", CreatedTime = DateTime.Now },
-				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "Samsung Galaxy S23 Ultra", Price = 1199.99m, Status = "In Stock", CreatedTime = DateTime.Now },
-				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Name = "Sony Bravia 4K TV", Price = 1499.99m, Status = "In Stock", CreatedTime = DateTime.Now }
-			); // Đóng HasData() ✅
+				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "Barfilon Vân Trung Nguyệt", Price = 1.599m, Status = "In Stock", CreatedTime = DateTime.Now },
+				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "Guide Thánh Hỏa Lệnh", Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
+				new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Name = "Gamma Seiko Bạch Kim", Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "Barfilon Long Ngư Thủy", Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Name = "Handing Thiết Sa", Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Name = "Rice V5 Silver Carp", Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Name = "Guide Lục Mạch Thần Kiếm", Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now }
+            ); // Đóng HasData() ✅
 
 		}
 	}
