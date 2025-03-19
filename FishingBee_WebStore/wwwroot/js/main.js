@@ -7,6 +7,50 @@
 	};	
 		
 /*scroll to top*/
+// script.js
+let currentIndex = 0;
+const slides = document.querySelector(".slides");
+const dots = document.querySelectorAll(".dot");
+const totalSlides = document.querySelectorAll(".slide").length;
+
+// Ensure slider takes full width
+slides.style.width = `${totalSlides * 100}%`;
+document.querySelectorAll(".slide").forEach(slide => {
+    slide.style.width = `${100 / totalSlides}%`;
+});
+
+function showSlide(index) {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index].classList.add("active");
+}
+
+function prevSlide() {
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalSlides - 1;
+    showSlide(currentIndex);
+}
+
+function nextSlide() {
+    currentIndex = (currentIndex < totalSlides - 1) ? currentIndex + 1 : 0;
+    showSlide(currentIndex);
+}
+
+function setSlide(index) {
+    currentIndex = index;
+    showSlide(currentIndex);
+}
+
+function autoSlide() {
+    setInterval(() => {
+        nextSlide();
+    }, 3000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    showSlide(currentIndex);
+    autoSlide();
+});
+
 
 $(document).ready(function(){
 	$(function () {
