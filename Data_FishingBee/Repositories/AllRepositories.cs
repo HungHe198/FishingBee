@@ -1,4 +1,5 @@
 ﻿using Data_FishingBee.ContextFile;
+using Data_FishingBee.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ namespace Data_FishingBee.Repositories
 {
     public class AllRepositories<H> : IAllRepositories<H> where H : class
     {
-		private readonly FishingBeeDbContext _db;
-		private readonly DbSet<H> _dbSet;
+        private readonly FishingBeeDbContext _db;
+        private readonly DbSet<H> _dbSet;
 
-		public AllRepositories(FishingBeeDbContext db)
-		{
-			_db = db;
-			_dbSet = db.Set<H>(); // ✅ Lấy DbSet từ DbContext
-		}
-		public async Task<H> Create(H Obj)
+        public AllRepositories(FishingBeeDbContext db)
+        {
+            _db = db;
+            _dbSet = db.Set<H>(); // ✅ Lấy DbSet từ DbContext
+        }
+        public async Task<H> Create(H Obj)
         {
             try
             {
@@ -55,6 +56,11 @@ namespace Data_FishingBee.Repositories
         public async Task<IEnumerable<H>> GetAll()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public IQueryable<H> GetAllQueryable()
+        {
+            return _dbSet;
         }
 
         public async Task<H> GetById(Guid id)
