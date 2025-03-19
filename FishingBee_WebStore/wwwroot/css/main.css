@@ -62,7 +62,107 @@ a#scrollUp i{
   font-size: 30px;
 }
 
+/*#section_780420078 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
 
+	#section_780420078 .ux-shape-divider--top svg {
+		height: 150px;
+		--divider-top-width: 100%;
+	}
+
+	#section_780420078 .ux-shape-divider--bottom svg {
+		height: 150px;
+		--divider-width: 100%;
+	}*/
+.slider {
+	position: relative;
+	width: 500%;
+	max-width: 1500px;
+	margin: 0 auto;
+	overflow: hidden;
+	border-radius: 10px;
+	display: flex;
+	padding-bottom: 20px;
+	padding-top: 20px;
+}
+
+.slides {
+	display: flex;
+	width: 50%;
+	transition: transform 0.5s ease-in-out;
+	height: 300px;
+	--divider-top-width: 100%;
+
+}
+
+.slide {
+	width: 200%;
+	height: 300%;
+	flex: 0 0 100%;
+	position: relative;
+}
+
+	.slide img {
+		width: 100%;
+		border-radius: 10px;
+	}
+
+.slide-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	background: rgba(0, 0, 0, 0.6);
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.prev {
+	left: 10px;
+}
+
+.next {
+	right: 10px;
+}
+
+.dots {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 8px;
+}
+
+.dot {
+	width: 12px;
+	height: 12px;
+	background: white;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+	.dot.active {
+		background: gold;
+	}
 /*************************
 *******Header CSS******
 **************************/
@@ -567,10 +667,10 @@ ul.sub-menu {
 ******* Home ******
 **************************/
 
-
+/*
 #slider {
   padding-bottom: 45px;
-}
+}*/
 
 .carousel-indicators li {
   background: #C4C4BE;

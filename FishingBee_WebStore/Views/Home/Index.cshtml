@@ -26,7 +26,7 @@
 <div class="col-sm-9 padding-right">
 	<div class="features_items">
 		<!--features_items-->
-		<h2 class="title text-center">Features Items</h2>
+		<h2 class="title text-center">Danh Mục Sản Phẩm </h2>
 		@if (Model != null && Model.Any())
 		{
 			@foreach (var item in Model)
@@ -34,8 +34,9 @@
 				<div class="col-sm-4">
 					<div class="product-image-wrapper">
 						<div class="single-product">
-							<a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id" >							<div class="productinfo text-center">
-									<img src="~/images/anhmoi.jpg" width="100px" height="200px" />
+							<a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id" >
+								<div class="productinfo text-center">
+									<img src="~/images/cancau.jpg" width="100px" height="200px" />
 									<h2>@item.Price.</h2>
 									<p>@item.Name</p>
 								
@@ -52,6 +53,52 @@
 								</ul>
 							}
 						</div> *@
+					</div>
+				</div>
+			}
+
+		}
+
+		else
+		{
+			<p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
+		}
+
+	</div><!--features_items-->
+</div>
+<div class="col-sm-3">
+	<partial name="_SidebarPartial" />
+</div>
+<div class="col-sm-9 padding-right">
+	<div class="features_items">
+		<!--features_items-->
+		<h2 class="title text-center">Sản Phẩm Được Yêu Thích</h2>
+		@if (Model != null && Model.Any())
+		{
+			@foreach (var item in Model)
+			{
+				<div class="col-sm-4">
+					<div class="product-image-wrapper">
+						<div class="single-product">
+							<a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
+								<div class="productinfo text-center">
+									<img src="~/images/1b (1).jpg" width="100px" height="200px" />
+									<h2>@item.Price.</h2>
+									<p>@item.Name</p>
+
+								</div>
+							</a>
+
+						</div>
+						<div class="choose">
+				@if (User.Identity?.IsAuthenticated ?? false)
+				{
+				<ul class="nav nav-pills nav-justified">
+				<li><button class="btn btn-danger add-btn-wishlist" data-product_id="@item.Id">Yêu thích</button></li>
+				<li><button class="btn btn-primary add-btn-compare" data-product_id="@item.Id">So sánh</button></li>
+				</ul>
+				}
+				</div>
 					</div>
 				</div>
 			}
