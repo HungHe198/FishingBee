@@ -19,9 +19,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
     });
-
+builder.Services.AddSession();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 //builder.Services.AddScoped<IAllRepositories<ProductDetail>, AllRepositories<ProductDetail>>();
 //var entityTypes = new Type[]
 //{

@@ -18,7 +18,7 @@ namespace Data_FishingBee.Models
 
         [ForeignKey("Cart")]
         public Guid CartId { get; set; } // Foreign Key đến Cart
-
+        public int Quantity { get; set; }
         // Navigation Properties
         public virtual ProductDetail ProductDetail { get; set; } = null!;
         public virtual Cart Cart { get; set; } = null!;

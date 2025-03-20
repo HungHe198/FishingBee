@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data_FishingBee.Repositories
 {
-    public class CartRepository
+    public class CartRepository : ICartRepository
     {
         private readonly FishingBeeDbContext _context;
 
@@ -21,10 +21,17 @@ namespace Data_FishingBee.Repositories
         // ✅ Lấy giỏ hàng của khách hàng
         public async Task<Cart> GetCartByCustomerIdAsync(Guid customerId)
         {
-            return await _context.Carts
-                .Include(c => c.Cart_PDs)
-                .ThenInclude(cp => cp.ProductDetail)
-                .FirstOrDefaultAsync(c => c.CustomerId == customerId && c.Status == "Active");
+            //Tìm mã giỏ hàng của khách hàng
+            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+
+            if (cart == null)
+            {
+                // Handle the case where the cart is not found
+                // For example, you can throw an exception or return a default value
+                throw new Exception("Cart not found for the given customer ID.");
+            }
+
+            return cart;
         }
 
         // ✅ Thêm sản phẩm vào giỏ hàng
@@ -32,38 +39,57 @@ namespace Data_FishingBee.Repositories
         {
             var cart = await GetCartByCustomerIdAsync(customerId);
 
-            if (cart == null)
-            {
-                cart = new Cart
-                {
-                    Id = Guid.NewGuid(),
-                    CustomerId = customerId,
-                    CreatedTime = DateTime.Now,
-                    LastUpdateTime = DateTime.Now,
-                    Status = "Active",
-                    Cart_PDs = new List<Cart_PD>()
-                };
+			if (cart == null)
+			{
+				cart = new Cart
+				{
+					Id = Guid.NewGuid(),
+					CustomerId = customerId,
+					CreatedTime = DateTime.Now,
+					LastUpdateTime = DateTime.Now,
+					Status = "Active",
+					Cart_PDs = new List<Cart_PD>()
+				};
 
-                _context.Carts.Add(cart);
-            }
+				_context.Carts.Add(cart);
+				await _context.SaveChangesAsync();  // Lưu giỏ hàng vào database trước
+			}
 
-            var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
+			var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
+			if (cartItem == null)
+			{
+				cartItem = new Cart_PD
+				{
+					Id = Guid.NewGuid(),
+					CartId = cart.Id,
+					ProductDetailId = productDetailId,
+					Quantity = quantity
+				};
 
-            if (cartItem == null)
-            {
-                cart.Cart_PDs.Add(new Cart_PD
-                {
-                    Id = Guid.NewGuid(),
-                    CartId = cart.Id,
-                    ProductDetailId = productDetailId
-                });
-            }
+				_context.Cart_PDs.Add(cartItem);  // 🔴 Thêm cartItem mới vào database
+			}
+			else
+			{
+				cartItem.Quantity += quantity;
+				_context.Cart_PDs.Update(cartItem); // 🔴 Đánh dấu cartItem đã thay đổi
+			}
 
-            cart.LastUpdateTime = DateTime.Now;
-            await _context.SaveChangesAsync();
-        }
+			cart.LastUpdateTime = DateTime.Now;
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException ex)
+			{
+				// Log lỗi ra console hoặc file log để debug
+				Console.WriteLine($"Concurrency Error: {ex.Message}");
 
-        // ✅ Xóa sản phẩm khỏi giỏ hàng
+				// Gửi thông báo lỗi
+				throw new Exception("Có lỗi xảy ra khi cập nhật giỏ hàng. Vui lòng thử lại!");
+			}
+		}
+
+        // ✅ Xóa sản phẩm khỏi giỏ hàng theo CustomerId và ProductDetailId
         public async Task RemoveFromCartAsync(Guid customerId, Guid productDetailId)
         {
             var cart = await GetCartByCustomerIdAsync(customerId);
@@ -73,9 +99,20 @@ namespace Data_FishingBee.Repositories
                 var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
                 if (cartItem != null)
                 {
-                    cart.Cart_PDs.Remove(cartItem);
+                    _context.Cart_PDs.Remove(cartItem);
                     await _context.SaveChangesAsync();
                 }
+            }
+        }
+
+        // ✅ Xóa sản phẩm khỏi giỏ hàng theo Cart_PD Id
+        public async Task RemoveFromCartAsync(Guid cartPdId)
+        {
+            var cartItem = await _context.Cart_PDs.FindAsync(cartPdId);
+            if (cartItem != null)
+            {
+                _context.Cart_PDs.Remove(cartItem);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -91,5 +128,6 @@ namespace Data_FishingBee.Repositories
             }
         }
     }
+
 
 }
