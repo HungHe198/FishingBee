@@ -33,3 +33,21 @@
         }
     </div>
 </div>
+
+
+<div>
+    <button id="checkSessionBtn" class="btn btn-primary">Kiểm tra Session</button>
+
+    <p id="sessionStatus" class="text-info"></p>
+</div>
+
+<script>
+    document.getElementById("checkSessionBtn").addEventListener("click", function () {
+        fetch("/Home/CheckSession")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sessionStatus").innerText = "CartId: " + data;
+            })
+            .catch(error => console.error("Lỗi kiểm tra session:", error));
+    });
+</script>

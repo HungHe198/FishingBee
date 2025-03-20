@@ -50,34 +50,59 @@ namespace FishingBee_WebStore.Controllers.Account
                     ModelState.AddModelError("PhoneNumber", "Số điện thoại đã được sử dụng.");
                     return View(model);
                 }
+
                 if (!IsPasswordSecure(model.Password))
                 {
                     ModelState.AddModelError("Password", "Mật khẩu phải có ít nhất 8 ký tự, chữ hoa, chữ thường, ký tự đặc biệt.");
                     return View(model);
                 }
+
                 model.Password = HashPassword(model.Password);
                 model.Id = Guid.NewGuid();
                 model.CreatedTime = DateTime.Now;
-                if (string.IsNullOrEmpty(model.UserType))
-                {
-                    model.UserType = "Customer";
-                }
+                model.UserType ??= "Customer";
                 model.Status = "Active";
+
                 using (var transaction = await _context.Database.BeginTransactionAsync())
                 {
+                    try
+                    {
+                        // ✅ Thêm User vào database
                         _context.Users.Add(model);
                         await _context.SaveChangesAsync();
 
+                        // ✅ Tạo Customer tương ứng
                         var customer = new Customer
                         {
                             Id = Guid.NewGuid(),
                             UserId = model.Id,
                             CreatedTime = DateTime.Now,
-                            LoyaltyPoints = 0 
+                            LoyaltyPoints = 0
                         };
                         _context.Customers.Add(customer);
                         await _context.SaveChangesAsync();
+
+                        // ✅ Tạo Cart cho Customer mới
+                        var cart = new Cart
+                        {
+                            Id = Guid.NewGuid(),
+                            CustomerId = customer.Id,
+                            CreatedTime = DateTime.Now,
+                            LastUpdateTime = DateTime.Now,
+                            Status = "Active"
+                        };
+                        _context.Carts.Add(cart);
+                        await _context.SaveChangesAsync();
+
+                        // ✅ Commit transaction nếu tất cả thành công
                         await transaction.CommitAsync();
+                    }
+                    catch (Exception)
+                    {
+                        await transaction.RollbackAsync();
+                        ModelState.AddModelError("", "Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại.");
+                        return View(model);
+                    }
                 }
 
                 TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng cập nhật thông tin cá nhân.";
@@ -86,6 +111,7 @@ namespace FishingBee_WebStore.Controllers.Account
 
             return View(model);
         }
+
 
         private bool IsPasswordSecure(string password)
         {
@@ -116,6 +142,7 @@ namespace FishingBee_WebStore.Controllers.Account
                     ViewBag.ErrorMessage = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.";
                     return View();
                 }
+
                 if (user.UserType == "Admin" || user.UserType == "Employee")
                 {
                     if (user.Password != password)
@@ -134,17 +161,32 @@ namespace FishingBee_WebStore.Controllers.Account
                     }
                 }
 
-                var claims = new List<Claim>
+                //  Lấy CustomerId từ bảng Customers
+                var customer = _context.Customers.FirstOrDefault(c => c.UserId == user.Id);
+                if (customer != null)
                 {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.UserType ?? "Customer")
-                };
+                    //  Lấy CartId từ bảng Carts
+                    var cart = _context.Carts.FirstOrDefault(c => c.CustomerId == customer.Id && c.Status == "Active");
+
+                    if (cart != null)
+                    {
+                        //  Lưu CustomerId & CartId vào Session
+                        HttpContext.Session.SetString("CustomerId", customer.Id.ToString());
+                        HttpContext.Session.SetString("CartId", cart.Id.ToString());
+                    }
+                }
+
+                var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.Username),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Role, user.UserType ?? "Customer")
+                    };
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = true
-                };
+                    {
+                        IsPersistent = true
+                    };
 
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -159,6 +201,7 @@ namespace FishingBee_WebStore.Controllers.Account
             ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng.";
             return View();
         }
+
 
 
 
@@ -180,7 +223,7 @@ namespace FishingBee_WebStore.Controllers.Account
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home");
         }
 
 

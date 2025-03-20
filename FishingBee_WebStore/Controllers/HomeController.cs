@@ -84,5 +84,13 @@ namespace FishingBee_WebStore.Controllers
             var product = await _repoPD.GetById(id);
             return View(product);
         }
+
+        
+            public IActionResult CheckSession()
+            {
+                var cartId = HttpContext.Session.GetString("CartId");
+                return Content(cartId ?? "Không tìm thấy CartId trong Session");
+            }
+        
     }
 }
