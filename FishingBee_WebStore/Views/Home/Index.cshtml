@@ -6,7 +6,7 @@
 
 <div class="col-sm-9 padding-right">
     <div class="features_items">
-        <h2 class="title text-center">Sản phẩm bán chạy</h2>
+        <h2 class="title text-center"></h2>
         @if (Model != null && Model.Any())
         {
             @foreach (var item in Model)
@@ -20,6 +20,33 @@
                                     <img src="@item.ImageUrl" width="100px" height="200px" />
                                     <h2>@item.MinPrice</h2>
                                     <p>@item.Name</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
+        }
+    </div>
+    <div class="features_items">
+        <h2 class="title text-center">Hãng sản Phẩm</h2>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-product">
+                            @* Chuyển đến trang tạo thành bởi list các đối tượng có trùng id product với các bản ghi là của ProductDetail *@
+                            <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
+                                <div class="productinfo text-center">
+                                    <img src="@item.ImageUrl" width="100px" height="200px" />
+                                    <h2>@item.MinPrice</h2>
+                                    <p>@item.</p>
                                 </div>
                             </a>
                         </div>
