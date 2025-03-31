@@ -47,7 +47,7 @@
     </script>
 }
 <body>
-	<header id="header">
+@* 	<header id="header">
 		<!--header-->
 		<div class="header_top">
 			<!--header_top-->
@@ -169,19 +169,12 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						@* <form asp-controller="Product" asp-action="Search" method="post">
-							<div class="search_box pull-right">
-								<input type="text" placeholder="Search" name="searchTerm" />
-								<button class="btn btn-warning" type="submit">Search</button>
-
-							</div>
-						</form> *@
+						
 						<form asp-controller="Home" asp-action="Search" method="get">
 							<div class="search_box pull-right">
 								<input type="text" id="searchBox" placeholder="Nhập tên sản phẩm...">
 								<button id="searchBtn" class="btn btn-warning">Tìm kiếm</button>
-							@* <input type="text" name="searchTerm" placeholder="Nhập tên sản phẩm..." required />
-							<button class="btn btn-warning" type="submit">Tìm kiếm</button> *@
+						
 							</div>
 						</form>
 
@@ -193,7 +186,74 @@
 				</div>
 			</div>
 		</div><!--/header-bottom-->
-	</header><!--/header-->
+	</header><!--/header--> *@
+	<header>
+		<div class="top-bar">
+			<div class="logo">Logo + Tên Website</div>
+			@* <form asp-controller="Home" asp-action="Search" method="get">
+			<input type="text" placeholder="Tìm kiếm...">
+			<button class="search-btn">🔍</button>
+			</form> *@
+			<input type="text" placeholder="Tìm kiếm...">
+			<button class="search-btn">🔍</button>
+				@* @if (TempData["ErrorMessage"] != null)
+				{
+					<p style="color:red">@TempData["ErrorMessage"]</p>
+				} *@
+		
+			<div class="contact">Gọi mua hàng: +SDT</div>
+			<div class="col-sm-8">
+
+				<div class="shop-menu pull-right">
+					<ul class="nav navbar-nav">
+						@if (User.Identity?.IsAuthenticated ?? false)
+						{
+							<li>
+								<div>
+								</div>
+								<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
+									<button type="submit" class="btn btn-link"><i class="fa fa-lock"></i> Hi @User.Identity.Name Logout</button>
+								</form>
+
+							</li>
+						}
+						else
+						{
+							<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Login</a></li>
+						}
+					</ul>
+				</div>
+
+			</div>
+			
+			<div class="cart">
+				<a asp-action="Index" asp-controller="Cart_PD" class="cart">🛒 Giỏ Hàng</a>
+			</div>
+		</div>
+		<nav class="menu">
+			<ul class="nav navbar-nav collapse navbar-collapse">
+				<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
+				<li class="dropdown">
+					<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
+					<ul role="menu" class="sub-menu">
+						<li><a href="blog.html">Blog List</a></li>
+						<li><a href="blog-single.html">Blog Single</a></li>
+					</ul>
+				</li>
+
+				<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+				@if (User.IsInRole("Admin"))
+				{
+					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
+				}
+
+			</ul>
+			<a href="#">Giới thiệu</a>
+			<a href="#">Kiểm tra sản phẩm</a>
+			<a href="#">Liên hệ</a>
+			<a href="#">Kinh nghiệm câu</a>
+		</nav>
+	</header>
 	<section class="slider">
 		<div class="slides">
 			<div class="slide">

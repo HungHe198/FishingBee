@@ -445,7 +445,7 @@ ul.sub-menu {
 *******Footer CSS******
 **************************/
 
-#footer {
+/*#footer {
   background: #F0F0E9;
 }
 
@@ -453,7 +453,7 @@ ul.sub-menu {
 .footer-top .container {
   border-bottom: 1px solid #E0E0DA;
   padding-bottom: 20px;
-}
+}*/
 
 .companyinfo {
   margin-top: 57px;
@@ -564,9 +564,9 @@ ul.sub-menu {
   position: absolute;
   top: 50px;
 }
-#footer {
-	margin-top: auto; /* Đẩy footer xuống đáy */
-}
+/*#footer {
+	margin-top: auto;*/ /* Đẩy footer xuống đáy */
+/*}
 .footer-widget {
   margin-bottom: 68px;
 }
@@ -574,7 +574,7 @@ ul.sub-menu {
 .footer-widget .container {
   border-top: 1px solid #FFFFFF;
   padding-top: 15px;
-}
+}*/
 
 .single-widget h2 {
   color: #666663;
@@ -652,7 +652,7 @@ ul.sub-menu {
 }
 
 .footer-bottom p {
-  color: #363432;
+  color:deepskyblue;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   margin-left: 15px;
@@ -1490,10 +1490,10 @@ h2.title {
 /*************************
 *******404 CSS******
 **************************/
-
+/*
 .logo-404 {
   margin-top: 60px;
-}
+}*/
 
 .content-404 h1 {
   color: #363432;
@@ -2712,11 +2712,47 @@ main {
 
 /* Định dạng chân trang */
 footer {
-	background-color: #333;
-	color: #fff;
+	background-color:blue;
+	color:blue;
 	text-align: center;
 	padding: 10px 0;
-	position: fixed;
+	/*position: fixed;*/
 	width: 100%;
 	bottom: 0;
+}
+.top-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background: #3b82f6;
+	padding: 10px;
+	color: white;
+}
+
+	.top-bar input {
+		flex-grow: 1;
+		margin: 0 10px;
+		padding: 5px;
+	}
+
+.menu {
+	display: flex;
+	justify-content: center;
+	background: #1e40af;
+	padding: 10px;
+}
+
+	.menu a, .menu button {
+		color: white;
+		padding: 10px 15px;
+		text-decoration: none;
+		border: none;
+		background: none;
+	}
+
+main {
+	display: flex;
+	width: 80%;
+	margin-top: 20px;
 }
