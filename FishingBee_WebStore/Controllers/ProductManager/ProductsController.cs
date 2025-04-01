@@ -161,6 +161,20 @@ namespace FishingBee_WebStore.Controllers.ProductManager
 
             return RedirectToAction(nameof(Index));
         }
+        public ActionResult GetFirstProductImage(Guid manuID, Guid productid)
+        {
+            var product = _productRepo.GetAllQueryable()
+                            .Where(p => p.ManufacturerId == manuID)
+                            .OrderBy(p => p.Id)
+                            .Select(p => p.ProductImages.FirstOrDefault(x=>x.ProductId == productid))
+                            .FirstOrDefault();
+
+            if (product != null)
+            {
+                return Content(product.ImageUrl); // Trả về URL ảnh
+            }
+            return NotFound("Không tìm thấy sản phẩm.");
+        }
     }
 
 }
