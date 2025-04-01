@@ -4,12 +4,12 @@
     ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<body>
 <h2 class="text-center">Chi tiết sản phẩm</h2>
 
 @if (Model.Any())
 {
-    <table class="table table-bordered">
+    @* <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Giá</th>
@@ -34,9 +34,36 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table> *@
+  
+    <div class="container">
+        <div>
+            <div class="product-image">Ảnh</div>
+            <div class="thumbnail-container">
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+            </div>
+        </div>
+        <div class="product-info">
+            <h2>Tên sản phẩm</h2>
+            <p>Thương hiệu: XYZ</p>
+            <p>Mã sản phẩm: 123456</p>
+            <p>Giới thiệu sản phẩm...</p>
+            <label>Kích thước: <input type="text" size="2"></label>
+            <div class="quantity-control">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+            <p>Giá tiền: <input type="text" disabled></p>
+                <button class="add-to-cart">Thêm vào giỏ</button>
+        </div>
+    </div>
 }
 else
 {
     <p class="text-danger text-center">Không có thông tin sản phẩm.</p>
 }
+    </body>
