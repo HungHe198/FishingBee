@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    <!-- Sử dụng layout Admin cái nào của bên quản lí thì dùng thằng này -->
+}
+
+<h3 class="mb-4">📊 Doanh thu theo tháng</h3>
+<div class="chart-container" style="width: 100%; height: 400px;">
+    <canvas id="revenueChart"></canvas>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById("revenueChart").getContext("2d");
+        var revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+                datasets: [{
+                    label: "Doanh thu (VND)",
+                    data: [5000000, 7000000, 8000000, 6000000, 9000000, 11000000, 13000000, 15000000, 12000000, 14000000, 10000000, 16000000],
+                    backgroundColor: "rgba(75, 192, 192, 0.5)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
