@@ -20,27 +20,29 @@
                 <td>@user.Email</td>
                 <td>@user.UserType</td>
                 <td>
-                    <button class="btn btn-sm @(user.Status == "Active" ? "btn-success" : "btn-danger")"
+                    <button class="btn btn-sm @(user.Status == "Active" ? "btn-success" : "btn-danger") btn-status"
                             onclick="toggleStatus('@user.Id')">
                         @(user.Status == "Active" ? "Hoạt động" : "Bị khóa")
                     </button>
                 </td>
-                <td style="display: flex; align-items: center; gap: 10px;">
+                <td class="action-buttons">
                     @if (user.UserType != "Customer")
                     {
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Sửa</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-action">Sửa</a>
                     }
 
-                    <form asp-action="DeleteConfirmed" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa không?');">
+                    <form asp-action="DeleteConfirmed" method="post" class="delete-form" onsubmit="return confirm('Bạn có chắc muốn xóa không?');">
                         <input type="hidden" name="id" value="@user.Id" />
-                        <button type="submit" class="btn btn-danger">Xóa</button>
+                        <button type="submit" class="btn btn-danger btn-action">Xóa</button>
                     </form>
 
-                    <a href="@Url.Action("Details", "User", new { id = user.Id })" class="btn btn-info">Chi tiết</a>
+                    <a href="@Url.Action("Details", "User", new { id = user.Id })" class="btn btn-info btn-action">Chi tiết</a>
                 </td>
+
             </tr>
         }
     </tbody>
+
 </table>
 
 <script>
@@ -58,3 +60,4 @@
         });
     }
 </script>
+

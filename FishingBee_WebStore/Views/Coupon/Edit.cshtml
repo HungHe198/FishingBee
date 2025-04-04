@@ -1,0 +1,55 @@
+﻿@model Data_FishingBee.Models.Coupon
+
+@{
+    ViewData["Title"] = "Sửa Mã Giảm Giá";
+}
+
+<h2>Sửa Mã Giảm Giá</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name">Tên mã giảm giá</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Percent">Phần trăm giảm</label>
+        <input asp-for="Percent" type="number" class="form-control" required />
+        <span asp-validation-for="Percent" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateStart">Ngày bắt đầu</label>
+        <input asp-for="DateStart" type="date" class="form-control" required />
+        <span asp-validation-for="DateStart" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateEnd">Ngày kết thúc</label>
+        <input asp-for="DateEnd" type="date" class="form-control" required />
+        <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="QuantityAvailable">Số lượng</label>
+        <input asp-for="QuantityAvailable" type="number" class="form-control" required />
+        <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Trạng thái</label>
+        <input type="text" class="form-control" value="@Model.Status" disabled />
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

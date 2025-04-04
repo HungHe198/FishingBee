@@ -1,0 +1,56 @@
+﻿@model Data_FishingBee.Models.Coupon
+
+@{
+    ViewData["Title"] = "Chi Tiết Mã Giảm Giá";
+}
+
+<h2>Chi Tiết Mã Giảm Giá</h2>
+
+<div class="form-group">
+    <label>Tên</label>
+    <p>@Model.Name</p>
+</div>
+
+<div class="form-group">
+    <label>Phần Trăm Giảm</label>
+    <p>@Model.Percent %</p>
+</div>
+
+<div class="form-group">
+    <label>Ngày Bắt Đầu</label>
+    <p>@Model.DateStart.ToString("dd/MM/yyyy")</p>
+</div>
+
+<div class="form-group">
+    <label>Ngày Kết Thúc</label>
+    <p>@Model.DateEnd.ToString("dd/MM/yyyy")</p>
+</div>
+
+<div class="form-group">
+    <label>Số Lượng</label>
+    <p>@Model.QuantityAvailable</p>
+</div>
+
+<div class="form-group">
+    <label>Mô Tả</label>
+    <p>@Model.Description</p>
+</div>
+
+<div class="form-group">
+    <label>Trạng Thái</label>
+    <p>@Model.Status</p>
+</div>
+
+<div class="form-group">
+    <label>Ngày Tạo</label>
+    <p>@Model.CreatedTime?.ToString("dd/MM/yyyy")</p>
+</div>
+
+<div class="form-group">
+    <label>Ngày Sửa</label>
+    <p>@Model.ModifiedTime?.ToString("dd/MM/yyyy")</p>
+</div>
+
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</div>
