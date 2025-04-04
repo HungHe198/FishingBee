@@ -15,17 +15,25 @@ namespace FishingBee_WebStore.Controllers.ProductManager
     public class ProductsController : Controller
     {
         private readonly IAllRepositories<Product> _productRepo;
+        private readonly IAllRepositories<ProductDetail> _productDetailRepo;
+        private readonly IAllRepositories<ProductImage> _productImageRepo;
         private readonly IAllRepositories<Category> _categoryRepo;
         private readonly IAllRepositories<Manufacturer> _manufacturerRepo;
-
+        private readonly IWebHostEnvironment _env;
         public ProductsController(
             IAllRepositories<Product> productRepo,
             IAllRepositories<Category> categoryRepo,
-            IAllRepositories<Manufacturer> manufacturerRepo)
+            IAllRepositories<Manufacturer> manufacturerRepo,
+            IWebHostEnvironment env,
+            IAllRepositories<ProductDetail> productDetailRepo,
+            IAllRepositories<ProductImage> productImageRepo)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _manufacturerRepo = manufacturerRepo;
+            _env = env;
+            _productDetailRepo = productDetailRepo;
+            _productImageRepo = productImageRepo;
         }
 
         // GET: Products
@@ -60,14 +68,50 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             return View();
         }
 
-        // POST: Products/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(Product product, List<IFormFile> Images, string attributeValues)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _productRepo.Create(product);
+                
+                product.CreatedTime = DateTime.Now;
+                var saveProduct = await _productRepo.Create(product);
+
+                // Lưu ảnh vào thư mục riêng theo ProductId
+                string productFolder = Path.Combine(_env.WebRootPath, "images", product.Id.ToString());
+                if (!Directory.Exists(productFolder))
+                {
+                    Directory.CreateDirectory(productFolder);
+                }
+
+                int imageIndex = 1;
+                foreach (var image in Images)
+                {
+                    if (image != null && image.Length > 0)
+                    {
+                        string fileName = $"{imageIndex}.jpg"; // Đặt tên ảnh 1, 2, 3...
+                        string filePath = Path.Combine(productFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await image.CopyToAsync(stream);
+                        }
+
+                        await _productImageRepo.Create(new ProductImage
+                        {
+                            Id = Guid.NewGuid(),
+                            ProductId = product.Id,
+                            ImageUrl = $"/images/{product.Id}/{fileName}"
+                        });
+
+                        imageIndex++;
+                    }
+                }
+
+
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -75,6 +119,8 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
             return View(product);
         }
+
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(Guid? id)

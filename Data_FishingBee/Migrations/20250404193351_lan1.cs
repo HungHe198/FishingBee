@@ -140,7 +140,7 @@ namespace Data_FishingBee.Migrations
                     ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -585,14 +585,14 @@ namespace Data_FishingBee.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("2f3ce9b9-0e57-4851-bc10-7bfb894b853e"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8253), null, null, null, "Mồi", "Active" },
-                    { new Guid("45bca4f4-02ec-45d8-9e6d-fdead849afae"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8246), null, null, null, "Trục", "Active" },
-                    { new Guid("529c14f7-ec2d-495e-9515-b8e04879242c"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8251), null, null, null, "Phao", "Active" },
-                    { new Guid("6c345b78-a69f-4d8d-bcdd-4e9ad5e483be"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8250), null, null, null, "Thẻo", "Active" },
-                    { new Guid("724e463d-1349-4d89-b3ef-385a446064c1"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8252), null, null, null, "Thùng câu", "Active" },
-                    { new Guid("c1d09cf9-2c60-4a72-9b5a-c493ddbb18f9"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8254), null, null, null, "Gác cần", "Active" },
-                    { new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8244), null, null, null, "Cần câu đài", "Active" },
-                    { new Guid("ef5cbaf8-0a7c-4656-9b5d-186089823bb9"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8252), null, null, null, "Giọ", "Active" }
+                    { new Guid("1b70e36d-cfa2-4890-b349-986b251de382"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5592), null, null, null, "Thẻo", "Active" },
+                    { new Guid("54d09022-e4a0-4c60-a240-ae5f743ad80a"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5593), null, null, null, "Thùng câu", "Active" },
+                    { new Guid("577f3e60-b045-4f80-be44-b8387d175753"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5594), null, null, null, "Giọ", "Active" },
+                    { new Guid("6a10cf12-d6ab-49bd-9039-e880ad46ba14"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5596), null, null, null, "Gác cần", "Active" },
+                    { new Guid("b1c21d11-201e-4c9f-ad5d-d9d550cfd3f5"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5593), null, null, null, "Phao", "Active" },
+                    { new Guid("cf50c3cc-9bfa-4784-973c-b276a5d91255"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5595), null, null, null, "Mồi", "Active" },
+                    { new Guid("df0afd59-08a5-442a-ab49-79b2e691ae59"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5591), null, null, null, "Trục", "Active" },
+                    { new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5590), null, null, null, "Cần câu đài", "Active" }
                 });
 
             migrationBuilder.InsertData(
@@ -600,34 +600,34 @@ namespace Data_FishingBee.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Description", "ImageUrl", "Name", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8218), null, null, "Barfilon", "Active" },
-                    { new Guid("13add589-04e4-423f-8805-5bfc146a3bcf"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8229), null, null, "Gamma Seiko", "Active" },
-                    { new Guid("6ac50de8-befc-4ba3-9a47-fd88054124d0"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8229), null, null, "Guide", "Active" },
-                    { new Guid("af3d0f5c-cc4d-437e-b861-37dbc26e20b4"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8228), null, null, "Handing", "Active" },
-                    { new Guid("d0c60cb0-d798-458c-8979-494e1904391c"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8227), null, null, "Rice Fishing", "Active" }
+                    { new Guid("4f8098cb-30d8-4682-bf48-6f9c70c509e7"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5571), null, null, "Guide", "Active" },
+                    { new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5557), null, null, "Barfilon", "Active" },
+                    { new Guid("70a6f81d-6e19-4ea7-8f90-0e531be2008a"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5572), null, null, "Gamma Seiko", "Active" },
+                    { new Guid("ac5aca6a-0360-4862-9383-43bf1e3e32cd"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5568), null, null, "Rice Fishing", "Active" },
+                    { new Guid("f445ffbf-73c9-45d6-b99c-a06bb98de8da"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5569), null, null, "Handing", "Active" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Email", "ModifiedBy", "ModifiedTime", "Password", "PhoneNumber", "Status", "UserType", "Username" },
-                values: new object[] { new Guid("c18004fc-49a3-44a9-bad1-cd96de3942e4"), null, new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "fishingbee2024@gmail.com", null, null, "AQAAAAEAACcQAAAAEEvrIcLFoZX5BJcCYQc7OxSc0EuphY9z5NuTlzGdZP4T3jXh3b40lE50edxA+/JuwA==", "0123456789", "Active", "Admin", "admin" });
+                values: new object[] { new Guid("73820144-7331-4bae-b909-6a9f26f2c597"), null, new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "fishingbee2024@gmail.com", null, null, "AQAAAAEAACcQAAAAEKrTmr2gOXNstbiXeVrW4ihFSojMAHlna+jJuYhtbJk2hsOzS7IQoxefFO6C8gRovQ==", "0123456789", "Active", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "Descriptions", "FullName", "ModifiedBy", "ModifiedTime", "Permissions", "Status", "UserId", "UserType" },
-                values: new object[] { new Guid("ad082bce-4610-4d34-9b08-a40d721aa104"), null, new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Default Admin", "Super Admin", null, null, "All", "Active", new Guid("c18004fc-49a3-44a9-bad1-cd96de3942e4"), "Admin" });
+                values: new object[] { new Guid("813e7d0e-b24a-40b6-9905-6f73c1611d5c"), null, new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Default Admin", "Super Admin", null, null, "All", "Active", new Guid("73820144-7331-4bae-b909-6a9f26f2c597"), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedTime", "ManufacturerId", "ModifiedBy", "ModifiedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("003e4340-c720-41ad-942c-29476f0c2333"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8267), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Gamma Seiko Bạch Kim", "Available" },
-                    { new Guid("74ce8e8f-752b-45b0-befb-a46b99ddc918"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8270), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Guide Thánh Hỏa Lệnh", "Available" },
-                    { new Guid("9e06bb82-30e5-47b3-aabc-5b9ad646425f"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8266), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Barfilon Vân Trung Nguyệt", "Available" },
-                    { new Guid("ac695a2c-fb43-4111-90f6-bc4ab0e3a1b7"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8268), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Handing Thiết Sa", "Available" },
-                    { new Guid("b4e34449-342f-4cc6-8dfb-152ef0350204"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8272), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Rice V5 Silver Carp", "Available" },
-                    { new Guid("cde0688f-059b-4c5f-8713-f38c104a0c7e"), new Guid("e072cbe8-8788-4881-843c-2b6f269e471d"), null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8269), new Guid("101df509-8457-4c78-96c2-4c1c7ae3fd3a"), null, null, "Guide Lục Mạch Thần Kiếm", "Available" }
+                    { new Guid("26b192f2-0431-4e6e-baca-7092e08cc8e4"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5637), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Guide Lục Mạch Thần Kiếm", "Available" },
+                    { new Guid("6de39a9d-a413-47c7-8c57-b5e50dcb20d6"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5639), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Rice V5 Silver Carp", "Available" },
+                    { new Guid("99e993bb-871b-4e7a-beaa-bf938e41f332"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5638), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Guide Thánh Hỏa Lệnh", "Available" },
+                    { new Guid("a45b98c9-3f14-4820-b59a-d73e2811b5ad"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5634), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Barfilon Vân Trung Nguyệt", "Available" },
+                    { new Guid("d5cea331-8217-4340-be83-cbe2dfdf0c6a"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5636), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Handing Thiết Sa", "Available" },
+                    { new Guid("f9cd81c8-6c62-4706-a7a8-3834acfcec23"), new Guid("e08d3a99-cfc2-4f5c-b94a-e62fc8ce6807"), null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5635), new Guid("6223ef74-0092-4500-ac07-416e50a52f8c"), null, null, "Gamma Seiko Bạch Kim", "Available" }
                 });
 
             migrationBuilder.InsertData(
@@ -635,13 +635,13 @@ namespace Data_FishingBee.Migrations
                 columns: new[] { "Id", "AttributeName", "AttributeUnit", "AttributeValue", "CreatedBy", "CreatedTime", "Description", "ModifiedBy", "ModifiedTime", "Price", "ProductId", "Status", "Stock" },
                 values: new object[,]
                 {
-                    { new Guid("238b6550-04e6-4cd0-a52c-31c2ec1e1aaf"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8291), null, null, null, 2.300m, new Guid("9e06bb82-30e5-47b3-aabc-5b9ad646425f"), "In Stock", 0m },
-                    { new Guid("3826812f-1c59-41f6-aace-1d547826d2d3"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8292), null, null, null, 1.123m, new Guid("003e4340-c720-41ad-942c-29476f0c2333"), "In Stock", 0m },
-                    { new Guid("a2825697-85d4-4e4e-9804-08c2d34de3fc"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8289), null, null, null, 1.599m, new Guid("9e06bb82-30e5-47b3-aabc-5b9ad646425f"), "In Stock", 0m },
-                    { new Guid("a3a180f3-5c04-4872-8658-0c0b9e81f724"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8295), null, null, null, 2.300m, new Guid("9e06bb82-30e5-47b3-aabc-5b9ad646425f"), "In Stock", 0m },
-                    { new Guid("aeeabaa1-0a39-4365-af2d-d5f6d60d9424"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8297), null, null, null, 1.123m, new Guid("003e4340-c720-41ad-942c-29476f0c2333"), "In Stock", 0m },
-                    { new Guid("dd962470-9f1d-4ded-8d73-b328eb3fc3ac"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8298), null, null, null, 2.300m, new Guid("9e06bb82-30e5-47b3-aabc-5b9ad646425f"), "In Stock", 0m },
-                    { new Guid("e1aadb93-f798-471d-bac4-4fccf45916d0"), null, null, null, null, new DateTime(2025, 4, 1, 20, 4, 25, 64, DateTimeKind.Local).AddTicks(8299), null, null, null, 1.123m, new Guid("003e4340-c720-41ad-942c-29476f0c2333"), "In Stock", 0m }
+                    { new Guid("35e3719f-9609-4406-9d4c-4cb0dd92818b"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5660), null, null, null, 2.300m, new Guid("a45b98c9-3f14-4820-b59a-d73e2811b5ad"), "In Stock", 0m },
+                    { new Guid("3645025e-8bea-44ef-8189-de449dbd3424"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5666), null, null, null, 1.123m, new Guid("f9cd81c8-6c62-4706-a7a8-3834acfcec23"), "In Stock", 0m },
+                    { new Guid("535451ae-3b56-44b8-a87d-dbe19a9ee700"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5659), null, null, null, 1.599m, new Guid("a45b98c9-3f14-4820-b59a-d73e2811b5ad"), "In Stock", 0m },
+                    { new Guid("6d5e31c8-e557-44f8-b3d9-cdab009fb0bf"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5662), null, null, null, 1.123m, new Guid("f9cd81c8-6c62-4706-a7a8-3834acfcec23"), "In Stock", 0m },
+                    { new Guid("9476da8c-6f6c-45a1-9c69-9e6e5e2da93a"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5665), null, null, null, 2.300m, new Guid("a45b98c9-3f14-4820-b59a-d73e2811b5ad"), "In Stock", 0m },
+                    { new Guid("a523d6a5-f0f2-4360-9978-b0179e5c1c84"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5664), null, null, null, 1.123m, new Guid("f9cd81c8-6c62-4706-a7a8-3834acfcec23"), "In Stock", 0m },
+                    { new Guid("d16fdb86-9fd5-476f-8fa1-f976833cf082"), null, null, null, null, new DateTime(2025, 4, 5, 2, 33, 50, 443, DateTimeKind.Local).AddTicks(5663), null, null, null, 2.300m, new Guid("a45b98c9-3f14-4820-b59a-d73e2811b5ad"), "In Stock", 0m }
                 });
 
             migrationBuilder.CreateIndex(
