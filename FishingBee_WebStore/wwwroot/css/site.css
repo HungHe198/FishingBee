@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -22,3 +22,27 @@ body {
     display: flex;
     flex-direction: column;
 }*/
+/* Căn chỉnh các nút trong cột "Thao tác" */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Căn giữa các nút */
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa các nút */
+}
+
+/* Định dạng các nút CRUD */
+.btn-action {
+    min-width: 80px; /* Kích thước đồng nhất */
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Đảm bảo form Xóa không phá vỡ layout */
+.delete-form {
+    margin: 0;
+    display: inline-block;
+}

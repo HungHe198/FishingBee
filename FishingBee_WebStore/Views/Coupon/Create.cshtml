@@ -1,0 +1,48 @@
+﻿@model Data_FishingBee.Models.Coupon
+
+@{
+    ViewData["Title"] = "Tạo Mã Giảm Giá";
+}
+
+<h2>Tạo Mã Giảm Giá</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Tên</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Percent">Phần trăm giảm</label>
+        <input asp-for="Percent" type="number" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateStart">Ngày bắt đầu</label>
+        <input asp-for="DateStart" type="date" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateEnd">Ngày kết thúc</label>
+        <input asp-for="DateEnd" type="date" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="QuantityAvailable">Số lượng</label>
+        <input asp-for="QuantityAvailable" type="number" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Mô tả</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Trạng thái</label>
+        <input type="text" class="form-control" value="Hoạt động" disabled />
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
