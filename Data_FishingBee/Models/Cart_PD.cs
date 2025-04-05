@@ -22,5 +22,6 @@ namespace Data_FishingBee.Models
         // Navigation Properties
         public virtual ProductDetail ProductDetail { get; set; } = null!;
         public virtual Cart Cart { get; set; } = null!;
+        public int Status { get; set; }
     }
 }

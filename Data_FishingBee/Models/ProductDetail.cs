@@ -21,10 +21,10 @@ namespace Data_FishingBee.Models
         
         public string? Description { get; set; }
 
-        public string? AttributeName { get; set; }
+        
         public string? AttributeValue { get; set; }
-        public string? AttributeUnit { get; set; }
 
+        
         public decimal Price { get; set; }
         public decimal Stock { get; set; }
 

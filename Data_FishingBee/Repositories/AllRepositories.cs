@@ -68,14 +68,14 @@ namespace Data_FishingBee.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task Update(Guid id, H Obj)
+        public async Task Update(Guid id, H obj)
         {
-            var updateObj = await GetById(id);
-            if (updateObj != null)
+            var existing = await _dbSet.FindAsync(id);
+            if (existing != null)
             {
-                _dbSet.Update(Obj);
-                await _db.SaveChangesAsync();
+                _db.Entry(existing).CurrentValues.SetValues(obj);
             }
+            await _db.SaveChangesAsync();
         }
     }
 }

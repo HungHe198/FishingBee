@@ -2,43 +2,29 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Tạo biến thể mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedTime)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttributeName)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.AttributeValue)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttributeUnit)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -54,33 +40,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedTime)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttributeName)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.AttributeValue)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttributeUnit)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>

@@ -24,6 +24,7 @@ namespace Data_FishingBee.ContextFile
         public DbSet<BillDetail> BillDetails { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Cart_PD> Cart_PDs { get; set; }
+        public DbSet<CartItemViewModel> CartItemViewModels { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -164,13 +165,13 @@ namespace Data_FishingBee.ContextFile
  );
 
             modelBuilder.Entity<ProductDetail>().HasData(
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 1.599m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now },
-                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now }
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 1.599m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "631" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "63" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "62" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "1" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "632" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP1, Price = 2.300m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "6333" },
+                new ProductDetail { Id = Guid.NewGuid(), ProductId = idSP2, Price = 1.123m, Status = "In Stock", CreatedTime = DateTime.Now , AttributeValue = "633111"}
             );
 
 

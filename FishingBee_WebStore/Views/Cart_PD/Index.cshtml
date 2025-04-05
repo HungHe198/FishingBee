@@ -1,47 +1,49 @@
-﻿@model IEnumerable<Data_FishingBee.Models.Cart_PD>
+﻿@model List<Data_FishingBee.Models.Cart_PD>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Giỏ hàng";
 }
 
-<h1>Index</h1>
+<h2 class="text-2xl font-bold mb-6">🛒 Giỏ hàng của bạn</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cart)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDetail.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cart.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (!Model.Any())
+{
+    <div class="text-center text-gray-500">
+        <p>Giỏ hàng của bạn đang trống.</p>
+    </div>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach (var item in Model)
+        {
+            var product = item.ProductDetail.Product;
+            var imageUrl = product.ProductImages?.FirstOrDefault()?.ImageUrl ?? "/images/default.png";
+            var unitPrice = item.ProductDetail.Price;
+            var total = unitPrice * item.Quantity;
+
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-105">
+                <img src="@imageUrl" alt="@product.Name" class="w-full h-48 object-cover">
+
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">@product.Name</h3>
+                    <p class="text-sm text-gray-500 mb-2">Phân loại hàng: @product.AttributeName @item.ProductDetail.AttributeValue @product.AttributeUnit</p>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-green-600 font-bold">@unitPrice.ToString("N0") ₫</span>
+                        <span class="text-sm text-gray-600">x @item.Quantity</span>
+                    </div>
+
+                    <div class="mt-2 text-right font-semibold text-gray-700">
+                        Tổng: @total.ToString("N0") ₫
+                    </div>
+
+                    <div class="mt-4 flex justify-end space-x-2">
+                        <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.Id })" class="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded">Xóa</a>
+                        <a href="@Url.Action("UpdateQuantity", "Cart", new { id = item.Id })" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded">Cập nhật</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

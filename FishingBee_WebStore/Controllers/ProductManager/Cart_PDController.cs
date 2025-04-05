@@ -41,7 +41,12 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 .GetAllQueryable()
                 .Include(c => c.Cart)
                 .Include(c => c.ProductDetail)
-                .Where(c => c.Cart.CustomerId == customerId); // 🔥 Chỉ lấy dữ liệu của khách hàng này
+                .Include(c => c.ProductDetail)
+                    .ThenInclude(pd => pd.Product)
+                .Include(c => c.ProductDetail)
+                    .ThenInclude(pd => pd.Product)
+                    .ThenInclude(p => p.ProductImages)
+                .Where(c => c.Cart.CustomerId == customerId); //  Chỉ lấy dữ liệu của khách hàng này
 
             return View(await fishingBeeDbContext.ToListAsync());
         }
