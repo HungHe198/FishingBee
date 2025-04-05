@@ -21,6 +21,11 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         public async Task<IActionResult> Details(Guid id)
         {
             var productDetails = await _repoPD.GetAllQueryable()
+                                              .Include(pd => pd.Product)
+                                                    .ThenInclude(p => p.Manufacturer)
+                                              .Include(pd => pd.Product)
+                                                    .ThenInclude(p => p.ProductImages)
+                                              .Include(pd => pd.Product)
                                               .Where(pd => pd.ProductId == id) // Lọc theo ProductId
                                               .ToListAsync();
 

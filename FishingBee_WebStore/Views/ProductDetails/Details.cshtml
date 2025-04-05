@@ -4,66 +4,86 @@
     ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body>
-<h2 class="text-center">Chi tiết sản phẩm</h2>
 
 @if (Model.Any())
 {
-    @* <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Giá</th>
-                <th>Trạng thái</th>
-                <th>Số lượng</th> <!-- Cột nhập số lượng -->
-                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Price.ToString("0.################") VNĐ</td>
-                    <td>@item.Status</td>
-                    <td>
-                        <form method="post" asp-action="AddToCart" asp-controller="Carts" class="add-to-cart-form">
-                            <input type="hidden" name="productDetailId" value="@item.Id" />
-                            <input type="number" class="form-control quantity-input" name="quantity" min="1" value="1" />
-                            <button type="submit" class="btn btn-success mt-2">Thêm vào giỏ hàng</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table> *@
-  
-    <div class="container">
-        <div>
-            <div class="product-image">Ảnh</div>
-            <div class="thumbnail-container">
-                <div class="thumbnail"></div>
-                <div class="thumbnail"></div>
-                <div class="thumbnail"></div>
-                <div class="thumbnail"></div>
+    var grouped = Model.GroupBy(x => x.ProductId);
+
+    foreach (var group in grouped)
+    {
+        var firstItem = group.First();
+        <div class="container border rounded shadow-sm p-4 mb-4 bg-white">
+            <div class="row">
+                <!-- Ảnh sản phẩm -->
+                <div class="col-md-5 text-center">
+                    <img src="@firstItem.Product.ProductImages?.FirstOrDefault()?.ImageUrl" alt="Ảnh sản phẩm" class="img-fluid mb-3" style="max-height: 300px; object-fit: contain;" />
+                    <div class="d-flex justify-content-center gap-2">
+                        @foreach (var img in firstItem.Product.ProductImages)
+                        {
+                            <img src="@img.ImageUrl" class="img-thumbnail" style="width: 60px;" />
+                        }
+                    </div>
+                </div>
+
+                <!-- Thông tin sản phẩm -->
+                <div class="col-md-7">
+                    <h3 class="fw-bold">@firstItem.Product.Name</h3>
+                    <p><strong>Thương hiệu:</strong> @firstItem.Product.Manufacturer?.Name</p>
+                    <p><strong>Trạng thái:</strong> @firstItem.Status</p>
+
+                    <p><strong>Chọn loại:</strong></p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        @foreach (var item in group)
+                        {
+                            <label class="btn btn-outline-primary p-3 rounded text-center attribute-option" style="min-width: 100px; cursor: pointer;">
+                                <input type="radio" name="attributeOption-@firstItem.ProductId"
+                                       value="@item.Id"
+                                       class="d-none"
+                                       data-price="@item.Price.ToString("N0")"
+                                       data-product-detail-id="@item.Id" />
+                                <div class="fw-semibold">@item.AttributeValue</div>
+                            </label>
+                        }
+                    </div>
+
+                    <p class="fs-4 text-danger fw-bold">
+                        Giá: <span id="price-display-@firstItem.ProductId">@firstItem.Price.ToString("N0")</span> VNĐ
+                    </p>
+
+                    <form method="post" asp-action="AddToCart" asp-controller="Carts" class="mt-3">
+                        <input type="hidden" name="productDetailId" id="selected-product-detail-@firstItem.ProductId" value="@firstItem.Id" />
+
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <label for="quantity" class="me-2 fw-semibold">Số lượng:</label>
+                            <input type="number" class="form-control" name="quantity" min="1" value="1" style="width: 100px;" />
+                        </div>
+
+                        <button type="submit" class="btn btn-success px-4">
+                            🛒 Thêm vào giỏ hàng
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="product-info">
-            <h2>Tên sản phẩm</h2>
-            <p>Thương hiệu: XYZ</p>
-            <p>Mã sản phẩm: 123456</p>
-            <p>Giới thiệu sản phẩm...</p>
-            <label>Kích thước: <input type="text" size="2"></label>
-            <div class="quantity-control">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <p>Giá tiền: <input type="text" disabled></p>
-                <button class="add-to-cart">Thêm vào giỏ</button>
-        </div>
-    </div>
+
+        <script>
+            document.querySelectorAll('input[name="attributeOption"]').forEach(btn => {
+                btn.addEventListener('change', function () {
+                    const price = this.getAttribute('data-price');
+                    const detailId = this.getAttribute('data-product-detail-id');
+                    const productId = "@firstItem.ProductId";
+
+                    // Cập nhật giá
+                    document.getElementById('price-display-' + productId).textContent = price;
+
+                    // Cập nhật productDetailId vào form
+                    document.getElementById('selected-product-detail-' + productId).value = detailId;
+                });
+            });
+        </script>
+    }
 }
 else
 {
     <p class="text-danger text-center">Không có thông tin sản phẩm.</p>
 }
-    </body>

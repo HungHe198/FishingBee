@@ -19,7 +19,9 @@ namespace Data_FishingBee.Models
         public string? Status { get; set; }
 
         public string? Name { get; set; }
-            
+        public string? AttributeName { get; set; }
+        public string? AttributeUnit { get; set; }
+
         public ICollection<ProductDetail>? ProductDetails { get; set; } = new List<ProductDetail>();
         public ICollection<ProductImage>? ProductImages { get; set; } = new List<ProductImage>();
         public Category? Category { get; set; }

@@ -39,7 +39,10 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var products = await _productRepo.GetAll();
+            var products = _productRepo.GetAllQueryable()
+                .Include(p => p.Manufacturer)
+                .Include(p => p.Category)
+                .ToList();
             return View(products);
         }
 
@@ -68,14 +71,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product, List<IFormFile> Images, string attributeValues)
         {
             if (!ModelState.IsValid)
             {
-                
+
                 product.CreatedTime = DateTime.Now;
                 var saveProduct = await _productRepo.Create(product);
 
@@ -212,7 +215,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             var product = _productRepo.GetAllQueryable()
                             .Where(p => p.ManufacturerId == manuID)
                             .OrderBy(p => p.Id)
-                            .Select(p => p.ProductImages.FirstOrDefault(x=>x.ProductId == productid))
+                            .Select(p => p.ProductImages.FirstOrDefault(x => x.ProductId == productid))
                             .FirstOrDefault();
 
             if (product != null)
