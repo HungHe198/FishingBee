@@ -4,13 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<title>@ViewData["Title"]</title>
+
 	<link href="~/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
-
 	<link href="~/css/prettyPhoto.css" rel="stylesheet">
 	<link href="~/css/price-range.css" rel="stylesheet">
 	<link href="~/css/animate.css" rel="stylesheet">
@@ -19,17 +18,319 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-	<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-	<link rel="shortcut icon" href="images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-</head><!--/head-->
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f8f9fa;
+			color: #333;
+			line-height: 1.6;
+		}
+
+		.top-bar-right {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 20px;
+		}
+
+		.cart a.cart {
+			font-size: 16px;
+			color: #fff; 
+			text-decoration: none;
+			background: none;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			font-weight: 600;
+			cursor: pointer;
+			transition: color 0.3s;
+		}
+
+			.cart a.cart:hover {
+				color: #ffc107;
+				text-decoration: underline;
+			}
+
+		.shop-menu ul {
+			display: flex;
+			align-items: center;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+			.shop-menu ul li {
+				margin-left: 20px;
+			}
+
+				.shop-menu ul li a,
+				.shop-menu ul li button.btn.btn-link {
+					color: #fff;
+					background: none;
+					border: none;
+					cursor: pointer;
+					font-size: 16px;
+					text-decoration: none;
+					padding: 0;
+					font-weight: 600;
+				}
+
+					.shop-menu ul li a:hover,
+					.shop-menu ul li button.btn.btn-link:hover {
+						color: #ffc107;
+						text-decoration: underline;
+					}
+
+
+		.btn-logout {
+			padding: 0;
+		}
+
+		.top-bar-right {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 20px;
+		}
+
+		.user-cart-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.top-bar {
+			background-color: #343a40;
+			color: #fff;
+			padding: 10px 30px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+			.top-bar .logo {
+				font-size: 28px;
+				font-weight: bold;
+				color: #ffc107;
+			}
+
+			.top-bar .contact {
+				font-size: 16px;
+				color: #ddd;
+			}
+
+			.top-bar input[type="text"] {
+				padding: 6px 10px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				margin-right: 5px;
+			}
+
+			.top-bar .search-btn {
+				padding: 6px 12px;
+				background-color: #ffc107;
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: 0.3s;
+			}
+
+				.top-bar .search-btn:hover {
+					background-color: #e0a800;
+				}
+
+		.menu {
+			background-color: #212529;
+			padding: 10px 0;
+		}
+
+			.menu ul {
+				list-style: none;
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+				.menu ul li {
+					margin: 0 15px;
+				}
+
+					.menu ul li a {
+						color: #fff;
+						font-weight: 500;
+						text-decoration: none;
+						padding: 10px 15px;
+						transition: background 0.3s, color 0.3s;
+					}
+
+						.menu ul li a:hover,
+						.menu ul li a.active {
+							background-color: #ffc107;
+							color: #000;
+							border-radius: 5px;
+						}
+
+		.cart-button {
+			background-color: #0d0505;
+			color: white;
+			padding: 10px 20px;
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			border-radius: 10px;
+			font-weight: bold;
+			font-size: 14px;
+			position: relative;
+			border: none;
+			cursor: pointer;
+		}
+
+			.cart-button::after {
+				content: '';
+				position: absolute;
+				bottom: 6px;
+				left: 10px;
+				width: 70%;
+				height: 1px;
+				background-color: white;
+				opacity: 0.4;
+			}
+
+			.cart-button i {
+				font-size: 18px;
+				color: #dcdcdc;
+			}
+
+		.user-cart-wrapper {
+			margin-left: 30px;
+		}
+
+		.top-bar-right {
+			display: flex;
+			align-items: center;
+		}
+		.slider {
+			position: relative;
+			overflow: hidden;
+			max-height: 500px;
+		}
+
+		.slides {
+			display: flex;
+			transition: transform 0.5s ease-in-out;
+		}
+
+		.slide {
+			min-width: 100%;
+		}
+			.slide img {
+				width: 100%;
+				height: 500px;
+				object-fit: cover;
+			}
+		.prev, .next {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(0,0,0,0.6);
+			color: #fff;
+			font-size: 24px;
+			padding: 10px;
+			cursor: pointer;
+			border-radius: 50%;
+			border: none;
+		}
+		.prev {
+			left: 10px;
+		}
+
+		.next {
+			right: 10px;
+		}
+
+		.dots {
+			text-align: center;
+			margin-top: 10px;
+		}
+
+		.dot {
+			display: inline-block;
+			height: 12px;
+			width: 12px;
+			margin: 5px;
+			background-color: #bbb;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+
+			.dot.active {
+				background-color: #717171;
+			}
+
+		.container {
+			max-width: 1200px;
+			margin: 20px auto;
+			padding: 0 20px;
+		}
+
+		#footer {
+			background-color: #212529;
+			color: #fff;
+			padding: 20px 0;
+		}
+
+		.footer-bottom {
+			text-align: center;
+			font-size: 14px;
+			border-top: 1px solid #444;
+			padding-top: 10px;
+		}
+
+		.alert-success {
+			background-color: #d4edda;
+			border-left: 6px solid #28a745;
+			padding: 10px 15px;
+			color: #155724;
+			margin: 10px auto;
+			width: 90%;
+			max-width: 800px;
+			border-radius: 4px;
+		}
+		.dropdown .sub-menu {
+			display: none;
+			position: absolute;
+			background-color: #212529;
+			min-width: 180px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+			z-index: 999;
+		}
+
+		.dropdown:hover .sub-menu {
+			display: block;
+		}
+
+		.sub-menu li a {
+			color: #fff; 
+			padding: 10px 15px;
+			display: block;
+			text-decoration: none;
+			transition: background-color 0.3s, color 0.3s;
+			font-weight: 600;
+		}
+			.sub-menu li a:hover {
+				background-color: #ffc107; 
+				color: #000 !important;
+			}
+	</style>
+</head>
 @if (TempData["SuccessMessage"] != null)
 {
 	<div id="successMessage" class="alert alert-success">
@@ -49,305 +350,127 @@
     </script>
 }
 <body>
-@* 	<header id="header">
-		<!--header-->
-		<div class="header_top">
-			<!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-							</ul>
+		<header>
+					<div class="top-bar">
+						<div class="logo">
+						<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Logo.png" style="height: 40px; vertical-align: middle;">
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header_top-->
+						<input type="text" placeholder="Tìm kiếm...">
+						<button class="search-btn">🔍</button>
 
-		<div class="header-middle">
-			<!--header-middle-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
-						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canada</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
+						<div class="contact">Gọi mua hàng: 0123.432.777</div>
 
-							<div class="btn-group">
-								<a asp-action="Index" asp-controller="Cart_PD" class="btn btn-primary">Xem Giỏ Hàng</a>
-							</div>
 
-						</div>
-					</div>
-					
-					<div class="col-sm-8">
-						
-						<div class="shop-menu pull-right">
-							<ul class="nav navbar-nav">
-								@if (User.Identity?.IsAuthenticated ?? false)
-								{
-									<li>
-										<div>
-											
-										</div>
-										<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
-											<button type="submit" class="btn btn-link"><i class="fa fa-lock"></i> Hi @User.Identity.Name Logout</button>
-										</form>
-										
-									</li>
-								}
-								else
-								{
-									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Login</a></li>
-								}
-							</ul>
-						</div>
+							<div class="top-bar-right">
+								<div class="user-cart-wrapper">
+									<button class="cart-button">
+										GIỎ HÀNG
+										<i class="fas fa-shopping-cart"></i>
+									</button>
 
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
-
-		<div class="header-bottom">
-			<!--header-bottom-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-9">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div>
-						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
-								<li class="dropdown">
-									<a href="#">Shop<i class="fa fa-angle-down"></i></a>
-									
-								</li>
-								<li class="dropdown">
-									<a href="#">Blog<i class="fa fa-angle-down"></i></a>
-									<ul role="menu" class="sub-menu">
-										<li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-									</ul>
-								</li>
-
-								<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-								@if (User.IsInRole("Admin"))
-								{
-									<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
-								}
-
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						
-						<form asp-controller="Home" asp-action="Search" method="get">
-							<div class="search_box pull-right">
-								<input type="text" id="searchBox" placeholder="Nhập tên sản phẩm...">
-								<button id="searchBtn" class="btn btn-warning">Tìm kiếm</button>
-						
-							</div>
-						</form>
-
-						@if (TempData["ErrorMessage"] != null)
-						{
-							<p style="color:red">@TempData["ErrorMessage"]</p>
-						}
-					</div>
-				</div>
-			</div>
-		</div><!--/header-bottom-->
-	</header><!--/header--> *@
-	<header>
-		<div class="top-bar">
-			<div class="logo">Logo + Tên Website</div>
-			@* <form asp-controller="Home" asp-action="Search" method="get">
-			<input type="text" placeholder="Tìm kiếm...">
-			<button class="search-btn">🔍</button>
-			</form> *@
-			<input type="text" placeholder="Tìm kiếm...">
-			<button class="search-btn">🔍</button>
-				@* @if (TempData["ErrorMessage"] != null)
-				{
-					<p style="color:red">@TempData["ErrorMessage"]</p>
-				} *@
-		
-			<div class="contact">Gọi mua hàng: +SDT</div>
-			<div class="col-sm-8">
-
-				<div class="shop-menu pull-right">
-					<ul class="nav navbar-nav">
-						@if (User.Identity?.IsAuthenticated ?? false)
-						{
-							<li>
-								<div>
+									<div class="shop-menu">
+										<ul>
+											@if (User.Identity?.IsAuthenticated ?? false)
+											{
+												<li>
+													<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
+														<button type="submit" class="btn-logout">
+															<i class="fa fa-lock"></i> Hi @User.Identity.Name Logout
+														</button>
+													</form>
+												</li>
+											}
+											else
+											{
+												<li><a asp-controller="Account" asp-action="Login" class="auth-link"><i class="fa fa-lock"></i> Login</a></li>
+											}
+										</ul>
+									</div>
 								</div>
-								<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
-									<button type="submit" class="btn btn-link"><i class="fa fa-lock"></i> Hi @User.Identity.Name Logout</button>
-								</form>
 
+							</div>
+					</div>
+					<nav class="menu">
+						<ul class="nav navbar-nav collapse navbar-collapse">
+							<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
+							<li class="dropdown">
+								<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
+								<ul role="menu" class="sub-menu">
+									<li><a href="blog.html">Blog List</a></li>
+									<li><a href="blog-single.html">Blog Single</a></li>
+								</ul>
 							</li>
-						}
-						else
-						{
-							<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Login</a></li>
-						}
-					</ul>
+							<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+							@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+							{
+								<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
+								<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a></li>
+							}
+						</ul>
+						<a href="#">Giới thiệu</a>
+						<a href="#">Kiểm tra sản phẩm</a>
+						<a href="#">Liên hệ</a>
+						<a href="#">Kinh nghiệm câu</a>
+					</nav>
+		</header>
+		<section class="slider">
+			<div class="slides">
+				<div class="slide">
+					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide1.png" height="500"  alt="Slide 1">
 				</div>
+				<div class="slide">
+					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide2.png" height="500" alt="Slide 2">
+				</div>
+				<div class="slide">
+					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide3.png" height="500" alt="Slide 3">
+				</div>
+				<div class="slide">
+					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide4.png" height="500" alt="Slide 4">
+				</div>
+			</div>
+			<button class="prev" onclick="prevSlide()">&#10094;</button>
+			<button class="next" onclick="nextSlide()">&#10095;</button>
+			<div class="dots">
+				<span class="dot" onclick="setSlide(0)"></span>
+				<span class="dot" onclick="setSlide(1)"></span>
+				<span class="dot" onclick="setSlide(2)"></span>
+			</div>
+		</section>
 
-			</div>
-			
-			<div class="cart">
-				<a asp-action="Index" asp-controller="Cart_PD" class="cart">🛒 Giỏ Hàng</a>
-			</div>
-		</div>
-		<nav class="menu">
-			<ul class="nav navbar-nav collapse navbar-collapse">
-				<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
-				<li class="dropdown">
-					<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
-					<ul role="menu" class="sub-menu">
-						<li><a href="blog.html">Blog List</a></li>
-						<li><a href="blog-single.html">Blog Single</a></li>
-					</ul>
-				</li>
-
-				<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-				@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
-				{
-					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
-					<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a></li>
-				}
-			</ul>
-			<a href="#">Giới thiệu</a>
-			<a href="#">Kiểm tra sản phẩm</a>
-			<a href="#">Liên hệ</a>
-			<a href="#">Kinh nghiệm câu</a>
-		</nav>
-	</header>
-	<section class="slider">
-		<div class="slides">
-			<div class="slide">
-				<img src="~/images/1607936632.jpeg" height="500"  alt="Slide 1">
-			</div>
-			<div class="slide">
-				<img src="~/images/1b (1).jpg" alt="Slide 2">
-				
-			</div>
-			<div class="slide">
-				<img src="~/images/cancau.jpg" height="500" alt="Slide 3">
-			
-			</div>
-			<div class="slide">
-				<img src="~/images/th (11).jpg" height="500" alt="Slide 3">
-
-			</div>
-		</div>
-		<button class="prev" onclick="prevSlide()">&#10094;</button>
-		<button class="next" onclick="nextSlide()">&#10095;</button>
-		<div class="dots">
-			<span class="dot" onclick="setSlide(0)"></span>
-			<span class="dot" onclick="setSlide(1)"></span>
-			<span class="dot" onclick="setSlide(2)"></span>
-		</div>
-	</section>
-
-	<section>
-		<div class="container">
-			<div class="row">
-				
-				@RenderBody()
-			</div>
-		</div>
-	</section>
-
-	<footer id="footer">
-		<div class="footer-bottom">
+		<section>
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2024</p>
-					<p class="pull-right">Designed by <span><a target="_blank" href="">Hội táo mèo</a></span></p>
+				
+					@RenderBody()
 				</div>
 			</div>
-		</div>
+		</section>
 
-	</footer>
+		<footer id="footer">
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<p class="pull-left">Copyright © 2024</p>
+						<p class="pull-right">Designed by <span><a target="_blank" href="">Hội táo mèo</a></span></p>
+					</div>
+				</div>
+			</div>
 
-	@* <script>
-		let currentIndex = 0;
-		const slides = document.querySelectorAll(".slide");
+		</footer>
 
-		function showSlide(index) {
-			slides.forEach((slide, i) => {
-				slide.style.display = i === index ? "block" : "none";
-			});
-		}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="~/js/bootstrap.min.js"></script>
+		<script src="~/js/jquery.scrollUp.min.js"></script>
+		<script src="~/js/price-range.js"></script>
+		<script src="~/js/jquery.prettyPhoto.js"></script>
 
-		function prevSlide() {
-			currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
-			showSlide(currentIndex);
-		}
+		<script src="~/js/main.js"></script>
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v20.0&appId=6125793717446054" nonce="JYxicUjw"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
 
-		function nextSlide() {
-			currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
-			showSlide(currentIndex);
-		}
-
-		function autoSlide() {
-			nextSlide();
-			setTimeout(autoSlide, 3000); // Chuyển slide sau mỗi 3 giây
-		}
-
-		showSlide(currentIndex);
-		setTimeout(autoSlide, 3000);
-	</script> *@
-
-
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script src="~/js/bootstrap.min.js"></script>
-	<script src="~/js/jquery.scrollUp.min.js"></script>
-	<script src="~/js/price-range.js"></script>
-	<script src="~/js/jquery.prettyPhoto.js"></script>
-
-	<script src="~/js/main.js"></script>
-	<div id="fb-root"></div>
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v20.0&appId=6125793717446054" nonce="JYxicUjw"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
-
-	@await RenderSectionAsync("Scripts", required: false)
-
+		@await RenderSectionAsync("Scripts", required: false)
+	
 
 </body>
 </html>
