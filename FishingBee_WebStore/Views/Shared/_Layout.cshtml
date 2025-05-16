@@ -41,7 +41,7 @@
 
 		.cart a.cart {
 			font-size: 16px;
-			color: #fff; 
+			color: #fff;
 			text-decoration: none;
 			background: none;
 			padding: 0;
@@ -318,7 +318,7 @@
 		}
 
 		.sub-menu li a {
-			color: #fff; 
+			color: #fff;
 			padding: 10px 15px;
 			display: block;
 			text-decoration: none;
@@ -326,7 +326,7 @@
 			font-weight: 600;
 		}
 			.sub-menu li a:hover {
-				background-color: #ffc107; 
+				background-color: #ffc107;
 				color: #000 !important;
 			}
 	</style>
@@ -345,132 +345,132 @@
 }
 
 @section Scripts {
-    <script>
-        console.log("Scripts section loaded!");
-    </script>
+	<script>
+		console.log("Scripts section loaded!");
+	</script>
 }
 <body>
-		<header>
-					<div class="top-bar">
-						<div class="logo">
-						<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Logo.png" style="height: 40px; vertical-align: middle;">
-						</div>
-						<input type="text" placeholder="Tìm kiếm...">
-						<button class="search-btn">🔍</button>
+	<header>
+		<div class="top-bar">
+			<div class="logo">
+				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Logo.png" style="height: 40px; vertical-align: middle;">
+			</div>
+			<input type="text" placeholder="Tìm kiếm...">
+			<button class="search-btn">🔍</button>
 
-						<div class="contact">Gọi mua hàng: 0123.432.777</div>
+			<div class="contact">Gọi mua hàng: 0123.432.777</div>
 
 
-							<div class="top-bar-right">
-								<div class="user-cart-wrapper">
-									<button class="cart-button">
-										GIỎ HÀNG
-										<i class="fas fa-shopping-cart"></i>
-									</button>
+			<div class="top-bar-right">
+				<div class="user-cart-wrapper">
+					<button class="cart-button">
+						GIỎ HÀNG
+						<i class="fas fa-shopping-cart"></i>
+					</button>
 
-									<div class="shop-menu">
-										<ul>
-											@if (User.Identity?.IsAuthenticated ?? false)
-											{
-												<li>
-													<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
-														<button type="submit" class="btn-logout">
-															<i class="fa fa-lock"></i> Hi @User.Identity.Name Logout
-														</button>
-													</form>
-												</li>
-											}
-											else
-											{
-												<li><a asp-controller="Account" asp-action="Login" class="auth-link"><i class="fa fa-lock"></i> Login</a></li>
-											}
-										</ul>
-									</div>
-								</div>
-
-							</div>
-					</div>
-					<nav class="menu">
-						<ul class="nav navbar-nav collapse navbar-collapse">
-							<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
-							<li class="dropdown">
-								<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
-								<ul role="menu" class="sub-menu">
-									<li><a href="blog.html">Blog List</a></li>
-									<li><a href="blog-single.html">Blog Single</a></li>
-								</ul>
-							</li>
-							<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-							@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+					<div class="shop-menu">
+						<ul>
+							@if (User.Identity?.IsAuthenticated ?? false)
 							{
-								<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
-								<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a></li>
+								<li>
+									<form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
+										<button type="submit" class="btn-logout">
+											<i class="fa fa-lock"></i> Hi @User.Identity.Name Logout
+										</button>
+									</form>
+								</li>
+							}
+							else
+							{
+								<li><a asp-controller="Account" asp-action="Login" class="auth-link"><i class="fa fa-lock"></i> Login</a></li>
 							}
 						</ul>
-						<a href="#">Giới thiệu</a>
-						<a href="#">Kiểm tra sản phẩm</a>
-						<a href="#">Liên hệ</a>
-						<a href="#">Kinh nghiệm câu</a>
-					</nav>
-		</header>
-		<section class="slider">
-			<div class="slides">
-				<div class="slide">
-					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide1.png" height="500"  alt="Slide 1">
-				</div>
-				<div class="slide">
-					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide2.png" height="500" alt="Slide 2">
-				</div>
-				<div class="slide">
-					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide3.png" height="500" alt="Slide 3">
-				</div>
-				<div class="slide">
-					<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide4.png" height="500" alt="Slide 4">
-				</div>
-			</div>
-			<button class="prev" onclick="prevSlide()">&#10094;</button>
-			<button class="next" onclick="nextSlide()">&#10095;</button>
-			<div class="dots">
-				<span class="dot" onclick="setSlide(0)"></span>
-				<span class="dot" onclick="setSlide(1)"></span>
-				<span class="dot" onclick="setSlide(2)"></span>
-			</div>
-		</section>
-
-		<section>
-			<div class="container">
-				<div class="row">
-				
-					@RenderBody()
-				</div>
-			</div>
-		</section>
-
-		<footer id="footer">
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<p class="pull-left">Copyright © 2024</p>
-						<p class="pull-right">Designed by <span><a target="_blank" href="">Hội táo mèo</a></span></p>
 					</div>
 				</div>
+
 			</div>
+		</div>
+		<nav class="menu">
+			<ul class="nav navbar-nav collapse navbar-collapse">
+				<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
+				<li class="dropdown">
+					<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
+					<ul role="menu" class="sub-menu">
+						<li><a href="blog.html">Blog List</a></li>
+						<li><a href="blog-single.html">Blog Single</a></li>
+					</ul>
+				</li>
+				<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+				@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+				{
+					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
+					<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a></li>
+				}
+			</ul>
+			<a href="#">Giới thiệu</a>
+			<a href="#">Kiểm tra sản phẩm</a>
+			<a href="#">Liên hệ</a>
+			<a href="#">Kinh nghiệm câu</a>
+		</nav>
+	</header>
+	<section class="slider">
+		<div class="slides">
+			<div class="slide">
+				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide1.png" height="500" alt="Slide 1">
+			</div>
+			<div class="slide">
+				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide2.png" height="500" alt="Slide 2">
+			</div>
+			<div class="slide">
+				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide3.png" height="500" alt="Slide 3">
+			</div>
+			<div class="slide">
+				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide4.png" height="500" alt="Slide 4">
+			</div>
+		</div>
+		<button class="prev" onclick="prevSlide()">&#10094;</button>
+		<button class="next" onclick="nextSlide()">&#10095;</button>
+		<div class="dots">
+			<span class="dot" onclick="setSlide(0)"></span>
+			<span class="dot" onclick="setSlide(1)"></span>
+			<span class="dot" onclick="setSlide(2)"></span>
+		</div>
+	</section>
 
-		</footer>
+	<section>
+		<div class="container">
+			<div class="row">
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<script src="~/js/bootstrap.min.js"></script>
-		<script src="~/js/jquery.scrollUp.min.js"></script>
-		<script src="~/js/price-range.js"></script>
-		<script src="~/js/jquery.prettyPhoto.js"></script>
+				@RenderBody()
+			</div>
+		</div>
+	</section>
 
-		<script src="~/js/main.js"></script>
-		<div id="fb-root"></div>
-		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v20.0&appId=6125793717446054" nonce="JYxicUjw"></script>
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+	<footer id="footer">
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2024</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="">Hội táo mèo</a></span></p>
+				</div>
+			</div>
+		</div>
 
-		@await RenderSectionAsync("Scripts", required: false)
-	
+	</footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.scrollUp.min.js"></script>
+	<script src="~/js/price-range.js"></script>
+	<script src="~/js/jquery.prettyPhoto.js"></script>
+
+	<script src="~/js/main.js"></script>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v20.0&appId=6125793717446054" nonce="JYxicUjw"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+
 
 </body>
 </html>
