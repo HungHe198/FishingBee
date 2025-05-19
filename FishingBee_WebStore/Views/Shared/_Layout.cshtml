@@ -363,11 +363,17 @@
 
 			<div class="top-bar-right">
 				<div class="user-cart-wrapper">
-					<button class="cart-button">
+					@* <button class="cart-button">
 						GIỎ HÀNG
 						<i class="fas fa-shopping-cart"></i>
-					</button>
-
+					</button> *@
+					<li>
+						<form asp-controller="Cart_PD" asp-action="Index" method="post">
+							<button class="cart-button">
+								<i class="fas fa-shopping-cart"></i> Giỏ Hàng
+							</button>
+						</form>
+					</li>
 					<div class="shop-menu">
 						<ul>
 							@if (User.Identity?.IsAuthenticated ?? false)
@@ -400,12 +406,16 @@
 						<li><a href="blog-single.html">Blog Single</a></li>
 					</ul>
 				</li>
-				<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+				<li class="dropdown">
+				<li><a asp-controller="Home" asp-action="Contact">Contact</a><i class="fa fa-angle-down"></i></li>
 				@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
 				{
-					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
-					<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a></li>
+					
+					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a>Quản lý Admin</li>
+					<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a>Quản lý khuyến mãi</li>
+					
 				}
+				</li>
 			</ul>
 			<a href="#">Giới thiệu</a>
 			<a href="#">Kiểm tra sản phẩm</a>
