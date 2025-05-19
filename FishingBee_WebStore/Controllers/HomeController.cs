@@ -91,6 +91,17 @@ namespace FishingBee_WebStore.Controllers
                 var cartId = HttpContext.Session.GetString("CartId");
                 return Content(cartId ?? "Không tìm thấy CartId trong Session");
             }
-        
+        public IActionResult FishingTips()
+        {
+            return View();
+        }
+        public IActionResult AboutUS()
+        {
+            return View();
+        }
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
     }
 }

@@ -2,55 +2,47 @@
 
 @{
     ViewData["Title"] = "Chi Tiết Mã Giảm Giá";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Chi Tiết Mã Giảm Giá</h2>
+<div class="card shadow mb-4">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0"><i class="bi bi-ticket-detailed-fill"></i> Chi Tiết Mã Giảm Giá</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Tên</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
 
-<div class="form-group">
-    <label>Tên</label>
-    <p>@Model.Name</p>
-</div>
+            <dt class="col-sm-3">Phần Trăm Giảm</dt>
+            <dd class="col-sm-9">@Model.Percent %</dd>
 
-<div class="form-group">
-    <label>Phần Trăm Giảm</label>
-    <p>@Model.Percent %</p>
-</div>
+            <dt class="col-sm-3">Ngày Bắt Đầu</dt>
+            <dd class="col-sm-9">@Model.DateStart.ToString("dd/MM/yyyy")</dd>
 
-<div class="form-group">
-    <label>Ngày Bắt Đầu</label>
-    <p>@Model.DateStart.ToString("dd/MM/yyyy")</p>
-</div>
+            <dt class="col-sm-3">Ngày Kết Thúc</dt>
+            <dd class="col-sm-9">@Model.DateEnd.ToString("dd/MM/yyyy")</dd>
 
-<div class="form-group">
-    <label>Ngày Kết Thúc</label>
-    <p>@Model.DateEnd.ToString("dd/MM/yyyy")</p>
-</div>
+            <dt class="col-sm-3">Số Lượng</dt>
+            <dd class="col-sm-9">@Model.QuantityAvailable</dd>
 
-<div class="form-group">
-    <label>Số Lượng</label>
-    <p>@Model.QuantityAvailable</p>
-</div>
+            <dt class="col-sm-3">Mô Tả</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
 
-<div class="form-group">
-    <label>Mô Tả</label>
-    <p>@Model.Description</p>
-</div>
+            <dt class="col-sm-3">Trạng Thái</dt>
+            <dd class="col-sm-9">@Model.Status</dd>
 
-<div class="form-group">
-    <label>Trạng Thái</label>
-    <p>@Model.Status</p>
-</div>
+            <dt class="col-sm-3">Ngày Tạo</dt>
+            <dd class="col-sm-9">@Model.CreatedTime?.ToString("dd/MM/yyyy")</dd>
 
-<div class="form-group">
-    <label>Ngày Tạo</label>
-    <p>@Model.CreatedTime?.ToString("dd/MM/yyyy")</p>
-</div>
+            <dt class="col-sm-3">Ngày Sửa</dt>
+            <dd class="col-sm-9">@Model.ModifiedTime?.ToString("dd/MM/yyyy")</dd>
+        </dl>
 
-<div class="form-group">
-    <label>Ngày Sửa</label>
-    <p>@Model.ModifiedTime?.ToString("dd/MM/yyyy")</p>
-</div>
-
-<div class="form-group">
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+        </div>
+    </div>
 </div>

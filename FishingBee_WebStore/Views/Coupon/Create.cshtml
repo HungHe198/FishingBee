@@ -2,47 +2,72 @@
 
 @{
     ViewData["Title"] = "Tạo Mã Giảm Giá";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml"; 
 }
 
-<h2>Tạo Mã Giảm Giá</h2>
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0"><i class="bi bi-ticket-perforated-fill"></i> Tạo Mã Giảm Giá</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Name">Tên</label>
-        <input asp-for="Name" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label asp-for="Percent">Phần trăm giảm</label>
-        <input asp-for="Percent" type="number" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label asp-for="DateStart">Ngày bắt đầu</label>
-        <input asp-for="DateStart" type="date" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label asp-for="DateEnd">Ngày kết thúc</label>
-        <input asp-for="DateEnd" type="date" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label asp-for="QuantityAvailable">Số lượng</label>
-        <input asp-for="QuantityAvailable" type="number" class="form-control" required />
-    </div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Tên mã</label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="Description">Mô tả</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
+            <div class="mb-3">
+                <label asp-for="Percent" class="form-label">Phần trăm giảm</label>
+                <input asp-for="Percent" type="number" class="form-control" required />
+                <span asp-validation-for="Percent" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label>Trạng thái</label>
-        <input type="text" class="form-control" value="Hoạt động" disabled />
-    </div>
+            <div class="mb-3">
+                <label asp-for="DateStart" class="form-label">Ngày bắt đầu</label>
+                <input asp-for="DateStart" type="date" class="form-control" required />
+                <span asp-validation-for="DateStart" class="text-danger"></span>
+            </div>
 
-    <button type="submit" class="btn btn-success">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-</form>
+            <div class="mb-3">
+                <label asp-for="DateEnd" class="form-label">Ngày kết thúc</label>
+                <input asp-for="DateEnd" type="date" class="form-control" required />
+                <span asp-validation-for="DateEnd" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="QuantityAvailable" class="form-label">Số lượng</label>
+                <input asp-for="QuantityAvailable" type="number" class="form-control" required />
+                <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Trạng thái</label>
+                <input type="text" class="form-control" value="Hoạt động" disabled />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save-fill"></i> Lưu
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+

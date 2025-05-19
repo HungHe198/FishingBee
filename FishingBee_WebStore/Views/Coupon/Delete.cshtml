@@ -2,13 +2,26 @@
 
 @{
     ViewData["Title"] = "Xóa Mã Giảm Giá";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Xóa Mã Giảm Giá</h2>
-<p>Bạn có chắc muốn xóa mã "<strong>@Model.Name</strong>"?</p>
+<div class="card shadow mb-4 border-danger">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0"><i class="bi bi-trash-fill"></i> Xác nhận xóa mã giảm giá</h4>
+    </div>
+    <div class="card-body">
+        <p>Bạn có chắc chắn muốn xóa mã <strong>@Model.Name</strong>?</p>
 
-<form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-</form>
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Xóa
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
