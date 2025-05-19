@@ -1,85 +1,55 @@
 ﻿@model Data_FishingBee.Models.Customer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết khách hàng";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Customer</h4>
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-person-lines-fill"></i> Thông tin chi tiết khách hàng</h2>
     <hr />
+
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IDCardNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IDCardNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DoB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DoB)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoyaltyPoints)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoyaltyPoints)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.User)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Email)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FullName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FullName)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IDCardNumber)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.IDCardNumber)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Address)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.DoB)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.DoB)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LoyaltyPoints)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.LoyaltyPoints)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Status)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Status)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedBy)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedTime)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedTime)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.ModifiedBy)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ModifiedTime)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.ModifiedTime)</dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary me-2">
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách
+        </a>
+    </div>
 </div>
