@@ -12,15 +12,16 @@
     foreach (var group in grouped)
     {
         var firstItem = group.First();
-        <div class="container border rounded shadow-sm p-4 mb-4 bg-white">
+        <div class="container border rounded shadow-sm p-4 mb-5 bg-white">
             <div class="row">
                 <!-- Ảnh sản phẩm -->
                 <div class="col-md-5 text-center">
-                    <img src="@firstItem.Product.ProductImages?.FirstOrDefault()?.ImageUrl" alt="Ảnh sản phẩm" class="img-fluid mb-3" style="max-height: 300px; object-fit: contain;" />
-                    <div class="d-flex justify-content-center gap-2">
+                    <img src="@firstItem.Product.ProductImages?.FirstOrDefault()?.ImageUrl" alt="Ảnh sản phẩm" class="img-fluid mb-3 border rounded" style="max-height: 300px; object-fit: contain;" />
+
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
                         @foreach (var img in firstItem.Product.ProductImages)
                         {
-                            <img src="@img.ImageUrl" class="img-thumbnail" style="width: 60px;" />
+                            <img src="@img.ImageUrl" class="img-thumbnail border" style="width: 60px; height: 60px; object-fit: cover;" />
                         }
                     </div>
                 </div>
@@ -29,18 +30,19 @@
                 <div class="col-md-7">
                     <h3 class="fw-bold">@firstItem.Product.Name</h3>
                     <p><strong>Thương hiệu:</strong> @firstItem.Product.Manufacturer?.Name</p>
-                    <p><strong>Trạng thái:</strong> @firstItem.Status</p>
+                    <p><strong>Trạng thái:</strong> @(firstItem.Status == "1" ? "Còn hàng" : "Hết hàng")</p>
 
                     <p><strong>Chọn loại:</strong></p>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         @foreach (var item in group)
                         {
-                            <label class="btn btn-outline-primary p-3 rounded text-center attribute-option" style="min-width: 100px; cursor: pointer;">
+                            <label class="btn btn-outline-primary attribute-option" style="min-width: 100px; cursor: pointer;">
                                 <input type="radio" name="attributeOption-@firstItem.ProductId"
                                        value="@item.Id"
                                        class="d-none"
                                        data-price="@item.Price.ToString("N0")"
-                                       data-product-detail-id="@item.Id" />
+                                       data-product-detail-id="@item.Id"
+                                @(item == firstItem ? "checked" : "") />
                                 <div class="fw-semibold">@item.AttributeValue</div>
                             </label>
                         }
@@ -65,25 +67,25 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            document.querySelectorAll('input[name="attributeOption"]').forEach(btn => {
-                btn.addEventListener('change', function () {
-                    const price = this.getAttribute('data-price');
-                    const detailId = this.getAttribute('data-product-detail-id');
-                    const productId = "@firstItem.ProductId";
-
-                    // Cập nhật giá
-                    document.getElementById('price-display-' + productId).textContent = price;
-
-                    // Cập nhật productDetailId vào form
-                    document.getElementById('selected-product-detail-' + productId).value = detailId;
-                });
-            });
-        </script>
     }
+
+    <script>
+        document.querySelectorAll('.attribute-option input[type="radio"]').forEach(btn => {
+            btn.addEventListener('change', function () {
+                const price = this.getAttribute('data-price');
+                const detailId = this.getAttribute('data-product-detail-id');
+                const productId = this.name.split('-')[1];
+
+                // Cập nhật giá
+                document.getElementById('price-display-' + productId).textContent = price;
+
+                // Cập nhật productDetailId vào form
+                document.getElementById('selected-product-detail-' + productId).value = detailId;
+            });
+        });
+    </script>
 }
 else
 {
-    <p class="text-danger text-center">Không có thông tin sản phẩm.</p>
+    <div class="alert alert-warning text-center mt-4">Không có thông tin sản phẩm.</div>
 }

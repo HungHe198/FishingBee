@@ -57,7 +57,7 @@ namespace Data_FishingBee.Controllers
             {
                 ModelState.AddModelError("DateStart", "Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.");
             }
-            if (coupon.Percent <= 0 || coupon.Percent >= 90)
+            if (coupon.Percent <= 0 || coupon.Percent >= 40)
             {
                 ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 90.");
             }
@@ -120,9 +120,9 @@ namespace Data_FishingBee.Controllers
             }
 
             // Kiểm tra phần trăm giảm
-            if (coupon.Percent <= 0 || coupon.Percent >= 90)
+            if (coupon.Percent <= 0 || coupon.Percent >= 40)
             {
-                ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 90.");
+                ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 40.");
             }
 
             // Kiểm tra số lượng phải lớn hơn 0

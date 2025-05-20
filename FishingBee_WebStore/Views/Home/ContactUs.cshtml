@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+
+<div class="contact_area">
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="contact_message">
+                <h3>Tell us your project</h3>
+                <form id="contact-form" method="POST" action="assets/mail.php">
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <input name="name" placeholder="Name *" type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <input name="email" placeholder="Email *" type="email" class="form-control">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <input name="subject" placeholder="Subject *" type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <input name="phone" placeholder="Phone *" type="text" class="form-control">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <textarea placeholder="Message *" name="message" class="form-control" rows="5"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+            <div class="contact_message contact_info">
+                <h3>Contact us</h3>
+                <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum...</p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-fax"></i> Address: Bệnh viện Thanh Nhàn, Hai Bà Trưng, Hà Nội</li>
+                    <li><i class="fa fa-phone"></i> <a href="#">info@benhvienthanhnhan.vn</a></li>
+                    <li><i class="fa fa-envelope-o"></i> (024) 3971 4363</li>
+                </ul>
+                <h3><strong>Working hours</strong></h3>
+                <p><strong>Monday – Saturday</strong>: 08AM – 22PM</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact_map mt-4">
+    <div class="row">
+        <div class="col-12">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.673022274951!2d105.85718687593162!3d21.0035558806359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac0978ea6dc7%3A0xe5103a9add00b9ed!2zQuG6v24gdsWpbiBUaGFuaCBOaMOibiAodmkgc-G7nyBOaOG6rXQgdGjhuqV5KSAtIEJZVFRO!5e0!3m2!1svi!2s!4v1716093040273!5m2!1svi!2s"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</div>
