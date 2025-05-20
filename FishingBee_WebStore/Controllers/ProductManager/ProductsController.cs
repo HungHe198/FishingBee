@@ -39,10 +39,25 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            // các sản phẩm còn hàng
             var products = _productRepo.GetAllQueryable()
                 .Include(p => p.Manufacturer)
                 .Include(p => p.Category)
-                .ToList();
+                .ToList()
+                .Where(x=>x.Status == "1");
+            return View(products);
+        }
+        public async Task<IActionResult> InactiveProducts()
+        {
+            // các sản phẩm đã ngừng bán hàng
+            //0 : ngừng đã xóa
+            //1: đang bán
+            //2 hoặc bất cứ trạng thái bất thường nào kh: ngừng bán
+            var products = _productRepo.GetAllQueryable()
+                .Include(p => p.Manufacturer)
+                .Include(p => p.Category)
+                .ToList()
+                .Where(x=>x.Status != "1" && x.Status !="0");
             return View(products);
         }
 
@@ -181,24 +196,24 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(Guid? id)
+        //{
+        //    if (!id.HasValue)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var product = await _productRepo.GetById(id.Value);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //    var product = await _productRepo.GetById(id.Value);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("/Products/DeleteConfirmed/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
@@ -206,9 +221,10 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             if (product != null)
             {
                 await _productRepo.Delete(id);
+                return Ok(); // Trả về 200 nếu xóa thành công
             }
 
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
         public ActionResult GetFirstProductImage(Guid manuID, Guid productid)
         {
