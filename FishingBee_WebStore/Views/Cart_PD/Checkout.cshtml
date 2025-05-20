@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán đơn hàng";
+}
+
+<h2>Thông tin đặt hàng</h2>
+
+<form asp-action="Checkout" method="post" class="form-horizontal">
+
+    <div class="form-group mb-3">
+        <label for="customerName" class="form-label">Họ tên người nhận</label>
+        <input type="text" class="form-control" id="customerName" name="customerName" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="customerPhone" class="form-label">Số điện thoại</label>
+        <input type="tel" class="form-control" id="customerPhone" name="customerPhone" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="customerAddress" class="form-label">Địa chỉ nhận hàng</label>
+        <textarea class="form-control" id="customerAddress" name="customerAddress" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="paymentMethod" class="form-label">Phương thức thanh toán</label>
+        <select class="form-select" id="paymentMethod" name="paymentMethod" required>
+            <option value="">-- Chọn phương thức --</option>
+            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+            @* <option value="Banking">Chuyển khoản ngân hàng</option>
+            <option value="VNPay">Thanh toán qua VNPay</option> *@
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Xác nhận đặt hàng</button>
+    <a asp-controller="Cart_PD" asp-action="Index" class="btn btn-secondary ms-2">Quay lại giỏ hàng</a>
+
+</form>

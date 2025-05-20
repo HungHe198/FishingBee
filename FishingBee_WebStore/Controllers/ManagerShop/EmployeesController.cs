@@ -67,7 +67,7 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
         public async Task<IActionResult> Create(Employee employee, string userName, string passWord, string email)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 // 1. Tạo User mới
                 var userId = Guid.NewGuid();
