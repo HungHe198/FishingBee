@@ -6,12 +6,10 @@
     var categories = ViewBag.Categories as List<Data_FishingBee.Models.Category>;
     var brands = ViewBag.Manufacturers as List<Data_FishingBee.Models.Manufacturer>;
 }
-
 <div class="container">
-   <div class="row">
-        <div class="col">
-
-            <!-- Sidebar -->
+    <div class="row">
+        <!-- Sidebar - chiếm 3 cột -->
+        <div class="col-md-3">
             <div>
                 <h4>Danh mục</h4>
                 <ul class="list-unstyled">
@@ -39,11 +37,10 @@
                     }
                 </ul>
             </div>
-
-            <!-- Main Content -->
-
         </div>
-        <div class="col">
+
+        <!-- Main content - chiếm 9 cột -->
+        <div class="col-md-9">
             <div class="features_items">
                 <h2 class="title text-center">Loại Sản Phẩm</h2>
                 @if (Model != null && Model.Any())
@@ -51,7 +48,7 @@
                     <div class="row">
                         @foreach (var item in Model)
                         {
-                            <div class="col-2">
+                            <div class="col-md-3 mb-3">
                                 <div class="product-image-wrapper">
                                     <div class="single-product">
                                         <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
@@ -80,9 +77,9 @@
                 @if (Model != null && Model.Any())
                 {
                     <div class="row">
-                        @foreach (var item in Model.Take(4)) @* Lấy top 4 làm ví dụ *@
+                        @foreach (var item in Model.Take(4))
                         {
-                            <div class="col-sm-2">
+                            <div class="col-md-3 mb-3">
                                 <div class="product-image-wrapper">
                                     <div class="single-product">
                                         <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
@@ -104,5 +101,6 @@
                 }
             </div>
         </div>
-   </div>
+    </div>
 </div>
+

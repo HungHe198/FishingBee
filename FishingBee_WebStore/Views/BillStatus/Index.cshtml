@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Data_FishingBee.Models.Bill>
+
+@{
+    ViewData["Title"] = "Quản lý hóa đơn";
+    var currentStatus = ViewBag.SelectedStatus as string;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="get" class="mb-3">
+    <label for="status">Lọc theo trạng thái: </label>
+    <select name="status" id="status" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+        <option value="">-- Tất cả --</option>
+        <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
+        <option value="1" selected="@(currentStatus == "0")">Chờ xác nhận</option>
+        <option value="2" selected="@(currentStatus == "0")">Đang vận chuyển</option>
+        <option value="3" selected="@(currentStatus == "0")">Đã hủy</option>
+        <option value="4" selected="@(currentStatus == "0")">Hoàn trả tiền</option>
+    </select>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã hóa đơn</th>
+            <th>Khách hàng</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Thời gian tạo</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.Any())
+    {
+        foreach (var bill in Model)
+        {
+            <tr>
+                <td>@bill.InvoiceCode</td>
+                <td>@bill.CustomerName</td>
+                <td>@bill.TotalPrice.ToString("n0") ₫</td>
+                <td>@RenderStatus(bill.Status)</td>
+                <td>@bill.CreatedTime?.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr><td colspan="5" class="text-center text-muted">Không có hóa đơn nào</td></tr>
+    }
+    </tbody>
+</table>
+
+@functions {
+    string RenderStatus(string? status)
+    {
+        return status switch
+        {
+            "0" => "Giao thành công",
+            "1" => "Chờ xác nhận",
+            "2" => "Đang vận chuyển",
+            "3" => "Đã hủy",
+            "4" => "Hoàn trả tiền",
+            _ => "Không xác định"
+        };
+    }
+}
