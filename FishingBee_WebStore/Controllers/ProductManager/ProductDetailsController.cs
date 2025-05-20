@@ -35,5 +35,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             }
             return View(productDetails);
         }
+      
+
     }
 }

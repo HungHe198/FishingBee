@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Create</h1>
@@ -13,9 +14,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+                <label class="control-label">Sản phẩm</label>
+                <input type="text" class="form-control" value="@Model.Product?.Name" readonly />
+                <input type="hidden" asp-for="ProductId" />
             </div>
+
             <div class="form-group">
                 <label asp-for="CreatedBy" class="control-label"></label>
                 <input asp-for="CreatedBy" class="form-control" />
@@ -46,13 +49,11 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
                 <label asp-for="AttributeValue" class="control-label"></label>
                 <input asp-for="AttributeValue" class="form-control" />
                 <span asp-validation-for="AttributeValue" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />

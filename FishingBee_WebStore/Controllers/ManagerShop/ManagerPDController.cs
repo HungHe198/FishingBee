@@ -34,7 +34,30 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
                 .Where(x=>x.ProductId == productId);
             return View(await fishingBeeDbContext.ToListAsync());
         }
+        [HttpGet]
+        public async Task<IActionResult> Create(Guid productId)
+        {
+            var model = new ProductDetail
+            {
+                ProductId = productId,
+                Status = "1"
+            };
 
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name");
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductDetail model)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
+            model.Id = Guid.NewGuid(); // Nếu không dùng auto-ID trong DB
+            await _productDetailRepo.Create(model);
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
+            return RedirectToAction("Index", "ManagerPD", new { productId = model.ProductId });
+
+        }
         //// GET: ManagerPD/Details/5
         //public async Task<IActionResult> Details(Guid? id)
         //{
@@ -167,7 +190,7 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
         //    {
         //        _context.ProductDetails.Remove(productDetail);
         //    }
-            
+
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction(nameof(Index));
         //}

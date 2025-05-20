@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Data_FishingBee.Models.Category>
+
+<ul class="list-group">
+    @foreach (var category in Model)
+    {
+        <li class="list-group-item">
+            <a href="@Url.Action("ListOfCategory", "Product", new { categoryId = category.Id })" class="text-decoration-none">
+                @category.Name
+            </a>
+        </li>
+    }
+</ul>

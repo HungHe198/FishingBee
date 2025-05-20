@@ -20,13 +20,15 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         private readonly IAllRepositories<Category> _categoryRepo;
         private readonly IAllRepositories<Manufacturer> _manufacturerRepo;
         private readonly IWebHostEnvironment _env;
+        private readonly IProductsRepositories _productCRepo;
         public ProductsController(
             IAllRepositories<Product> productRepo,
             IAllRepositories<Category> categoryRepo,
             IAllRepositories<Manufacturer> manufacturerRepo,
             IWebHostEnvironment env,
             IAllRepositories<ProductDetail> productDetailRepo,
-            IAllRepositories<ProductImage> productImageRepo)
+            IAllRepositories<ProductImage> productImageRepo,
+            IProductsRepositories productCRepo)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
@@ -34,6 +36,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             _env = env;
             _productDetailRepo = productDetailRepo;
             _productImageRepo = productImageRepo;
+            _productCRepo = productCRepo;
         }
 
         // GET: Products
@@ -239,6 +242,11 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 return Content(product.ImageUrl); // Trả về URL ảnh
             }
             return NotFound("Không tìm thấy sản phẩm.");
+        }
+        public async Task<IActionResult> ListOfCategory(Guid categoryId)
+        {
+            var products = await _productCRepo.GetAllByCategoryIdAsync(categoryId);
+            return View(products); // truyền danh sách sản phẩm sang View
         }
     }
 

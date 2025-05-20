@@ -2,87 +2,107 @@
 @{
     ViewData["Title"] = "PRO131_FishingBee";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var categories = ViewBag.Categories as List<Data_FishingBee.Models.Category>;
+    var brands = ViewBag.Manufacturers as List<Data_FishingBee.Models.Manufacturer>;
 }
-<div class="col-sm-3">
-    <partial name="_SidebarPartial" />
-</div>
-<div class="col-sm-9 padding-right">
-    <div class="features_items">
-        <h2 class="title text-center"> Loại Sản Phẩm </h2>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var item in Model)
-            {
-                <div class="col-sm-3">
-                    <div class="product-image-wrapper">
-                        <div class="single-product">
-                            @* Chuyển đến trang tạo thành bởi list các đối tượng có trùng id product với các bản ghi là của ProductDetail *@
-                            <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
-                                <div class="productinfo text-center">
-                                    <img src="@item.ImageUrl" width="100px" height="200px" />
-                                    <h2>@item.MinPrice</h2>
-                                    <p>@item.Name</p>
+
+<div class="container">
+   <div class="row">
+        <div class="col">
+
+            <!-- Sidebar -->
+            <div>
+                <h4>Danh mục</h4>
+                <ul class="list-unstyled">
+                    @if (categories != null && categories.Any())
+                    {
+                        foreach (var cat in categories)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Home", new { categoryId = cat.Id })">@cat.Name</a>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                <h4>Hãng sản xuất</h4>
+                <ul class="list-unstyled">
+                    @if (brands != null && brands.Any())
+                    {
+                        foreach (var brand in brands)
+                        {
+                            <li>
+                                <a href="#">@brand.Name</a> @* Bạn có thể thêm lọc theo brand sau *@
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+
+        </div>
+        <div class="col">
+            <div class="features_items">
+                <h2 class="title text-center">Loại Sản Phẩm</h2>
+                @if (Model != null && Model.Any())
+                {
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-2">
+                                <div class="product-image-wrapper">
+                                    <div class="single-product">
+                                        <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
+                                            <div class="productinfo text-center">
+                                                <img src="@item.ImageUrl" width="100px" height="200px" />
+                                                <h2>@item.MinPrice</h2>
+                                                <p>@item.Name</p>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        }
                     </div>
-                </div>
-            }
-        }
-        else
-        {
-            <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
-        }
-    </div>
+                }
+                else
+                {
+                    <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
+                }
+            </div>
 
-</div>
-<div class="col-sm-9 padding-right">
-    <div class="features_items">
-        <h2 class="title text-center"> Sản Phẩm Ưa Thích </h2>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var item in Model)
-            {
-                <div class="col-sm-2">
-                    <div class="product-image-wrapper">
-                        <div class="single-product">
-                            @* Chuyển đến trang tạo thành bởi list các đối tượng có trùng id product với các bản ghi là của ProductDetail *@
-                            <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
-                                <div class="productinfo text-center">
-                                    <img src="@item.ImageUrl" width="100px" height="200px" />
-                                    <h2>@item.MinPrice</h2>
-                                    <p>@item.Name</p>
+            <hr />
+
+            <div class="features_items">
+                <h2 class="title text-center">Sản Phẩm Ưa Thích</h2>
+                @if (Model != null && Model.Any())
+                {
+                    <div class="row">
+                        @foreach (var item in Model.Take(4)) @* Lấy top 4 làm ví dụ *@
+                        {
+                            <div class="col-sm-2">
+                                <div class="product-image-wrapper">
+                                    <div class="single-product">
+                                        <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
+                                            <div class="productinfo text-center">
+                                                <img src="@item.ImageUrl" width="100px" height="200px" />
+                                                <h2>@item.MinPrice</h2>
+                                                <p>@item.Name</p>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        }
                     </div>
-                </div>
-            }
-        }
-        else
-        {
-            <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
-        }
-    </div>
-
+                }
+                else
+                {
+                    <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
+                }
+            </div>
+        </div>
+   </div>
 </div>
-@* <div class="col-sm-3">
-    <partial name="" />
-</div>
- *@
-@* <div>
-    <button id="checkSessionBtn" class="btn btn-primary">Kiểm tra Session</button>
-
-    <p id="sessionStatus" class="text-info"></p>
-</div> *@
-
-<script>
-    document.getElementById("checkSessionBtn").addEventListener("click", function () {
-        fetch("/Home/CheckSession")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("sessionStatus").innerText = "CartId: " + data;
-            })
-            .catch(error => console.error("Lỗi kiểm tra session:", error));
-    });
-</script>

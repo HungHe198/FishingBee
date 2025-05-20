@@ -24,6 +24,7 @@ builder.Services.AddSession();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IProductsRepositories, ProductsRepositories>();
 //builder.Services.AddScoped<IAllRepositories<ProductDetail>, AllRepositories<ProductDetail>>();
 //var entityTypes = new Type[]
 //{
@@ -105,6 +106,6 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Products}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

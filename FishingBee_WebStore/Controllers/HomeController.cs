@@ -14,36 +14,72 @@ namespace FishingBee_WebStore.Controllers
         private readonly FishingBeeDbContext _context;
         private readonly IAllRepositories<Product> _repoP;
         private readonly IAllRepositories<ProductDetail> _repoPD;
-        public HomeController(ILogger<HomeController> logger, IAllRepositories<Product> repoP, IAllRepositories<ProductDetail> repoPD, FishingBeeDbContext context)
+        private readonly IAllRepositories<Category> _categoryRepo;
+        private readonly IAllRepositories<Manufacturer> _manufacturerRepo;
+        public HomeController(ILogger<HomeController> logger, IAllRepositories<Product> repoP, IAllRepositories<ProductDetail> repoPD, FishingBeeDbContext context, IAllRepositories<Category> categoryRepo, IAllRepositories<Manufacturer> manufacturerRepo)
         {
             _logger = logger;
             _repoP = repoP;
             _repoPD = repoPD;
             _context = context;
+            _categoryRepo = categoryRepo;
+            _manufacturerRepo = manufacturerRepo;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var products = await _context.Products
-        .Select(p => new
-        {
-            Product = p,
-            MinPrice = p.ProductDetails.Any() ? p.ProductDetails.Min(pd => pd.Price) : 0
-        })
-        .ToListAsync();
+        //public async Task<IActionResult> Index()
+        //{
+        //    var products = await _context.Products
+        //.Select(p => new
+        //{
+        //    Product = p,
+        //    MinPrice = p.ProductDetails.Any() ? p.ProductDetails.Min(pd => pd.Price) : 0
+        //})
+        //.ToListAsync();
 
-            // Chuyển dữ liệu thành ViewModel hoặc Dictionary để dùng trong View
+        //    // Chuyển dữ liệu thành ViewModel hoặc Dictionary để dùng trong View
+        //    var productList = products.Select(p => new ProductViewModel
+        //    {
+        //        Id = p.Product.Id,
+        //        Name = p.Product.Name ?? "Vô danh",
+        //        ImageUrl = "https://my-test-11.slatic.net/p/338434611ea393cd207546c55b0b996f.jpg", // Cập nhật ảnh nếu có
+        //        MinPrice = p.MinPrice
+        //    }).ToList();
+
+        //    return View(productList);
+
+        //}
+
+        public async Task<IActionResult> Index(Guid? categoryId)
+        {
+            var categories = await _categoryRepo.GetAll();
+            var manufacturers = await _manufacturerRepo.GetAll();
+
+            var products = await _context.Products
+                .Where(p => !categoryId.HasValue || p.CategoryId == categoryId)
+                .Where(p => p.ProductDetails.Any(pd => pd.Status == "1" && pd.Stock > 0 && pd.Price >= 0))
+                .Select(p => new
+                {
+                    Product = p,
+                    MinPrice = p.ProductDetails
+                        .Where(pd => pd.Status == "1" && pd.Stock > 0 && pd.Price >= 0)
+                        .Min(pd => pd.Price)
+                })
+                .ToListAsync();
+
             var productList = products.Select(p => new ProductViewModel
             {
                 Id = p.Product.Id,
                 Name = p.Product.Name ?? "Vô danh",
-                ImageUrl = "https://my-test-11.slatic.net/p/338434611ea393cd207546c55b0b996f.jpg", // Cập nhật ảnh nếu có
+                ImageUrl = "https://example.com/img.jpg",
                 MinPrice = p.MinPrice
             }).ToList();
 
-            return View(productList);
+            ViewBag.Categories = categories;
+            ViewBag.Manufacturers = manufacturers;
 
+            return View(productList);
         }
+
 
         public IActionResult Privacy()
         {
