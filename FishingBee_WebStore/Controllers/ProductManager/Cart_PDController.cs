@@ -12,14 +12,17 @@ namespace FishingBee_WebStore.Controllers
         private readonly IAllRepositories<Cart_PD> _repoCartPD;
         private readonly IAllRepositories<Cart> _repoCart;
         private readonly IAllRepositories<ProductDetail> _repoPD;
+        private readonly IAllRepositories<Bill> _repoBill;
+        private readonly IAllRepositories<BillDetail> _repoBillDetail;
 
-        public Cart_PDController(IAllRepositories<Cart_PD> repoCartPD, IAllRepositories<Cart> repoCart, IAllRepositories<ProductDetail> repoPD)
+        public Cart_PDController(IAllRepositories<Cart_PD> repoCartPD, IAllRepositories<Cart> repoCart, IAllRepositories<ProductDetail> repoPD, IAllRepositories<Bill> repoBill, IAllRepositories<BillDetail> repoBillDetail)
         {
             _repoCartPD = repoCartPD;
             _repoCart = repoCart;
             _repoPD = repoPD;
+            _repoBill = repoBill;
+            _repoBillDetail = repoBillDetail;
         }
-
         // GET: Cart_PD
         public async Task<IActionResult> Index()
         {
@@ -166,5 +169,110 @@ namespace FishingBee_WebStore.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            // Kiểm tra đã đăng nhập chưa
+            var customerIdJson = HttpContext.Session.GetString("CustomerId");
+            if (string.IsNullOrEmpty(customerIdJson))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(); // Trả về view cho người dùng nhập thông tin
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(string customerName, string customerPhone, string customerAddress, string paymentMethod)
+        {
+            // Lấy CustomerId từ session
+            var customerIdJson = HttpContext.Session.GetString("CustomerId");
+            if (string.IsNullOrEmpty(customerIdJson))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var customerId = Guid.Parse(customerIdJson);
+
+            // Lấy Cart của Customer
+            var cart = _repoCart.GetAllQueryable().FirstOrDefault(c => c.CustomerId == customerId);
+            if (cart == null)
+            {
+                return BadRequest("Giỏ hàng không tồn tại.");
+            }
+
+            var cartItems = _repoCartPD.GetAllQueryable()
+                .Where(x => x.CartId == cart.Id && x.Status == 1) // status 1: đang trong giỏ
+                .ToList();
+
+            if (!cartItems.Any())
+            {
+                return BadRequest("Không có sản phẩm trong giỏ.");
+            }
+
+            // Tính tổng giá
+            decimal totalPrice = 0;
+            foreach (var item in cartItems)
+            {
+                var product = _repoPD.GetAllQueryable().FirstOrDefault(p => p.Id == item.ProductDetailId);
+                if (product != null)
+                {
+                    totalPrice += product.Price * item.Quantity;
+                }
+            }
+
+            // Tạo đơn hàng (Bill)
+            var newBill = new Bill
+            {
+                Id = Guid.NewGuid(),
+                CustomerId = customerId,
+                CreatedTime = DateTime.Now,
+                Status = "1", // 1 = chờ xác nhận
+                InvoiceCode = "HD" + DateTime.Now.Ticks,
+                TotalPrice = totalPrice,
+                CustomerName = customerName,
+                CustomerPhone = customerPhone,
+                CustomerAddress = customerAddress,
+                PaymentMethod = paymentMethod
+            };
+
+            // Tạo chi tiết đơn hàng (BillDetails)
+            var billDetails = new List<BillDetail>();
+            foreach (var item in cartItems)
+            {
+                var product = _repoPD.GetAllQueryable().FirstOrDefault(p => p.Id == item.ProductDetailId);
+                if (product != null)
+                {
+                    var detail = new BillDetail
+                    {
+                        Id = Guid.NewGuid(),
+                        BillId = newBill.Id,
+                        ProductDetailId = item.ProductDetailId,
+                        UnitPrice = product.Price,
+                        Amount = item.Quantity,
+                        CreatedTime = DateTime.Now
+                    };
+                    billDetails.Add(detail);
+                }
+            }
+            newBill.BillDetails = billDetails;
+
+            // Lưu đơn hàng vào DB
+            await _repoBill.Create(newBill); // _repoBill là repo Bill
+            foreach (var detail in billDetails)
+            {
+                await _repoBillDetail.Create(detail); // _repoBillDetail là repo BillDetail
+            }
+
+            // Xóa sản phẩm khỏi giỏ sau khi đặt hàng
+            foreach (var item in cartItems)
+            {
+                await _repoCartPD.Delete(item.Id);
+            }
+
+            return RedirectToAction("Index", "Bill");
+        }
+
     }
 }
