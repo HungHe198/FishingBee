@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Data_FishingBee.Models.Product>
+
+<h2>Sản phẩm theo hãng</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Hãng</th>
+            <th>Nhà sản xuất</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Category?.Name</td>
+                <td>@product.Manufacturer?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
