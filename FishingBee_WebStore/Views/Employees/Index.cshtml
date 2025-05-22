@@ -1,8 +1,17 @@
-﻿@model IEnumerable<Data_FishingBee.Models.Employee>
+﻿
+@model IEnumerable<Data_FishingBee.Models.Employee>
 
 @{
     ViewData["Title"] = "Nhân viên";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
