@@ -40,7 +40,7 @@ namespace Data_FishingBee.Models
         public decimal Price { get; set; }
 
         [Display(Name = "Tồn kho")]
-        public decimal Stock { get; set; }
+        public int Stock { get; set; }
 
         // Navigation Property
         [Display(Name = "Chi tiết hóa đơn")]
