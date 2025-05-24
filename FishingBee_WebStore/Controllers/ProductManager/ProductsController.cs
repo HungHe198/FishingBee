@@ -40,15 +40,24 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string status)
         {
-            // các sản phẩm còn hàng
-            var products = _productRepo.GetAllQueryable()
-                .Include(p => p.Manufacturer)
-                .Include(p => p.Category)
-                .ToList()
-                .Where(x=>x.Status == "1");
-            return View(products);
+            var query = _productRepo.GetAllQueryable()
+                        .Include(p => p.Manufacturer)
+                        .Include(p => p.Category);
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                var products = query.Where(x => x.Status == status).ToList();
+                return View(products);
+            }
+            else {
+                var result = await query.ToListAsync();
+                ViewBag.CurrentStatus = status;
+                return View(result);
+            }
+
+            
         }
         public async Task<IActionResult> InactiveProducts()
         {
@@ -60,7 +69,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 .Include(p => p.Manufacturer)
                 .Include(p => p.Category)
                 .ToList()
-                .Where(x=>x.Status != "1" && x.Status !="0");
+                .Where(x => x.Status != "1");
             return View(products);
         }
 
