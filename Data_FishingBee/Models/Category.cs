@@ -29,8 +29,7 @@ namespace Data_FishingBee.Models
         [Display(Name = "Mô tả")]
         public string? Description { get; set; }
 
-        [Display(Name = "Đơn giá")]
-        public decimal Price { get; set; } // Giả sử bạn đã thêm field này
+       
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }
