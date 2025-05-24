@@ -55,6 +55,7 @@ namespace FishingBee_WebStore.Controllers
             var manufacturers = await _manufacturerRepo.GetAll();
 
             var products = await _context.Products
+                .Include(p => p.ProductImages)
                 .Where(p => !categoryId.HasValue || p.CategoryId == categoryId)
                 .Where(p => p.ProductDetails.Any(pd => pd.Status == "1" && pd.Stock > 0 && pd.Price >= 0))
                 .Select(p => new
@@ -62,7 +63,13 @@ namespace FishingBee_WebStore.Controllers
                     Product = p,
                     MinPrice = p.ProductDetails
                         .Where(pd => pd.Status == "1" && pd.Stock > 0 && pd.Price >= 0)
-                        .Min(pd => pd.Price)
+                        .Min(pd => pd.Price),
+                    //ImageUrl = p.ProductImages.FirstOrDefault().ImageUrl
+                    ImageUrl = p.ProductImages.FirstOrDefault() != null
+                             ? p.ProductImages.First().ImageUrl
+                             : "/images/default/default.jpg"
+                    // nếu null trả về wwwroot\images\default\default.jpg
+
                 })
                 .ToListAsync();
 
@@ -70,7 +77,7 @@ namespace FishingBee_WebStore.Controllers
             {
                 Id = p.Product.Id,
                 Name = p.Product.Name ?? "Vô danh",
-                ImageUrl = "https://example.com/img.jpg",
+                ImageUrl = p.ImageUrl?.ToString() ?? string.Empty,
                 MinPrice = p.MinPrice
             }).ToList();
 
