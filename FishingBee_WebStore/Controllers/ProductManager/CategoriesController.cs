@@ -15,6 +15,11 @@ namespace FishingBee_WebStore.Controllers.ProductManager
     {
         private readonly IAllRepositories<Category> _repo;
 
+        public CategoriesController(IAllRepositories<Category> repo)
+        {
+            _repo = repo;
+        }
+
 
 
         // GET: Categories
