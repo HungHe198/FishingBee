@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,15 +29,31 @@ namespace Data_FishingBee.Models
         public Guid Id { get; set; }  // Khóa chính riêng của Admin
         public Guid UserId { get; set; }  // Khóa ngoại tham chiếu đến User.Id
 
+        [Display(Name = "Họ và tên")]
         public string? FullName { get; set; }
+
+        [Display(Name = "Phân quyền")]
         public string? Permissions { get; set; }
+
+        [Display(Name = "Trạng thái")]
         public string? Status { get; set; }
+
+        [Display(Name = "Mô tả")]
         public string? Descriptions { get; set; }
+
+        [Display(Name = "Loại người dùng")]
         public string? UserType { get; set; }
 
+        [Display(Name = "Thời gian tạo")]
         public DateTime? CreatedTime { get; set; }
+
+        [Display(Name = "Người tạo")]
         public Guid? CreatedBy { get; set; }
+
+        [Display(Name = "Thời gian sửa")]
         public DateTime? ModifiedTime { get; set; }
+
+        [Display(Name = "Người sửa")]
         public Guid? ModifiedBy { get; set; }
 
         // Navigation Property

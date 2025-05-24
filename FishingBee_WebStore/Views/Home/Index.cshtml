@@ -7,9 +7,9 @@
     var brands = ViewBag.Manufacturers as List<Data_FishingBee.Models.Manufacturer>;
 }
 <div class="container">
-    <div class="row">
+    <div class="d-flex row">
         <!-- Sidebar - chiếm 3 cột -->
-        <div class="col-md-3">
+        <div class="d-flex col-sm-3">
             <div>
                 <h4>Danh mục</h4>
                 <ul class="list-unstyled">
@@ -40,38 +40,7 @@
         </div>
 
         <!-- Main content - chiếm 9 cột -->
-        <div class="col-md-9">
-            <div class="features_items">
-                <h2 class="title text-center">Loại Sản Phẩm</h2>
-                @if (Model != null && Model.Any())
-                {
-                    <div class="row">
-                        @foreach (var item in Model)
-                        {
-                            <div class="col-md-3 mb-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-product">
-                                        <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
-                                            <div class="productinfo text-center">
-                                                <img src="@item.ImageUrl" width="100px" height="200px" />
-                                                <h2>@item.MinPrice</h2>
-                                                <p>@item.Name</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
-                }
-            </div>
-
-            <hr />
-
+        <div class="d-flex col-sm-9">
             <div class="features_items">
                 <h2 class="title text-center">Sản Phẩm Ưa Thích</h2>
                 @if (Model != null && Model.Any())
@@ -100,6 +69,37 @@
                     <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
                 }
             </div>
+            <div class="features_items">
+                <h2 class="title text-center">Tất cả sản phẩm</h2>
+                @if (Model != null && Model.Any())
+                {
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-sm-3  mb-1">
+                                <div class="product-image-wrapper">
+                                    <div class="single-product">
+                                        <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
+                                            <div class="productinfo text-center">
+                                                <img src="@item.ImageUrl" style="aspect-ratio: 1/1; width: 150px; object-fit: cover;" />
+                                                <h2>@item.MinPrice</h2>
+                                                <p>@item.Name</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
+                }
+            </div>
+
+
+          
         </div>
     </div>
 </div>

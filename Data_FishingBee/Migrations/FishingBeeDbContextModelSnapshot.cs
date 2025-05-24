@@ -68,13 +68,13 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("048e6b5c-8fab-4ca8-a328-895f0818731c"),
+                            Id = new Guid("bf28ec55-c84a-4a49-b368-6139aa3d0a6e"),
                             CreatedTime = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descriptions = "Default Admin",
                             FullName = "Super Admin",
                             Permissions = "All",
                             Status = "Active",
-                            UserId = new Guid("d35ff1f8-6332-4c1f-9142-861e6ab88db4"),
+                            UserId = new Guid("7dd059bf-27d2-4033-9477-18584bc353db"),
                             UserType = "Admin"
                         });
                 });
@@ -318,6 +318,9 @@ namespace Data_FishingBee.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
@@ -328,58 +331,66 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5719),
+                            Id = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3482),
                             Name = "Cần câu đài",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("26d334d0-39e3-4c60-80fe-60c457392b00"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5721),
+                            Id = new Guid("cf6e62ac-4fd0-4438-b876-9a0de4e77d0b"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3483),
                             Name = "Trục",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("6390dc9c-e693-486e-89b0-b7f865b1bc91"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5722),
+                            Id = new Guid("4e2b4d41-0060-42d9-a54a-b5da5771811c"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3484),
                             Name = "Thẻo",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("2d6825ed-d237-42a9-a2a9-a0993ff5ac03"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5722),
+                            Id = new Guid("065798d8-526a-430d-97e8-91a11d04d9bd"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3486),
                             Name = "Phao",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("57c0d604-7693-460c-b4d8-44435b4cd1f0"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5723),
+                            Id = new Guid("e2c380fd-13a2-4473-82e7-e21866ad67c1"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3487),
                             Name = "Thùng câu",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("cbe5277e-2605-4b2f-a474-e3de461b467a"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5724),
+                            Id = new Guid("1c871b76-5406-4e5c-858b-1a6f58da3222"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3487),
                             Name = "Giọ",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("8053e463-9cfd-48b7-9d68-dc76a3835a77"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5725),
+                            Id = new Guid("52c91292-788c-4b97-91db-edbf03074370"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3491),
                             Name = "Mồi",
+                            Price = 0m,
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("e69dcfbf-28e5-4743-ab4c-708878339dc0"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5726),
+                            Id = new Guid("4015f7d9-a4d9-49cd-ad44-c0a3efe6142b"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3492),
                             Name = "Gác cần",
+                            Price = 0m,
                             Status = "Active"
                         });
                 });
@@ -754,36 +765,36 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5691),
+                            Id = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3448),
                             Name = "Barfilon",
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("eb51ecfa-f91f-4f9e-a7ba-1f4a5d2c4da4"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5698),
+                            Id = new Guid("5ba1c811-26e6-468e-9743-b9e6f33a5540"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3461),
                             Name = "Rice Fishing",
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("73f4b20e-3a51-4c27-917b-43f5a8fcc0c8"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5699),
+                            Id = new Guid("c1ddb803-69b3-46f1-9e0b-f0374119fa95"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3462),
                             Name = "Handing",
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("0d900334-0bbe-445b-833a-ef48020c58ed"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5700),
+                            Id = new Guid("58b1a6ae-4ed4-4f1a-91ae-d82d4e872123"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3463),
                             Name = "Guide",
                             Status = "Active"
                         },
                         new
                         {
-                            Id = new Guid("af52ca08-7973-4f91-b029-4a0e423e662f"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5701),
+                            Id = new Guid("a52014c2-e819-417a-950c-970a8e14e3ea"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3464),
                             Name = "Gamma Seiko",
                             Status = "Active"
                         });
@@ -893,55 +904,55 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("af5e4dac-4b9e-4a0b-9c81-e3c1166f6474"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5741),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("1919f6b1-1105-4cb9-b276-bda4a18ed4b9"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3508),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Barfilon Vân Trung Nguyệt",
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("2cbc0b63-d601-49ea-9e6c-ab104b980b4e"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5743),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("6d276253-589f-4ebb-abea-c211fd10585f"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3510),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Gamma Seiko Bạch Kim",
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("da3cb92e-8bb9-4590-89c4-9bc51dc12d83"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5744),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("7a718056-8c66-44c0-ade6-e2d3be872479"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3511),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Handing Thiết Sa",
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("bd0cf1ac-f9c3-4b41-b6d3-20beedd6e836"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5745),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("27d9700e-6ba9-4fe2-a5a6-c7e38f259698"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3512),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Guide Lục Mạch Thần Kiếm",
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("25df4540-681d-4d22-88db-175c9964aa08"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5746),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("78fc0e45-a977-4b4e-a23a-a1f92f5c53d2"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3513),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Guide Thánh Hỏa Lệnh",
                             Status = "Available"
                         },
                         new
                         {
-                            Id = new Guid("9852b21c-2db0-4fc0-bf15-58fbb7e078dd"),
-                            CategoryId = new Guid("bd882132-b8dc-405f-af86-c7b40f26e6c7"),
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5747),
-                            ManufacturerId = new Guid("ffe1da49-1cc9-4312-8190-743f4f571369"),
+                            Id = new Guid("5da891ea-6cac-43cc-ba65-85da35c2afca"),
+                            CategoryId = new Guid("e620725a-6fa9-4803-9c01-b503541fc6f0"),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3513),
+                            ManufacturerId = new Guid("4c294187-03b8-41a3-8e0f-ff099949887a"),
                             Name = "Rice V5 Silver Carp",
                             Status = "Available"
                         });
@@ -992,71 +1003,71 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("899f5b09-cf01-45dc-a72a-854c65cc9742"),
+                            Id = new Guid("d1055c89-d762-4266-b36b-5bef89217ad6"),
                             AttributeValue = "631",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5760),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3534),
                             Price = 1.599m,
-                            ProductId = new Guid("af5e4dac-4b9e-4a0b-9c81-e3c1166f6474"),
+                            ProductId = new Guid("1919f6b1-1105-4cb9-b276-bda4a18ed4b9"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("649fcc28-41c6-4de3-95ed-2760f91b67d3"),
+                            Id = new Guid("343754eb-6cd7-4194-a4e0-de2880ffc0b9"),
                             AttributeValue = "63",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5763),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3536),
                             Price = 2.300m,
-                            ProductId = new Guid("af5e4dac-4b9e-4a0b-9c81-e3c1166f6474"),
+                            ProductId = new Guid("1919f6b1-1105-4cb9-b276-bda4a18ed4b9"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("76df0ec5-4b61-4bd8-9482-96ab09b7830b"),
+                            Id = new Guid("6c97f1c7-6ee2-4173-b6f0-47334d10cc85"),
                             AttributeValue = "62",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5770),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3538),
                             Price = 1.123m,
-                            ProductId = new Guid("2cbc0b63-d601-49ea-9e6c-ab104b980b4e"),
+                            ProductId = new Guid("6d276253-589f-4ebb-abea-c211fd10585f"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("043fbd80-568d-4278-acc3-a8987546d828"),
+                            Id = new Guid("d67b6a4f-b528-43ea-afb0-73a875f9aed4"),
                             AttributeValue = "1",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5771),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3539),
                             Price = 2.300m,
-                            ProductId = new Guid("af5e4dac-4b9e-4a0b-9c81-e3c1166f6474"),
+                            ProductId = new Guid("1919f6b1-1105-4cb9-b276-bda4a18ed4b9"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("59cc20e5-526a-43a2-97a7-486c9179d502"),
+                            Id = new Guid("e78da927-954f-4be7-a684-ea23cc2b80cf"),
                             AttributeValue = "632",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5773),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3541),
                             Price = 1.123m,
-                            ProductId = new Guid("2cbc0b63-d601-49ea-9e6c-ab104b980b4e"),
+                            ProductId = new Guid("6d276253-589f-4ebb-abea-c211fd10585f"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("f506def5-19e3-4bc9-b0bf-83931d91e96f"),
+                            Id = new Guid("9c243aba-5956-42c8-bbdd-dc7ac40f1b51"),
                             AttributeValue = "6333",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5774),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3542),
                             Price = 2.300m,
-                            ProductId = new Guid("af5e4dac-4b9e-4a0b-9c81-e3c1166f6474"),
+                            ProductId = new Guid("1919f6b1-1105-4cb9-b276-bda4a18ed4b9"),
                             Status = "In Stock",
                             Stock = 0m
                         },
                         new
                         {
-                            Id = new Guid("4ee35123-bab9-4c54-ac03-5916c4583594"),
+                            Id = new Guid("c9876590-831e-4b8b-8bbf-c73d0418fa01"),
                             AttributeValue = "633111",
-                            CreatedTime = new DateTime(2025, 5, 22, 13, 54, 56, 726, DateTimeKind.Local).AddTicks(5777),
+                            CreatedTime = new DateTime(2025, 5, 24, 15, 38, 41, 523, DateTimeKind.Local).AddTicks(3543),
                             Price = 1.123m,
-                            ProductId = new Guid("2cbc0b63-d601-49ea-9e6c-ab104b980b4e"),
+                            ProductId = new Guid("6d276253-589f-4ebb-abea-c211fd10585f"),
                             Status = "In Stock",
                             Stock = 0m
                         });
@@ -1204,10 +1215,10 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d35ff1f8-6332-4c1f-9142-861e6ab88db4"),
+                            Id = new Guid("7dd059bf-27d2-4033-9477-18584bc353db"),
                             CreatedTime = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "fishingbee2024@gmail.com",
-                            Password = "AQAAAAEAACcQAAAAEDg4Cs2Mgl9sqCGwL9c0UrgnK7G2V8jAzdfmvmy6EzAS1hK/33J2SB6Kh8ZU8ObkWw==",
+                            Password = "AQAAAAEAACcQAAAAELRxy6X+TG7/84/+5vDhP5fY28eNqq1a0kiGF6LhSl7ACJ4no4p0wF7w2FB1pbyxTw==",
                             PhoneNumber = "0123456789",
                             Status = "Active",
                             UserType = "Admin",
