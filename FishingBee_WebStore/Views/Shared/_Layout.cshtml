@@ -373,13 +373,15 @@
 						GIỎ HÀNG
 						<i class="fas fa-shopping-cart"></i>
 					</button> *@
-					<li>
-						<form asp-controller="Cart_PD" asp-action="Index" method="post">
-							<button class="cart-button">
-								<i class="fas fa-shopping-cart"></i> Giỏ Hàng
-							</button>
-						</form>
-					</li>
+					<div class="hover">
+						
+							<form asp-controller="Cart_PD" asp-action="Index" method="post">
+								<button class="cart-button">
+									<i class="fas fa-shopping-cart"></i> Giỏ Hàng
+								</button>
+							</form>
+						
+					</div>
 					<div class="shop-menu">
 						<ul>
 							@if (User.Identity?.IsAuthenticated ?? false)
@@ -426,6 +428,7 @@
 			<a asp-controller="Home" asp-action="AboutUs">Giới thiệu</a>
 			<a asp-controller="Home" asp-action="ContactUs">Liên hệ</a>
 			<a asp-controller="Home" asp-action="FishingTips">Kinh nghiệm câu</a>
+			<a asp-controller="BillStatus" asp-action="Index">Đơn đã đặt mua</a>
 
 		</nav>
 	</header>
