@@ -1,0 +1,26 @@
+﻿@model Data_FishingBee.Models.ProductDetail
+
+@{
+    ViewData["Title"] = "Chi tiết biến thể";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">Chi tiết biến thể sản phẩm</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr><th>Mã</th><td>@Model.Id</td></tr>
+        <tr><th>Sản phẩm</th><td>@Model.Product.Name</td></tr>
+        <tr><th>Mô tả</th><td>@Model.Description</td></tr>
+        <tr><th>Giá trị thuộc tính</th><td>@Model.AttributeValue</td></tr>
+        <tr><th>Giá</th><td>@Model.Price</td></tr>
+        <tr><th>Tồn kho</th><td>@Model.Stock</td></tr>
+        <tr><th>Trạng thái</th><td>@Model.Status</td></tr>
+        <tr><th>Ngày tạo</th><td>@Model.CreatedTime</td></tr>
+        <tr><th>Người tạo</th><td>@Model.CreatedBy</td></tr>
+        <tr><th>Ngày sửa</th><td>@Model.ModifiedTime</td></tr>
+        <tr><th>Người sửa</th><td>@Model.ModifiedBy</td></tr>
+    </table>
+</div>
+
+<a asp-action="Index" asp-route-productId="@Model.ProductId" class="btn btn-secondary">Quay lại</a>
