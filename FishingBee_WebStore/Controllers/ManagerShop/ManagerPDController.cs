@@ -11,6 +11,7 @@ using Data_FishingBee.Repositories;
 
 namespace FishingBee_WebStore.Controllers.ManagerShop
 {
+    // quản lí biến thể của admin side
     public class ManagerPDController : Controller
     {
         private readonly IAllRepositories<Product> _productRepo;
@@ -58,146 +59,76 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
             return RedirectToAction("Index", "ManagerPD", new { productId = model.ProductId });
 
         }
-        //// GET: ManagerPD/Details/5
-        //public async Task<IActionResult> Details(Guid? id)
-        //{
-        //    if (id == null || _context.ProductDetails == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var productDetail = await _productDetailRepo.GetAllQueryable()
+                .Include(p => p.Product) // Đảm bảo Include
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-        //    var productDetail = await _context.ProductDetails
-        //        .Include(p => p.Product)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (productDetail == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (productDetail == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(productDetail);
-        //}
+            return View(productDetail);
+        }
 
-        //// GET: ManagerPD/Create
-        //// khi tạo mới sẽ lấy productId là product truyền vào từ index hay cách khác là sản phẩm đang xem.
-        //// sau khi tạo mới sản phẩm thì view đến đây để thêm các biến thể
-        //public IActionResult Create()
-        //{
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
-        //    return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var model = await _productDetailRepo.GetById(id);
+            if (model == null)
+                return NotFound();
 
-        //// POST: ManagerPD/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,ProductId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,Description,AttributeName,AttributeValue,AttributeUnit,Price,Stock")] ProductDetail productDetail)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        productDetail.Id = Guid.NewGuid();
-        //        _context.Add(productDetail);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
-        //    return View(productDetail);
-        //}
+            ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
+            return View(model);
+        }
 
-        //// GET: ManagerPD/Edit/5
-        //public async Task<IActionResult> Edit(Guid? id)
-        //{
-        //    if (id == null || _context.ProductDetails == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductDetail model)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
+                return View(model);
+            }
 
-        //    var productDetail = await _context.ProductDetails.FindAsync(id);
-        //    if (productDetail == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
-        //    return View(productDetail);
-        //}
+            await _productDetailRepo.Update(model.Id,model);
+            return RedirectToAction("Index", new { productId = model.ProductId });
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var productDetail = await _productDetailRepo.GetAllQueryable()
+         .Include(p => p.Product) // 👈 Đảm bảo Include
+         .FirstOrDefaultAsync(p => p.Id == id);
 
-        //// POST: ManagerPD/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductId,CreatedBy,CreatedTime,ModifiedBy,ModifiedTime,Status,Description,AttributeName,AttributeValue,AttributeUnit,Price,Stock")] ProductDetail productDetail)
-        //{
-        //    if (id != productDetail.Id)
-        //    {
-        //        return NotFound();
-        //    }
+            if (productDetail == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(productDetail);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ProductDetailExists(productDetail.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productDetail.ProductId);
-        //    return View(productDetail);
-        //}
+            return View(productDetail);
+        }
+        [HttpPost, ActionName("DeleteConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+             var productDetail = await _productDetailRepo.GetAllQueryable()
+         .Include(p => p.Product) // 👈 Đảm bảo Include
+         .FirstOrDefaultAsync(p => p.Id == id);
 
-        //// GET: ManagerPD/Delete/5
-        //public async Task<IActionResult> Delete(Guid? id)
-        //{
-        //    if (id == null || _context.ProductDetails == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (productDetail == null)
+            {
+                return NotFound();
+            }
 
-        //    var productDetail = await _context.ProductDetails
-        //        .Include(p => p.Product)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (productDetail == null)
-        //    {
-        //        return NotFound();
-        //    }
+            await _productDetailRepo.Delete(id);
+            return RedirectToAction("Index", new { productId = productDetail.ProductId });
+        }
 
-        //    return View(productDetail);
-        //}
 
-        //// POST: ManagerPD/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(Guid id)
-        //{
-        //    if (_context.ProductDetails == null)
-        //    {
-        //        return Problem("Entity set 'FishingBeeDbContext.ProductDetails'  is null.");
-        //    }
-        //    var productDetail = await _context.ProductDetails.FindAsync(id);
-        //    if (productDetail != null)
-        //    {
-        //        _context.ProductDetails.Remove(productDetail);
-        //    }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool ProductDetailExists(Guid id)
-        //{
-        //  return (_context.ProductDetails?.Any(e => e.Id == id)).GetValueOrDefault();
-        //}
     }
 }

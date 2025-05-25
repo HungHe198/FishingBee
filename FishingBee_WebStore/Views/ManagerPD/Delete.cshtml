@@ -1,0 +1,27 @@
+﻿@model Data_FishingBee.Models.ProductDetail
+
+@{
+    ViewData["Title"] = "Xóa biến thể";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4 text-danger">Xóa biến thể sản phẩm</h2>
+
+<h4>Bạn có chắc chắn muốn xóa biến thể này không?</h4>
+<div class="table-responsive mb-4">
+    <table class="table table-bordered">
+        <tr><th>Sản phẩm</th><td>@Model.Product.Name</td></tr>
+        <tr><th>Giá trị thuộc tính</th><td>@Model.AttributeValue</td></tr>
+        <tr><th>Giá</th><td>@Model.Price</td></tr>
+        <tr><th>Tồn kho</th><td>@Model.Stock</td></tr>
+        <tr><th>Trạng thái</th><td>@Model.Status</td></tr>
+    </table>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" asp-route-productId="@Model.ProductId" class="btn btn-secondary">Hủy</a>
+</form>
