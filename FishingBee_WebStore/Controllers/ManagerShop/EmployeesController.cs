@@ -68,17 +68,81 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Employee employee, string userName, string passWord, string email)
         {
+            //try
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        // 1. Tạo User mới
+            //        var userId = Guid.NewGuid();
+            //        var user = new User
+            //        {
+            //            Id = userId,
+            //            Username = userName,
+            //            Password = passWord, // Ghi chú: Cần mã hóa khi triển khai thật
+            //            Email = email,
+            //            UserType = "Employee",
+            //            CreatedTime = DateTime.Now,
+            //            Status = "1"
+            //        };
+
+            //        await _use.Create(user);
+
+            //        // 2. Gán UserId cho Employee
+            //        employee.UserId = userId;
+            //        employee.CreatedTime = DateTime.Now;
+            //        employee.Status = "1";
+
+            //        // 3. Tạo Employee
+            //        await _Employee.Create(employee);
+
+            //        // 4. Thông báo thành công
+            //        TempData["SuccessMessage"] = "Tạo nhân viên thành công!";
+            //        return RedirectToAction(nameof(Index));
+            //    }
+
+            //    TempData["ErrorMessage"] = "Dữ liệu không hợp lệ.";
+            //    return View(employee);
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Đường dẫn thư mục log trong wwwroot/logs
+            //    var logFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "logs");
+            //    if (!Directory.Exists(logFolder))
+            //    {
+            //        Directory.CreateDirectory(logFolder);
+            //    }
+
+            //    var logFile = Path.Combine(logFolder, "log.txt");
+            //    var logMessage = $"[{DateTime.Now}] Lỗi tạo nhân viên: {ex.Message}\n{ex.StackTrace}\n";
+
+            //    await System.IO.File.AppendAllTextAsync(logFile, logMessage);
+
+            //    TempData["ErrorMessage"] = "Có lỗi xảy ra trong quá trình tạo nhân viên. Vui lòng thử lại.";
+            //    return View(employee);
+            //}
+            //finally
+            //{
+            //    // Đây có thể mở rộng ra thông báo cho cả lỗi hoặc thành công nếu cần
+            //    // Hiện tại đã dùng TempData ở trên, nên không cần thêm ở đây
+            //}
             try
             {
                 if (ModelState.IsValid)
                 {
-                    // 1. Tạo User mới
+                    // 1. Generate new User ID and check for uniqueness
                     var userId = Guid.NewGuid();
+                    if (await _use.EntityExists(userId))
+                    {
+                        TempData["ErrorMessage"] = "ID đã tồn tại";
+                        return View(employee);
+                    }
+
+                    // 2. Create new User
                     var user = new User
                     {
                         Id = userId,
                         Username = userName,
-                        Password = passWord, // Ghi chú: Cần mã hóa khi triển khai thật
+                        Password = passWord, // Note: Should be hashed in production
                         Email = email,
                         UserType = "Employee",
                         CreatedTime = DateTime.Now,
@@ -87,25 +151,40 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
 
                     await _use.Create(user);
 
-                    // 2. Gán UserId cho Employee
+                    // 3. Check if Employee ID already exists
+                    if (await _Employee.EntityExists(employee.Id))
+                    {
+                        TempData["ErrorMessage"] = "mã ID không được trùng ";
+                        return View(employee);
+                    }
+
+                    // 4. Check if Employee Code already exists
+                    var employees = await _Employee.GetAll();
+                    if (employees.Any(e => e.Code == employee.Code))
+                    {
+                        TempData["ErrorMessage"] = "mã định danh đã tồn tại ";
+                        return View(employee);
+                    }
+
+                    // 5. Assign UserId to Employee and set properties
                     employee.UserId = userId;
                     employee.CreatedTime = DateTime.Now;
                     employee.Status = "1";
 
-                    // 3. Tạo Employee
+                    // 6. Create Employee
                     await _Employee.Create(employee);
 
-                    // 4. Thông báo thành công
-                    TempData["SuccessMessage"] = "Tạo nhân viên thành công!";
+                    // 7. Success notification
+                    TempData["SuccessMessage"] = "Employee created successfully!";
                     return RedirectToAction(nameof(Index));
                 }
 
-                TempData["ErrorMessage"] = "Dữ liệu không hợp lệ.";
+                TempData["ErrorMessage"] = "Invalid data.";
                 return View(employee);
             }
             catch (Exception ex)
             {
-                // Đường dẫn thư mục log trong wwwroot/logs
+                // Log error to file
                 var logFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "logs");
                 if (!Directory.Exists(logFolder))
                 {
@@ -113,17 +192,16 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
                 }
 
                 var logFile = Path.Combine(logFolder, "log.txt");
-                var logMessage = $"[{DateTime.Now}] Lỗi tạo nhân viên: {ex.Message}\n{ex.StackTrace}\n";
+                var logMessage = $"[{DateTime.Now}] Error creating employee: {ex.Message}\n{ex.StackTrace}\n";
 
                 await System.IO.File.AppendAllTextAsync(logFile, logMessage);
 
-                TempData["ErrorMessage"] = "Có lỗi xảy ra trong quá trình tạo nhân viên. Vui lòng thử lại.";
+                TempData["ErrorMessage"] = "An error occurred while creating the employee. Please try again.";
                 return View(employee);
             }
             finally
             {
-                // Đây có thể mở rộng ra thông báo cho cả lỗi hoặc thành công nếu cần
-                // Hiện tại đã dùng TempData ở trên, nên không cần thêm ở đây
+                // Can be extended for additional notifications if needed
             }
         }
 
