@@ -4,6 +4,7 @@ using Data_FishingBee.Models;
 using Data_FishingBee.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 
 namespace FishingBee_WebStore.Controllers
 {
@@ -107,7 +108,21 @@ namespace FishingBee_WebStore.Controllers
                 try
                 {
                     cart_PD.Quantity = quantity;
-                    await _repoCartPD.Update(id, cart_PD);
+
+                    if (cart_PD.Quantity <= 0)
+					{
+						// Nếu số lượng <= 0, xóa sản phẩm khỏi giỏ hàng
+						await _repoCartPD.Delete(id);
+						return RedirectToAction(nameof(Index));
+					}
+					var productDetail = _repoPD.GetById(cart_PD.ProductDetailId).Result;
+
+					if (cart_PD.Quantity > productDetail.Stock)
+					{
+						TempData["ErrorMessage"] = $"Số lượng vượt quá tồn kho. Tồn kho hiện tại: {productDetail.Stock}";
+						return RedirectToAction("Index", "Cart_PD");
+					}
+					await _repoCartPD.Update(id, cart_PD);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

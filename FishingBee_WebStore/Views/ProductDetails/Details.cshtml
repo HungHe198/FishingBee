@@ -34,7 +34,7 @@
                     <p><strong>Thương hiệu:</strong> @firstItem.Product.Manufacturer?.Name</p>
                     <p><strong>Trạng thái:</strong> @(firstItem.Status == "1" ? "Còn hàng" : "Hết hàng")</p>
 
-                    <p><strong>Chọn loại:</strong></p>
+                    <p><strong>Chọn loại: </strong></p>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         @foreach (var item in group)
                         {
@@ -48,7 +48,7 @@
                                        data-product-detail-id="@item.Id"
                                        data-product-id="@firstItem.ProductId"
                                 @(isChecked ? "checked" : "") />
-                                <div class="fw-semibold">@item.AttributeValue</div>
+                                <div class="fw-semibold">@(item.AttributeValue + item.Product.AttributeUnit)</div>
                             </label>
                         }
                     </div>
