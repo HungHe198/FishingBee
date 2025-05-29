@@ -25,6 +25,7 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductsRepositories, ProductsRepositories>();
+builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

@@ -17,6 +17,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         private readonly IAllRepositories<Product> _productRepo;
         private readonly IAllRepositories<ProductDetail> _productDetailRepo;
         private readonly IAllRepositories<ProductImage> _productImageRepo;
+        private readonly IProductImageRepository _pDImageRepo;
         private readonly IAllRepositories<Category> _categoryRepo;
         private readonly IAllRepositories<Manufacturer> _manufacturerRepo;
         private readonly IWebHostEnvironment _env;
@@ -51,13 +52,14 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 var products = query.Where(x => x.Status == status).ToList();
                 return View(products);
             }
-            else {
+            else
+            {
                 var result = await query.ToListAsync();
                 ViewBag.CurrentStatus = status;
                 return View(result);
             }
 
-            
+
         }
         public async Task<IActionResult> InactiveProducts()
         {
@@ -151,7 +153,6 @@ namespace FishingBee_WebStore.Controllers.ProductManager
         }
 
 
-
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -166,15 +167,41 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 return NotFound();
             }
 
-            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
-            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
+            try
+            {
+                ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
+                ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
+
+                try
+                {
+                    // CHỈ gọi khi đã chắc chắn product không null
+                    var images = await _pDImageRepo.GetByProductId(product.Id);
+                    ViewBag.ExistingImages = images;
+                }
+                catch
+                {
+                    ViewBag.ExistingImages = null; // fallback nếu lỗi khi lấy ảnh
+                }
+            }
+            catch (Exception ex)
+            {
+                // Nếu lỗi trong quá trình load dropdown
+                Console.WriteLine("Lỗi khi load dữ liệu: " + ex.Message);
+
+                ViewData["CategoryId"] = new SelectList(Enumerable.Empty<object>(), "Id", "Name");
+                ViewData["ManufacturerId"] = new SelectList(Enumerable.Empty<object>(), "Id", "Name");
+                ViewBag.ExistingImages = null;
+            }
+
             return View(product);
         }
+
+
 
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Product product)
+        public async Task<IActionResult> Edit(Guid id, Product product, List<IFormFile> Images)
         {
             if (id != product.Id)
             {
@@ -186,6 +213,54 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 try
                 {
                     await _productRepo.Update(id, product);
+
+                    // Xử lý lưu ảnh mới (nếu có)
+                    if (Images != null && Images.Count > 0)
+                    {
+                        string productFolder = Path.Combine(_env.WebRootPath, "images", product.Id.ToString());
+                        if (!Directory.Exists(productFolder))
+                        {
+                            Directory.CreateDirectory(productFolder);
+                        }
+
+                        // Tìm số thứ tự ảnh lớn nhất hiện tại
+                        var existingImages = await _pDImageRepo.GetByProductId(product.Id);
+                        int maxIndex = 0;
+                        if (existingImages != null && existingImages.Any())
+                        {
+                            var indexes = existingImages.Select(img =>
+                            {
+                                var fileName = Path.GetFileNameWithoutExtension(img.ImageUrl);
+                                return int.TryParse(fileName, out int n) ? n : 0;
+                            });
+                            maxIndex = indexes.Max();
+                        }
+
+                        int imageIndex = maxIndex + 1;
+
+                        foreach (var image in Images)
+                        {
+                            if (image != null && image.Length > 0)
+                            {
+                                string fileName = $"{imageIndex}.jpg";
+                                string filePath = Path.Combine(productFolder, fileName);
+
+                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    await image.CopyToAsync(stream);
+                                }
+
+                                await _productImageRepo.Create(new ProductImage
+                                {
+                                    Id = Guid.NewGuid(),
+                                    ProductId = product.Id,
+                                    ImageUrl = $"/images/{product.Id}/{fileName}"
+                                });
+
+                                imageIndex++;
+                            }
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -199,6 +274,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -206,6 +282,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
             return View(product);
         }
+
 
         // GET: Products/Delete/5
         //public async Task<IActionResult> Delete(Guid? id)
