@@ -61,6 +61,18 @@ namespace Data_FishingBee.Controllers
             {
                 ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 90.");
             }
+            if (coupon.MinOfTotalPrice <= 0)
+            {
+                ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu phải lớn hơn 0.");
+            }
+            if (coupon.MaxOfDiscount <= 0)
+            {
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa phải lớn hơn 0.");
+            }
+            if (coupon.MaxOfDiscount > coupon.MinOfTotalPrice)
+            {
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được lớn hơn giá trị đơn tối thiểu.");
+            }
             if (coupon.QuantityAvailable <= 0)
             {
                 ModelState.AddModelError("QuantityAvailable", "Số lượng phải lớn hơn 0.");
@@ -130,7 +142,18 @@ namespace Data_FishingBee.Controllers
             {
                 ModelState.AddModelError("QuantityAvailable", "Số lượng phải lớn hơn 0.");
             }
-
+            if (coupon.MinOfTotalPrice <= 0)
+            {
+                ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu phải lớn hơn 0.");
+            }
+            if (coupon.MaxOfDiscount <= 0)
+            {
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa phải lớn hơn 0.");
+            }
+            if (coupon.MaxOfDiscount > coupon.MinOfTotalPrice)
+            {
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được lớn hơn giá trị đơn tối thiểu.");
+            }
             // Thiết lập trạng thái
             if (!ModelState.IsValid)
             {

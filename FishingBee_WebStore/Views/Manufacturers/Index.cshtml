@@ -5,30 +5,58 @@
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="features_items">
-    <h2 class="title text-center">Hãng sản Phẩm</h2>
-    @if (Model != null && Model.Any())
-    {
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-person-badge"></i> Nhân viên</h2>
+    <a class="btn btn-primary" asp-action="Create">
+        <i class="bi bi-plus-circle"></i> Thêm nhân viên
+    </a>
+</div>
+
+<table class="table table-bordered table-striped table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th class="text-center">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
-            <div class="col-sm-4">
-                <div class="product-image-wrapper">
-                    <div class="single-product">
-                        @* Chuyển đến trang tạo thành bởi list các đối tượng có trùng id product với các bản ghi là của ProductDetail *@
-                        <a asp-action="Details" asp-controller="ProductDetails" asp-route-id="@item.Id">
-                            <div class="productinfo text-center">
-                                <img src="@item." width="100px" height="200px" />
-                                <h2>@item.Name</h2>
-                                <img src="@Url.Action("GetFirstProductImage", "Product", new { brand = "Tên_Hãng" })" alt="Ảnh sản phẩm đầu tiên">
-                            </div>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ImageUrl)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedTime)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="bi bi-pencil"></i>
                         </a>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        @*    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">
+                    <i class="bi bi-trash"></i>
+                    </a> *@
                     </div>
-                </div>
-            </div>
+                </td>
+            </tr>
         }
-    }
-    else
-    {
-        <p class="text-center text-danger">Không có sản phẩm nào để hiển thị.</p>
-    }
-</div>
+    </tbody>
+</table>
