@@ -33,4 +33,8 @@
     <ProjectReference Include="..\Data_FishingBee\Data_FishingBee.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Logo\" />
+  </ItemGroup>
+
 </Project>

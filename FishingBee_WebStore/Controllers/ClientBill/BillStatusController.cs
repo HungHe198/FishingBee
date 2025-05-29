@@ -35,7 +35,7 @@ namespace FishingBee_WebStore.Controllers.ClientBill
             }
 
             ViewBag.SelectedStatus = status;
-            var result = await query.ToListAsync();
+            var result = await query.OrderByDescending(x=>x.CreatedTime).ToListAsync();
             return View(result);
 
         }

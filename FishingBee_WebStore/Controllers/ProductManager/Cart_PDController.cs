@@ -203,7 +203,7 @@ namespace FishingBee_WebStore.Controllers
             }
 
             var cartItems = _repoCartPD.GetAllQueryable()
-                .Where(x => x.CartId == cart.Id && x.Status == 1) // status 1: đang trong giỏ
+                .Where(x => x.CartId == cart.Id && x.Status == 0) // status 1: đang trong giỏ
                 .ToList();
 
             if (!cartItems.Any())
@@ -222,13 +222,13 @@ namespace FishingBee_WebStore.Controllers
                 }
             }
 
-            // Tạo đơn hàng (Bill)
+            // Gán Id cho Bill
             var newBill = new Bill
             {
                 Id = Guid.NewGuid(),
                 CustomerId = customerId,
                 CreatedTime = DateTime.Now,
-                Status = "1", // 1 = chờ xác nhận
+                Status = "1",
                 InvoiceCode = "HD" + DateTime.Now.Ticks,
                 TotalPrice = totalPrice,
                 CustomerName = customerName,
@@ -237,41 +237,42 @@ namespace FishingBee_WebStore.Controllers
                 PaymentMethod = paymentMethod
             };
 
-            // Tạo chi tiết đơn hàng (BillDetails)
-            var billDetails = new List<BillDetail>();
-            foreach (var item in cartItems)
+            // Tạo danh sách BillDetails
+            var billDetails = cartItems.Select(item => new BillDetail
             {
-                var product = _repoPD.GetAllQueryable().FirstOrDefault(p => p.Id == item.ProductDetailId);
-                if (product != null)
-                {
-                    var detail = new BillDetail
-                    {
-                        Id = Guid.NewGuid(),
-                        BillId = newBill.Id,
-                        ProductDetailId = item.ProductDetailId,
-                        UnitPrice = product.Price,
-                        Amount = item.Quantity,
-                        CreatedTime = DateTime.Now
-                    };
-                    billDetails.Add(detail);
-                }
-            }
+                Id = Guid.NewGuid(), // nếu dùng khóa đơn
+                BillId = newBill.Id,
+                ProductDetailId = item.ProductDetailId,
+                UnitPrice = _repoPD.GetAllQueryable().First(p => p.Id == item.ProductDetailId).Price,
+                Amount = item.Quantity,
+                CreatedTime = DateTime.Now
+            }).ToList();
+
             newBill.BillDetails = billDetails;
 
-            // Lưu đơn hàng vào DB
-            await _repoBill.Create(newBill); // _repoBill là repo Bill
-            foreach (var detail in billDetails)
+            // Thêm và lưu
+            try
             {
-                await _repoBillDetail.Create(detail); // _repoBillDetail là repo BillDetail
+                await _repoBill.Create(newBill); // Repo phải gọi SaveChanges()
+            }
+            catch (DbUpdateException ex)
+            {
+                return Content("Lỗi khi lưu: " + ex.InnerException?.Message);
             }
 
-            // Xóa sản phẩm khỏi giỏ sau khi đặt hàng
-            foreach (var item in cartItems)
+            try
             {
-                await _repoCartPD.Delete(item.Id);
+                foreach (var item in cartItems.ToList()) // Create a copy to avoid modification issues
+                {
+                    await _repoCartPD.Delete(item.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error deleting cart items: {ex.Message}");
             }
 
-            return RedirectToAction("Index", "Bill");
+            return RedirectToAction("Index", "Home");
         }
 
     }

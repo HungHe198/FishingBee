@@ -23,7 +23,8 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
         public async Task<IActionResult> Index()
         {
             var fishingBeeDbContext = _context.Customers.Include(c => c.User);
-            return View(await fishingBeeDbContext.ToListAsync());
+            var customers = await fishingBeeDbContext.OrderByDescending(x => x.CreatedTime).ToListAsync();
+            return View(customers);
         }
 
         // GET: Customers/Details/5
