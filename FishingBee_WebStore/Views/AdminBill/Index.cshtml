@@ -11,11 +11,12 @@
     <label>Lọc theo trạng thái: </label>
     <select name="status" onchange="this.form.submit()" class="form-select w-auto d-inline-block">
         <option value="">-- Tất cả --</option>
-        <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
         <option value="1" selected="@(currentStatus == "1")">Chờ xác nhận</option>
-        <option value="2" selected="@(currentStatus == "2")">Đang vận chuyển</option>
-        <option value="3" selected="@(currentStatus == "3")">Đã hủy</option>
-        <option value="4" selected="@(currentStatus == "4")">Hoàn trả tiền</option>
+        <option value="2" selected="@(currentStatus == "2")">Đã xác nhận</option>
+        <option value="3" selected="@(currentStatus == "3")">Đang vận chuyển</option>
+        <option value="4" selected="@(currentStatus == "4")">Đã hủy</option>
+       
+        <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
     </select>
 </form>
 
@@ -42,12 +43,24 @@
                     @{
                         var statusLabel = bill.Status switch
                         {
-                            "0" => "Giao thành công",
                             "1" => "Chờ xác nhận",
-                            "2" => "Đang vận chuyển",
-                            "3" => "Đã hủy",
-                            "4" => "Hoàn trả tiền",
+                            "2" => "Đã xác nhận",
+                            "3" => "Đang vận chuyển",
+                            "4" => "Đã hủy",
+                           
+                            "0" => "Giao thành công",
                             _ => "Không xác định"
+                            // < option value= "1" selected= "@(currentStatus == "1")" > Chờ xác nhận   </ option >
+
+                            // < option value= "2" selected= "@(currentStatus == "2")" > Đã xác nhận    </ option >
+
+                            // < option value= "3" selected= "@(currentStatus == "3")" > Đang vận chuyển</ option >
+
+                            // < option value= "4" selected= "@(currentStatus == "4")" > Đã hủy         </ option >
+
+                            // < option value ="5" selected= "@(currentStatus == "5")" > Hoàn trả tiền  </ option >
+
+                            // < option value= "0" selected= "@(currentStatus == "0")" > Giao thành công</ option >
                         };
                     }
                     @statusLabel
@@ -56,11 +69,11 @@
                     <form asp-action="UpdateStatus" method="post" class="d-inline">
                         <input type="hidden" name="id" value="@bill.Id" />
                         <select name="newStatus" class="form-select form-select-sm d-inline w-auto">
-                            <option value="1">Chờ xác nhận</option>
-                            <option value="2">Đang vận chuyển</option>
-                            <option value="0">Giao thành công</option>
-                            <option value="4">Hoàn trả tiền</option>
-                            <option value="3">Hủy đơn</option>
+                            <option value="1" selected="@(currentStatus == "1")">Chờ xác nhận</option>
+                            <option value="2" selected="@(currentStatus == "2")">Đã xác nhận</option>
+                            <option value="3" selected="@(currentStatus == "3")">Đang vận chuyển</option>
+                            <option value="4" selected="@(currentStatus == "4")">Đã hủy</option>
+                            <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
                     </form>

@@ -349,6 +349,19 @@
 		}, 30000); // 1000ms = 1 giây
 	</script>
 }
+@if (TempData["ErrorMessage"] != null)
+{
+	<div id="ErrorMessage" class="alert alert-success">
+		@TempData["ErrorMessage"]
+	</div>
+
+	<script>
+		setTimeout(function () {
+			document.getElementById("successMessage").style.display = "none";
+		}, 30000); // 1000ms = 1 giây
+	</script>
+}
+
 
 @section Scripts {
 	<script>

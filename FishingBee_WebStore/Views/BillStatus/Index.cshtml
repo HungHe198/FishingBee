@@ -11,11 +11,12 @@
     <label for="status">Lọc theo trạng thái: </label>
     <select name="status" id="status" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
         <option value="">-- Tất cả --</option>
-        <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
         <option value="1" selected="@(currentStatus == "1")">Chờ xác nhận</option>
-        <option value="2" selected="@(currentStatus == "2")">Đang vận chuyển</option>
-        <option value="3" selected="@(currentStatus == "3")">Đã hủy</option>
-        <option value="4" selected="@(currentStatus == "4")">Hoàn trả tiền</option>
+        <option value="2" selected="@(currentStatus == "2")">Đã xác nhận</option>
+        <option value="3" selected="@(currentStatus == "3")">Đang vận chuyển</option>
+        <option value="4" selected="@(currentStatus == "4")">Đã hủy</option>
+        <option value="5" selected="@(currentStatus == "5")">Hoàn trả tiền</option>
+        <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
     </select>
 </form>
 

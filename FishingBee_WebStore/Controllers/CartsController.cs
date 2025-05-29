@@ -23,7 +23,7 @@ namespace FishingBee_WebStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+
             // Giả định rằng đã có CustomerId (có thể lấy từ User.Identity hoặc session)
             var customerIdJson = HttpContext.Session.GetString("CustomerId");
             if (customerIdJson == null)
@@ -34,9 +34,9 @@ namespace FishingBee_WebStore.Controllers
             var cart = await _cartRepository.GetCartByCustomerIdAsync(customerId);
             return View(cart);
         }
-       
+
         [HttpPost]
-        public async Task<IActionResult> AddToCart( Guid productDetailId, int quantity)
+        public async Task<IActionResult> AddToCart(Guid productDetailId, int quantity)
 
         {
             var customerIdJson = HttpContext.Session.GetString("CustomerId");
@@ -74,40 +74,66 @@ namespace FishingBee_WebStore.Controllers
 
             var productId = currentDetail.ProductId;
 
-            var cartItemsWithSameProduct = cart.Cart_PDs
-                .Where(cp => _repoPD.GetAllQueryable()
-                    .Any(pd => pd.Id == cp.ProductDetailId && pd.ProductId == productId))
-                .ToList();
-
-            int existingTotalQuantity = cartItemsWithSameProduct.Sum(cp => cp.Quantity);
-
-            if (existingTotalQuantity + quantity > currentDetail.Stock)
+            if (currentDetail.Stock <= 0)
             {
-                return BadRequest("Số lượng vượt quá tồn kho.");
+                return BadRequest("Sản phẩm đã hết hàng.");
             }
+            var existingCartItem = _repoCart_PD.GetAllQueryable().FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
 
-            var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
-
-            if (cartItem == null)
+            if (existingCartItem != null)
             {
-                cartItem = new Cart_PD
+                if (existingCartItem.Quantity + quantity > currentDetail.Stock)
+                {
+                    TempData["ErrorMessage"] = "Số lượng vượt quá tồn kho.";
+                    return RedirectToAction("Details", "ProductDetails", new { id = productId });
+                }
+
+                var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
+
+                if (cartItem == null)
+                {
+                    cartItem = new Cart_PD
+                    {
+                        Id = Guid.NewGuid(),
+                        CartId = cart.Id,
+                        ProductDetailId = productDetailId,
+                        Quantity = quantity
+                    };
+                    await _repoCart_PD.Create(cartItem);
+                }
+                else
+                {
+                    cartItem.Quantity += quantity;
+                    await _repoCart_PD.Update(cartItem.Id, cartItem);
+                }
+
+                cart.LastUpdateTime = DateTime.Now;
+            }
+            else
+            {
+                // Trường hợp chưa có sản phẩm này trong giỏ => thêm mới nếu tồn kho đủ
+                if (quantity > currentDetail.Stock)
+                {
+                    TempData["ErrorMessage"] = "Số lượng vượt quá tồn kho.";
+                    return RedirectToAction("Details", "ProductDetails", new { id = productId });
+                }
+
+                var newCartItem = new Cart_PD
                 {
                     Id = Guid.NewGuid(),
                     CartId = cart.Id,
                     ProductDetailId = productDetailId,
                     Quantity = quantity
                 };
-                await _repoCart_PD.Create(cartItem);
-            }
-            else
-            {
-                cartItem.Quantity += quantity;
-                await _repoCart_PD.Update(cartItem.Id, cartItem);
-            }
+                await _repoCart_PD.Create(newCartItem);
 
-            cart.LastUpdateTime = DateTime.Now;
+                cart.LastUpdateTime = DateTime.Now;
+            }
 
             return RedirectToAction("Index", "Cart_PD");
+
+
+
         }
 
     }
