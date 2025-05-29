@@ -161,32 +161,36 @@ namespace FishingBee_WebStore.Controllers.Account
                     }
                 }
 
-                //  Lấy CustomerId từ bảng Customers
+                // Lấy CustomerId từ bảng Customers
                 var customer = _context.Customers.FirstOrDefault(c => c.UserId == user.Id);
                 if (customer != null)
                 {
-                    //  Lấy CartId từ bảng Carts
+                    // Lấy CartId từ bảng Carts
                     var cart = _context.Carts.FirstOrDefault(c => c.CustomerId == customer.Id && c.Status == "Active");
 
                     if (cart != null)
                     {
-                        //  Lưu CustomerId & CartId vào Session
+                        // Lưu CustomerId & CartId vào Session
                         HttpContext.Session.SetString("CustomerId", customer.Id.ToString());
                         HttpContext.Session.SetString("CartId", cart.Id.ToString());
                     }
                 }
 
+                // Tạo claims
                 var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.Username),
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Role, user.UserType ?? "Customer")
-                    };
+        {
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, user.UserType ?? "Customer")
+        };
+
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Không ghi nhớ đăng nhập sau khi đóng trình duyệt
                 var authProperties = new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    };
+                {
+                    IsPersistent = false
+                };
 
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -222,9 +226,11 @@ namespace FishingBee_WebStore.Controllers.Account
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear(); // ✅ Xoá session đang lưu CartId, CustomerId
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
+
 
 
 
