@@ -4,7 +4,19 @@
     ViewData["Title"] = "Create Employee";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
 <h1>Create New Employee</h1>
 
 <form asp-action="Create" method="post">
