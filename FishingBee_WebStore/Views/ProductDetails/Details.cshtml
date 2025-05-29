@@ -1,8 +1,10 @@
 ﻿@model List<Data_FishingBee.Models.ProductDetail>
-
+@using System.Globalization
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    // Lấy customerId từ ViewData hoặc session
+    var customerId = ViewData["CustomerId"]?.ToString() ?? Guid.Empty.ToString();
 }
 
 @if (Model.Any())
@@ -12,16 +14,16 @@
     foreach (var group in grouped)
     {
         var firstItem = group.First();
-        <div class="container border rounded shadow-sm p-4 mb-5 bg-white">
+        <div class="container d-flex border rounded shadow-sm p-4 mb-5 bg-white">
             <div class="row">
                 <!-- Ảnh sản phẩm -->
                 <div class="col-md-5 text-center">
-                    <img src="@firstItem.Product.ProductImages?.FirstOrDefault()?.ImageUrl" alt="Ảnh sản phẩm" class="img-fluid mb-3 border rounded" style="max-height: 300px; object-fit: contain;" />
+                    <img src="@firstItem.Product.ProductImages?.FirstOrDefault()?.ImageUrl" alt="Ảnh sản phẩm" class="img-fluid mb-3 border rounded" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
 
                     <div class="d-flex justify-content-center gap-2 flex-wrap">
                         @foreach (var img in firstItem.Product.ProductImages)
                         {
-                            <img src="@img.ImageUrl" class="img-thumbnail border" style="width: 60px; height: 60px; object-fit: cover;" />
+                            <img src="@img.ImageUrl" class="img-thumbnail border" style="max-width: 60px; height: auto; object-fit: cover;" />
                         }
                     </div>
                 </div>
@@ -36,29 +38,37 @@
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         @foreach (var item in group)
                         {
-                            <label class="btn btn-outline-primary attribute-option" style="min-width: 100px; cursor: pointer;">
+                            var isChecked = item == firstItem;
+                            <label class="btn btn-outline-primary attribute-option @(isChecked ? "active" : "")" style="min-width: 100px; cursor: pointer;">
                                 <input type="radio" name="attributeOption-@firstItem.ProductId"
                                        value="@item.Id"
                                        class="d-none"
-                                       data-price="@item.Price.ToString("N0")"
+                                       data-price="@item.Price.ToString("N0", CultureInfo.GetCultureInfo("vi-VN"))"
+                                       data-stock="@item.Stock.ToString("N0", CultureInfo.GetCultureInfo("vi-VN"))"
                                        data-product-detail-id="@item.Id"
-                                @(item == firstItem ? "checked" : "") />
+                                       data-product-id="@firstItem.ProductId"
+                                @(isChecked ? "checked" : "") />
                                 <div class="fw-semibold">@item.AttributeValue</div>
                             </label>
                         }
                     </div>
 
                     <p class="fs-4 text-danger fw-bold">
-                        Giá: <span id="price-display-@firstItem.ProductId">@firstItem.Price.ToString("N0")</span> VNĐ
+                        Giá: <span id="price-display-@firstItem.ProductId">@firstItem.Price.ToString("N0", CultureInfo.GetCultureInfo("vi-VN"))</span> VNĐ
+                    </p>
+                    <p class="fs-4 fw-bold">
+                        Số lượng còn lại: <span id="stock-display-@firstItem.ProductId">@firstItem.Stock.ToString("N0", CultureInfo.GetCultureInfo("vi-VN"))</span>
                     </p>
 
-                    <form method="post" asp-action="AddToCart" asp-controller="Carts" class="mt-3">
-                        <input type="hidden" name="productDetailId" id="selected-product-detail-@firstItem.ProductId" value="@firstItem.Id" />
 
+                    <form method="post" asp-action="AddToCart" asp-controller="Carts" class="mt-3" id="cart-form-@firstItem.ProductId">
+                        <input type="hidden" name="customerId" id="customerId-@firstItem.ProductId" value="@customerId" />
+                        <input type="hidden" name="productDetailId" id="selected-product-detail-@firstItem.ProductId" value="@firstItem.Id" />
                         <div class="d-flex align-items-center gap-2 mb-3">
-                            <label for="quantity" class="me-2 fw-semibold">Số lượng:</label>
-                            <input type="number" class="form-control" name="quantity" min="1" value="1" style="width: 100px;" />
+                            <label for="quantity-@firstItem.ProductId" class="me-2 fw-semibold">Số lượng:</label>
+                            <input type="number" class="form-control" name="quantity" id="quantity-@firstItem.ProductId" min="1" value="1" style="width: 100px;" />
                         </div>
+                        <div id="error-message-@firstItem.ProductId" class="text-danger mb-3" style="display: none;"></div>
 
                         <button type="submit" class="btn btn-success px-4">
                             🛒 Thêm vào giỏ hàng
@@ -70,17 +80,123 @@
     }
 
     <script>
-        document.querySelectorAll('.attribute-option input[type="radio"]').forEach(btn => {
-            btn.addEventListener('change', function () {
-                const price = this.getAttribute('data-price');
-                const detailId = this.getAttribute('data-product-detail-id');
-                const productId = this.name.split('-')[1];
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cập nhật giá, stock và productDetailId khi chọn biến thể
+            document.querySelectorAll('.attribute-option input[type="radio"]').forEach(btn => {
+                btn.addEventListener('change', function () {
+                    const price = this.getAttribute('data-price');
+                    const stock = this.getAttribute('data-stock');
+                    const detailId = this.getAttribute('data-product-detail-id');
+                    const productId = this.getAttribute('data-product-id');
 
-                // Cập nhật giá
-                document.getElementById('price-display-' + productId).textContent = price;
+                    console.log('Product ID:', productId);
+                    console.log('Price:', price);
+                    console.log('Stock:', stock);
+                    console.log('Detail ID:', detailId);
 
-                // Cập nhật productDetailId vào form
-                document.getElementById('selected-product-detail-' + productId).value = detailId;
+                    // Cập nhật giá
+                    const priceDisplay = document.getElementById('price-display-' + productId);
+                    if (priceDisplay) {
+                        priceDisplay.textContent = price;
+                    } else {
+                        console.error('Price display element not found for productId:', productId);
+                    }
+
+                    // Cập nhật số lượng còn lại
+                    const stockDisplay = document.getElementById('stock-display-' + productId);
+                    if (stockDisplay) {
+                        stockDisplay.textContent = stock;
+                        // Lưu trữ stock hiện tại trong data attribute của form
+                        const form = document.getElementById('cart-form-' + productId);
+                        if (form) {
+                            form.setAttribute('data-current-stock', stock);
+                        }
+                    } else {
+                        console.error('Stock display element not found for productId:', productId);
+                    }
+
+                    // Cập nhật productDetailId vào form
+                    const detailInput = document.getElementById('selected-product-detail-' + productId);
+                    if (detailInput) {
+                        detailInput.value = detailId;
+                    } else {
+                        console.error('Detail input element not found for productId:', productId);
+                    }
+
+                    // Thêm class 'active' cho label được chọn
+                    const labels = document.querySelectorAll(`input[name="attributeOption-${productId}"]`);
+                    labels.forEach(radio => {
+                        radio.parentElement.classList.remove('active');
+                    });
+                    this.parentElement.classList.add('active');
+
+                    // Xóa thông báo lỗi nếu có
+                    const errorMessage = document.getElementById('error-message-' + productId);
+                    if (errorMessage) {
+                        errorMessage.style.display = 'none';
+                        errorMessage.textContent = '';
+                    }
+                });
+            });
+
+            // Validate khi submit form
+            document.querySelectorAll('form[id^="cart-form-"]').forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    const productId = this.id.split('-')[2];
+                    const quantityInput = document.getElementById('quantity-' + productId);
+                    const detailInput = document.getElementById('selected-product-detail-' + productId);
+                    const customerIdInput = document.getElementById('customerId-' + productId);
+                    const errorMessage = document.getElementById('error-message-' + productId);
+                    const currentStock = parseInt(this.getAttribute('data-current-stock'), 10) || 0;
+                    const quantity = parseInt(quantityInput.value, 10);
+
+                    // Kiểm tra customerId
+                    if (!customerIdInput.value || customerIdInput.value === '00000000-0000-0000-0000-000000000000') {
+                        e.preventDefault();
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.';
+                            errorMessage.style.display = 'block';
+                        } else {
+                            alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
+                        }
+                        return;
+                    }
+
+                    // Kiểm tra quantity
+                    if (isNaN(quantity) || quantity <= 0) {
+                        e.preventDefault();
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Số lượng phải lớn hơn 0.';
+                            errorMessage.style.display = 'block';
+                        } else {
+                            alert('Số lượng phải lớn hơn 0.');
+                        }
+                        return;
+                    }
+
+                    if (quantity > currentStock) {
+                        e.preventDefault();
+                        if (errorMessage) {
+                            errorMessage.textContent = `Số lượng không được vượt quá ${currentStock.toLocaleString('vi-VN')} sản phẩm còn lại.`;
+                            errorMessage.style.display = 'block';
+                        } else {
+                            alert(`Số lượng không được vượt quá ${currentStock.toLocaleString('vi-VN')} sản phẩm còn lại.`);
+                        }
+                        return;
+                    }
+
+                    // Kiểm tra productDetailId
+                    if (!detailInput.value) {
+                        e.preventDefault();
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Vui lòng chọn một biến thể sản phẩm.';
+                            errorMessage.style.display = 'block';
+                        } else {
+                            alert('Vui lòng chọn một biến thể sản phẩm.');
+                        }
+                        return;
+                    }
+                });
             });
         });
     </script>

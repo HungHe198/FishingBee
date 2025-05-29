@@ -10,13 +10,15 @@ namespace FishingBee_WebStore.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IAllRepositories<ProductDetail> _repoPD;
         private readonly IAllRepositories<Cart_PD> _repoCart_PD;
+        private readonly IAllRepositories<Cart> _repoCart;
 
 
-        public CartsController(ICartRepository cartRepository, IAllRepositories<ProductDetail> repoPD, IAllRepositories<Cart_PD> repoCart_PD)
+        public CartsController(ICartRepository cartRepository, IAllRepositories<ProductDetail> repoPD, IAllRepositories<Cart_PD> repoCart_PD, IAllRepositories<Cart> repoCart)
         {
             _cartRepository = cartRepository;
             _repoPD = repoPD;
             _repoCart_PD = repoCart_PD;
+            _repoCart = repoCart;
         }
 
         public async Task<IActionResult> Index()
@@ -32,39 +34,82 @@ namespace FishingBee_WebStore.Controllers
             var cart = await _cartRepository.GetCartByCustomerIdAsync(customerId);
             return View(cart);
         }
+       
+        [HttpPost]
+        public async Task<IActionResult> AddToCart( Guid productDetailId, int quantity)
+
+        {
+            var customerIdJson = HttpContext.Session.GetString("CustomerId");
+            if (string.IsNullOrEmpty(customerIdJson) || !Guid.TryParse(customerIdJson, out Guid customerId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
 
-		[HttpPost]
-		public async Task<IActionResult> AddToCart(Guid productDetailId, int quantity)
-		{
-			if (quantity <= 0)
-			{
-				TempData["ErrorMessage"] = "Số lượng phải lớn hơn 0!";
-				return RedirectToAction("Index", "Home");
-			}
+            var cart = await _cartRepository.GetCartByCustomerIdAsync(customerId);
 
-			var customerIdJson = HttpContext.Session.GetString("CustomerId");
-			if (string.IsNullOrEmpty(customerIdJson))
-			{
-				TempData["ErrorMessage"] = "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.";
-				return RedirectToAction("Login", "Account");
-			}
+            if (cart == null)
+            {
+                cart = new Cart
+                {
+                    Id = Guid.NewGuid(),
+                    CustomerId = customerId,
+                    CreatedTime = DateTime.Now,
+                    LastUpdateTime = DateTime.Now,
+                    Status = "Active",
+                    Cart_PDs = new List<Cart_PD>()
+                };
+                await _repoCart.Create(cart);
+            }
 
-			try
-			{
-				var customerId = Guid.Parse(customerIdJson);
-				await _cartRepository.AddToCartAsync(customerId, productDetailId, quantity);
-				TempData["SuccessMessage"] = "Sản phẩm đã được thêm vào giỏ hàng!";
-			}
-			catch (Exception ex)
-			{
-				TempData["ErrorMessage"] = "Lỗi khi thêm sản phẩm vào giỏ hàng. " + ex.Message;
-			}
+            var currentDetail = await _repoPD.GetAllQueryable()
+                .Include(pd => pd.Product)
+                .FirstOrDefaultAsync(pd => pd.Id == productDetailId);
 
-			return RedirectToAction("Index","Home");
-		}
+            if (currentDetail == null)
+            {
+                // trả lỗi nếu không tìm thấy sản phẩm
+                return NotFound("Sản phẩm không tồn tại.");
+            }
 
+            var productId = currentDetail.ProductId;
 
-	}
+            var cartItemsWithSameProduct = cart.Cart_PDs
+                .Where(cp => _repoPD.GetAllQueryable()
+                    .Any(pd => pd.Id == cp.ProductDetailId && pd.ProductId == productId))
+                .ToList();
+
+            int existingTotalQuantity = cartItemsWithSameProduct.Sum(cp => cp.Quantity);
+
+            if (existingTotalQuantity + quantity > currentDetail.Stock)
+            {
+                return BadRequest("Số lượng vượt quá tồn kho.");
+            }
+
+            var cartItem = cart.Cart_PDs.FirstOrDefault(cp => cp.ProductDetailId == productDetailId);
+
+            if (cartItem == null)
+            {
+                cartItem = new Cart_PD
+                {
+                    Id = Guid.NewGuid(),
+                    CartId = cart.Id,
+                    ProductDetailId = productDetailId,
+                    Quantity = quantity
+                };
+                await _repoCart_PD.Create(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity += quantity;
+                await _repoCart_PD.Update(cartItem.Id, cartItem);
+            }
+
+            cart.LastUpdateTime = DateTime.Now;
+
+            return RedirectToAction("Index", "Cart_PD");
+        }
+
+    }
 
 }

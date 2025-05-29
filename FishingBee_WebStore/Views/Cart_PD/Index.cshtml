@@ -31,7 +31,7 @@
             var subtotal = price * item.Quantity;
             <tr>
                 <td>@(stt++)</td>
-                <td>@pd.Product.Name</td>
+                <td>@(@pd.Product.Name.ToString() +"| Phiên bản: "+ @pd.AttributeValue.ToString() +" "+ @pd.Product.AttributeUnit.ToString())</td>
                 <td>@price.ToString() VNĐ</td>
                 <td>
                     <form asp-action="Edit" method="post">
