@@ -35,6 +35,7 @@ namespace Data_FishingBee.Repositories
         }
 
         // ✅ Thêm sản phẩm vào giỏ hàng
+
         public async Task AddToCartAsync(Guid customerId, Guid productDetailId, int quantity)
         {
             var cart = await GetCartByCustomerIdAsync(customerId);
