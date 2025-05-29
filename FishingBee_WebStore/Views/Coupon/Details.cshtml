@@ -23,6 +23,12 @@
             <dt class="col-sm-3">Ngày Kết Thúc</dt>
             <dd class="col-sm-9">@Model.DateEnd.ToString("dd/MM/yyyy")</dd>
 
+            <dt class="col-sm-3">Giá trị đơn tối thiểu</dt>
+            <dd class="col-sm-9">@Model.MinOfTotalPrice.ToString("N2")</dd>
+
+            <dt class="col-sm-3">Giảm tối đa</dt>
+            <dd class="col-sm-9">@Model.MaxOfDiscount.ToString("N2")</dd>
+
             <dt class="col-sm-3">Số Lượng</dt>
             <dd class="col-sm-9">@Model.QuantityAvailable</dd>
 
