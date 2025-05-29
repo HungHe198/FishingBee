@@ -54,7 +54,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             }
             else
             {
-                var result = await query.ToListAsync();
+                var result = await query.OrderByDescending(x=>x.CreatedTime).ToListAsync();
                 ViewBag.CurrentStatus = status;
                 return View(result);
             }

@@ -21,7 +21,7 @@ namespace FishingBee_WebStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.OrderByDescending(x=>x.CreatedTime).ToListAsync();
             return View(users);
         }
 

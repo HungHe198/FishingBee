@@ -33,7 +33,8 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
             var fishingBeeDbContext = _productDetailRepo.GetAllQueryable()
                 .Include(p => p.Product)
                 .Where(x=>x.ProductId == productId);
-            return View(await fishingBeeDbContext.ToListAsync());
+            var productDetails = await fishingBeeDbContext.OrderByDescending(x => x.CreatedTime).ToListAsync();
+            return View(productDetails);
         }
         [HttpGet]
         public async Task<IActionResult> Create(Guid productId)

@@ -20,7 +20,7 @@ namespace Data_FishingBee.Controllers
         // Danh sách mã giảm giá
         public async Task<IActionResult> Index()
         {
-            var coupons = await _context.Coupons.ToListAsync();
+            var coupons = await _context.Coupons.OrderByDescending(x=>x.CreatedTime).ToListAsync();
             return View(coupons);
         }
 
