@@ -53,11 +53,51 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
         {
             //if (!ModelState.IsValid)
             //    return View(model);
+            //if (model.Price <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(model.Price), "Giá phải lớn hơn 0.");
+            //}
 
+            //if (model.Stock <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(model.Stock), "Tồn kho phải lớn hơn 0.");
+            //}
+
+            //if (!ModelState.IsValid)
+            //{
+            //    // Nếu có lỗi thì hiển thị lại form với dữ liệu và thông báo lỗi
+            //    ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
+            //    return View(model);
+            //}
             model.Id = Guid.NewGuid(); // Nếu không dùng auto-ID trong DB
             await _productDetailRepo.Create(model);
             ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
             return RedirectToAction("Index", "ManagerPD", new { productId = model.ProductId });
+            // Kiểm tra thủ công nếu chưa dùng [Range] trong model
+            //if (model.Price <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(model.Price), "Giá phải lớn hơn 0.");
+            //}
+
+            //if (model.Stock <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(model.Stock), "Tồn kho phải lớn hơn 0.");
+            //}
+
+            //if (!ModelState.IsValid)
+            //{
+            //    // Nếu có lỗi thì hiển thị lại form với dữ liệu và thông báo lỗi
+            //    ViewData["ProductId"] = new SelectList(await _productRepo.GetAll(), "Id", "Name", model.ProductId);
+            //    return View(model);
+            //}
+
+            //// Nếu hợp lệ, tiếp tục lưu
+            //model.Id = Guid.NewGuid();
+            //model.CreatedTime = DateTime.UtcNow;
+
+            //await _productDetailRepo.Create(model);
+
+            //return RedirectToAction("Index", "ManagerPD", new { productId = model.ProductId });
 
         }
         [HttpGet]
