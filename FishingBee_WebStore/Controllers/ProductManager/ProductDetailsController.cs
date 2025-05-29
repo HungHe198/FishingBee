@@ -27,6 +27,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                                                     .ThenInclude(p => p.ProductImages)
                                               .Include(pd => pd.Product)
                                               .Where(pd => pd.ProductId == id) // Lọc theo ProductId
+                                              .Where (pd => pd.Status == "1" && pd.Stock >0 && pd.Price >= 1000)
                                               .ToListAsync();
 
             if (!productDetails.Any())
