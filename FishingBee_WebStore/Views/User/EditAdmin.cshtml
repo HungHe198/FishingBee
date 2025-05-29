@@ -1,9 +1,9 @@
 ﻿@model dynamic
-
 @{
     ViewData["Title"] = "Chỉnh Sửa Admin";
-}
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
+}
 <h2>Chỉnh Sửa Admin</h2>
 
 <form method="post" action="@Url.Action("EditAdmin", "User")">

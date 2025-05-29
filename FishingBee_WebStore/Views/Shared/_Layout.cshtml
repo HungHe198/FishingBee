@@ -359,7 +359,7 @@
 	<header>
 		<div class="top-bar">
 			<div class="logo">
-				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Logo.png" style="height: 40px; vertical-align: middle;">
+				<img src="~/images/Logo.png" style="height: 40px; vertical-align: middle;">
 			</div>
 			<input type="text" placeholder="Tìm kiếm...">
 			<button class="search-btn">🔍</button>
@@ -406,7 +406,8 @@
 		</div>
 		<nav class="menu">
 			<ul class="nav navbar-nav collapse navbar-collapse">
-				<li><a asp-action="index" asp-controller="Home" class="active">Home</a></li>
+				<li><a asp-action="Index" asp-controller="Home" class="active">Home</a></li>
+
 				<li class="dropdown">
 					<a href="#">Danh Mục Sản Phẩm <i class="fa fa-angle-down"></i></a>
 					<ul role="menu" class="sub-menu">
@@ -414,17 +415,15 @@
 						<li><a href="blog-single.html">Blog Single</a></li>
 					</ul>
 				</li>
-				<li class="dropdown">
-				<li><a asp-controller="Home" asp-action="Contact">Contact</a><i class="fa fa-angle-down"></i></li>
-					@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
-					{
 
-					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a>Quản lý Admin</li>
-					<li><a asp-controller="Coupon" asp-action="Index">Quản lý khuyến mãi</a>Quản lý khuyến mãi</li>
+				<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
-					}
-				</li>
+				@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+				{
+					<li><a asp-controller="User" asp-action="Index">Quản lý Admin</a></li>
+				}
 			</ul>
+
 			<a asp-controller="Home" asp-action="AboutUs">Giới thiệu</a>
 			<a asp-controller="Home" asp-action="ContactUs">Liên hệ</a>
 			<a asp-controller="Home" asp-action="FishingTips">Kinh nghiệm câu</a>
@@ -435,16 +434,16 @@
 	<section class="slider">
 		<div class="slides">
 			<div class="slide">
-				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide1.png" height="500" alt="Slide 1">
+				<img src="~/images/Slide1.png" height="500" alt="Slide 1">
 			</div>
 			<div class="slide">
-				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide2.png" height="500" alt="Slide 2">
+				<img src="~/images/Slide2.png" height="500" alt="Slide 2">
 			</div>
 			<div class="slide">
-				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide3.png" height="500" alt="Slide 3">
+				<img src="~/images/Slide3.png" height="500" alt="Slide 3">
 			</div>
 			<div class="slide">
-				<img src="~/images/e9a80485-371b-4e28-df8d-08dd74339de8/Slide4.png" height="500" alt="Slide 4">
+				<img src="~/images/Slide4.png" height="500" alt="Slide 4">
 			</div>
 		</div>
 		<button class="prev" onclick="prevSlide()">&#10094;</button>
