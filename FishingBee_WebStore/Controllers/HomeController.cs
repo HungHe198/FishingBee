@@ -71,6 +71,7 @@ namespace FishingBee_WebStore.Controllers
                     // nếu null trả về wwwroot\images\default\default.jpg
 
                 })
+                
                 .ToListAsync();
 
             var productList = products.Select(p => new ProductViewModel

@@ -16,6 +16,7 @@
             <th>Sản phẩm</th>
             <th>Giá</th>
             <th>Số lượng</th>
+            <th>Số lượng trong kho</th>
             <th>Thành tiền</th>
             <th>Hành động</th>
         </tr>
@@ -44,6 +45,7 @@
 
                         <div class="input-group input-group-sm">
                             <input type="number" name="quantity" class="form-control" min="1" value="@item.Quantity" style="width: 60px;" />
+                            
                             <button type="submit" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">✔</button>
                             <ul class="dropdown-menu">
                                 <li>
@@ -53,6 +55,7 @@
                         </div>
                     </form>
                 </td>
+                <td><input type="number" name="stock" class="form-control" value="@item.ProductDetail.Stock" style="width: 60px;" readonly /></td>
                 <td>@subtotal.ToString() VNĐ</td>
                 <td>
                     <form asp-action="Remove" method="post">

@@ -1,0 +1,33 @@
+﻿@model List<Data_FishingBee.Models.BillDetail>
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*  ViewBag.CustomerName = bill.CustomerName;
+        ViewBag.CustomerPhoneNumber = bill.CustomerPhone;
+        ViewBag.BillStatus = bill.Status;
+ *@
+<h2>Chi tiết đơn hàng của  @ViewBag.CustomerName</h2>
+<h3>Số điện thoại của khách @ViewBag.CustomerPhoneNumber</h3>
+
+<p>Trạng thái: @ViewBag.BillStatus</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Đơn giá hiện tại</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(item.ProductDetail.Product.Name + " "+item.ProductDetail.AttributeValue+item.ProductDetail.Product.AttributeUnit)</td>
+                <td>@item.Amount</td>
+                <td>@item.UnitPrice.ToString("N0") VNĐ</td>
+            </tr>
+        }
+    </tbody>
+</table>

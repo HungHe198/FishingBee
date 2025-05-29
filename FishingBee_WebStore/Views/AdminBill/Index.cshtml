@@ -2,10 +2,23 @@
 @{
     ViewData["Title"] = "Quản lý đơn hàng";
     var currentStatus = ViewBag.SelectedStatus as string;
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";  
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Quản lý đơn hàng</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Info"] != null)
+{
+    <div class="alert alert-info">@TempData["Info"]</div>
+}
 
 <form asp-action="Index" method="get" class="mb-3">
     <label>Lọc theo trạng thái: </label>
@@ -15,7 +28,6 @@
         <option value="2" selected="@(currentStatus == "2")">Đã xác nhận</option>
         <option value="3" selected="@(currentStatus == "3")">Đang vận chuyển</option>
         <option value="4" selected="@(currentStatus == "4")">Đã hủy</option>
-       
         <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
     </select>
 </form>
@@ -35,7 +47,11 @@
         @foreach (var bill in Model)
         {
             <tr>
-                <td>@bill.InvoiceCode</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@bill.Id">
+                        @bill.InvoiceCode
+                    </a>
+                </td>
                 <td>@bill.CustomerName</td>
                 <td>@bill.TotalPrice.ToString("N0") ₫</td>
                 <td>@bill.PaymentMethod</td>
@@ -47,37 +63,35 @@
                             "2" => "Đã xác nhận",
                             "3" => "Đang vận chuyển",
                             "4" => "Đã hủy",
-                           
                             "0" => "Giao thành công",
                             _ => "Không xác định"
-                            // < option value= "1" selected= "@(currentStatus == "1")" > Chờ xác nhận   </ option >
-
-                            // < option value= "2" selected= "@(currentStatus == "2")" > Đã xác nhận    </ option >
-
-                            // < option value= "3" selected= "@(currentStatus == "3")" > Đang vận chuyển</ option >
-
-                            // < option value= "4" selected= "@(currentStatus == "4")" > Đã hủy         </ option >
-
-                            // < option value ="5" selected= "@(currentStatus == "5")" > Hoàn trả tiền  </ option >
-
-                            // < option value= "0" selected= "@(currentStatus == "0")" > Giao thành công</ option >
                         };
                     }
                     @statusLabel
                 </td>
                 <td>
-                    <form asp-action="UpdateStatus" method="post" class="d-inline">
-                        <input type="hidden" name="id" value="@bill.Id" />
-                        <select name="newStatus" class="form-select form-select-sm d-inline w-auto">
-                            <option value="1" selected="@(currentStatus == "1")">Chờ xác nhận</option>
-                            <option value="2" selected="@(currentStatus == "2")">Đã xác nhận</option>
-                            <option value="3" selected="@(currentStatus == "3")">Đang vận chuyển</option>
-                            <option value="4" selected="@(currentStatus == "4")">Đã hủy</option>
-                            <option value="0" selected="@(currentStatus == "0")">Giao thành công</option>
-                        </select>
-                        <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
-                    </form>
+                    @if (bill.Status != "4" && bill.Status != "0")
+                    {
+                        <form asp-action="UpdateStatus" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@bill.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Nâng trạng thái
+                            </button>
+                        </form>
+
+                        <form asp-action="CancelStatus" method="post" class="d-inline ms-2">
+                            <input type="hidden" name="id" value="@bill.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Hủy
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Không thể cập nhật thêm</span>
+                    }
                 </td>
+
             </tr>
         }
     </tbody>
