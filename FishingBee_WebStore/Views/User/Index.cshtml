@@ -1,15 +1,37 @@
 ﻿@model IEnumerable<Data_FishingBee.Models.User>
 
-<h2>Danh sách User</h2>
-<a asp-action="Create" class="btn btn-primary">Thêm User</a>
-<table class="table">
-    <thead>
+@{
+    ViewData["Title"] = "Người dùng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string currentStatus = ViewBag.CurrentStatus as string;
+}
+
+@Html.AntiForgeryToken()
+
+@* <form method="get" asp-action="Index" class="mb-3 d-flex justify-content-end"> *@
+@*     <label class="me-2 align-self-center">Trạng thái:</label> *@
+@*     <select name="status" onchange="this.form.submit()" class="form-select w-auto"> *@
+@*         <option value="" selected="@(string.IsNullOrEmpty(currentStatus) ? "selected" : null)">Tất cả</option> *@
+@*         <option value="Active" selected="@(currentStatus == "Active" ? "selected" : null)">Hoạt động</option> *@
+@*         <option value="Inactive" selected="@(currentStatus == "Inactive" ? "selected" : null)">Bị khóa</option> *@
+@*     </select> *@
+@* </form> *@
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-people"></i> Người dùng</h2>
+    <a class="btn btn-primary" asp-action="Create">
+        <i class="bi bi-plus-circle"></i> Thêm người dùng
+    </a>
+</div>
+
+<table class="table table-bordered table-striped table-hover align-middle">
+    <thead class="table-dark">
         <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>UserType</th>
-            <th>Trạng thái</th>
-            <th>Thao tác</th>
+            <th>@Html.DisplayNameFor(model => model.First().Username)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+            <th>@Html.DisplayNameFor(model => model.First().UserType)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Status)</th>
+            <th class="text-center">Hành động</th>
         </tr>
     </thead>
     <tbody>
@@ -25,39 +47,64 @@
                         @(user.Status == "Active" ? "Hoạt động" : "Bị khóa")
                     </button>
                 </td>
-                <td class="action-buttons">
-                    @if (user.UserType != "Customer")
-                    {
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-action">Sửa</a>
-                    }
-
-                    <form asp-action="DeleteConfirmed" method="post" class="delete-form" onsubmit="return confirm('Bạn có chắc muốn xóa không?');">
-                        <input type="hidden" name="id" value="@user.Id" />
-                        <button type="submit" class="btn btn-danger btn-action">Xóa</button>
-                    </form>
-
-                    <a href="@Url.Action("Details", "User", new { id = user.Id })" class="btn btn-info btn-action">Chi tiết</a>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm" role="group">
+                        @if (user.UserType != "Customer")
+                        {
+                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@user.Id">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        }
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@user.Id">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="javascript:void(0)" class="btn btn-outline-danger btn-delete" data-id="@user.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
                 </td>
-
             </tr>
         }
     </tbody>
-
 </table>
 
-<script>
-    function toggleStatus(userId) {
-        fetch(`/User/ToggleStatus/${userId}`, {
-            method: "POST"
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload(); // Cập nhật lại trang ngay lập tức
-            } else {
-                alert("Có lỗi xảy ra!");
-            }
-        });
-    }
-</script>
+@section Scripts {
+    <script>
+        function toggleStatus(userId) {
+            fetch(`/User/ToggleStatus/${userId}`, {
+                method: "POST"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert("Có lỗi xảy ra khi đổi trạng thái!");
+                }
+            });
+        }
 
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const confirmDelete = confirm("Bạn có chắc chắn muốn xóa người dùng này?");
+                if (!confirmDelete) return;
+
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                const response = await fetch(`/User/DeleteConfirmed/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token
+                    }
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Xóa không thành công.');
+                }
+            });
+        });
+    </script>
+}

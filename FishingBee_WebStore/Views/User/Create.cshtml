@@ -1,5 +1,9 @@
 ﻿@model Data_FishingBee.Models.User
 
+@{
+    ViewData["Title"] = "Thêm User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 <h2>Thêm User</h2>
 <form asp-action="Create" method="post">
     <div class="form-group">
