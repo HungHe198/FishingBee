@@ -17,12 +17,27 @@ namespace Data_FishingBee.Controllers
             _context = context;
         }
 
-        // Danh sách mã giảm giá
         public async Task<IActionResult> Index()
         {
-            var coupons = await _context.Coupons.OrderByDescending(x=>x.CreatedTime).ToListAsync();
-            return View(coupons);
+            var coupons = await _context.Coupons.OrderByDescending(x => x.CreatedTime).ToListAsync();
+
+            foreach (var coupon in coupons)
+            {
+                if (coupon.QuantityAvailable == 0 || coupon.DateEnd < DateTime.Now.Date)
+                {
+                    coupon.Status = "Vô hiệu hóa";
+                }
+                else
+                {
+                    coupon.Status = "Hoạt động";
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return View(coupons); // ✅ PHẢI truyền vào View!
         }
+
 
         public async Task<IActionResult> Details(Guid id)
         {
@@ -30,10 +45,10 @@ namespace Data_FishingBee.Controllers
             if (coupon == null)
                 return NotFound();
 
-            // Kiểm tra trạng thái và nếu cần thiết, thay đổi trạng thái
-            if (coupon.DateEnd < DateTime.Now.Date)
+            if (coupon.QuantityAvailable == 0 || coupon.DateEnd < DateTime.Now.Date)
             {
                 coupon.Status = "Vô hiệu hóa";
+                await _context.SaveChangesAsync();
             }
 
             return View(coupon);
@@ -45,52 +60,96 @@ namespace Data_FishingBee.Controllers
         {
             return View();
         }
+        // Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Coupon coupon)
         {
-            if (coupon.DateStart < DateTime.Now.Date)
+            // === Kiểm tra dữ liệu trống ===
+            if (string.IsNullOrWhiteSpace(coupon.Name))
             {
-                ModelState.AddModelError("DateStart", "Ngày bắt đầu không được nhỏ hơn ngày hiện tại.");
+                ModelState.AddModelError("Name", "Tên mã giảm giá không được để trống.");
             }
-            if (coupon.DateStart >= coupon.DateEnd)
+
+            if (coupon.DateStart == default)
             {
-                ModelState.AddModelError("DateStart", "Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.");
+                ModelState.AddModelError("DateStart", "Ngày bắt đầu không được để trống.");
             }
-            if (coupon.Percent <= 0 || coupon.Percent >= 40)
+
+            if (coupon.DateEnd == default)
             {
-                ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 90.");
+                ModelState.AddModelError("DateEnd", "Ngày kết thúc không được để trống.");
             }
-            if (coupon.MinOfTotalPrice <= 0)
+
+            if (coupon.Percent == 0)
             {
-                ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu phải lớn hơn 0.");
+                ModelState.AddModelError("Percent", "Phần trăm giảm không được để trống.");
             }
-            if (coupon.MaxOfDiscount <= 0)
+
+            if (coupon.MinOfTotalPrice == 0)
             {
-                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa phải lớn hơn 0.");
+                ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu không được để trống.");
             }
-            if (coupon.MaxOfDiscount > coupon.MinOfTotalPrice)
+
+            if (coupon.MaxOfDiscount == 0)
             {
-                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được lớn hơn giá trị đơn tối thiểu.");
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được để trống.");
             }
-            if (coupon.QuantityAvailable <= 0)
+
+            if (coupon.QuantityAvailable == 0)
             {
-                ModelState.AddModelError("QuantityAvailable", "Số lượng phải lớn hơn 0.");
+                ModelState.AddModelError("QuantityAvailable", "Số lượng không được để trống.");
             }
+
+            // === Nếu dữ liệu hợp lệ mới kiểm tra logic ===
             if (ModelState.IsValid)
             {
-                coupon.Status = "Hoạt động";
-                if (coupon.DateEnd < DateTime.Now.Date)
-                {
-                    coupon.Status = "Vô hiệu hóa";
-                }
-
                 if (coupon.DateStart < DateTime.Now.Date)
                 {
-                    coupon.Status = "Vô hiệu hóa";
+                    ModelState.AddModelError("DateStart", "Ngày bắt đầu không được nhỏ hơn ngày hiện tại.");
                 }
+
+                if (coupon.DateStart >= coupon.DateEnd)
+                {
+                    ModelState.AddModelError("DateStart", "Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.");
+                }
+
+                if (coupon.Percent <= 0 || coupon.Percent >= 40)
+                {
+                    ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 40.");
+                }
+
+                if (coupon.MinOfTotalPrice <= 0)
+                {
+                    ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu phải lớn hơn 0.");
+                }
+
+                if (coupon.MaxOfDiscount <= 0)
+                {
+                    ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa phải lớn hơn 0.");
+                }
+
+                if (coupon.MaxOfDiscount > coupon.MinOfTotalPrice)
+                {
+                    ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được lớn hơn giá trị đơn tối thiểu.");
+                }
+
+                if (coupon.QuantityAvailable <= 0)
+                {
+                    ModelState.AddModelError("QuantityAvailable", "Số lượng phải lớn hơn 0.");
+                }
+            }
+
+            // === Nếu không có lỗi, thêm vào DB ===
+            if (ModelState.IsValid)
+            {
                 coupon.Id = Guid.NewGuid();
-                coupon.CreatedTime = DateTime.Now; 
+                coupon.CreatedTime = DateTime.Now;
+
+                coupon.Status = (coupon.QuantityAvailable == 0 || coupon.DateEnd < DateTime.Now.Date)
+                    ? "Vô hiệu hóa"
+                    : "Hoạt động";
+
                 _context.Coupons.Add(coupon);
                 await _context.SaveChangesAsync();
 
@@ -99,6 +158,8 @@ namespace Data_FishingBee.Controllers
 
             return View(coupon);
         }
+
+
 
 
 
@@ -115,29 +176,51 @@ namespace Data_FishingBee.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Coupon coupon)
         {
-            // Kiểm tra nếu ID không khớp
             if (id != coupon.Id)
                 return NotFound();
 
-            // Kiểm tra ngày bắt đầu không được nhỏ hơn ngày hiện tại
+            if (string.IsNullOrWhiteSpace(coupon.Name))
+            {
+                ModelState.AddModelError("Name", "Tên mã giảm giá không được để trống.");
+            }
+            if (coupon.DateStart == default)
+            {
+                ModelState.AddModelError("DateStart", "Ngày bắt đầu không được để trống.");
+            }
+            if (coupon.DateEnd == default)
+            {
+                ModelState.AddModelError("DateEnd", "Ngày kết thúc không được để trống.");
+            }
+            if (coupon.Percent == 0)
+            {
+                ModelState.AddModelError("Percent", "Phần trăm giảm không được để trống.");
+            }
+            if (coupon.MinOfTotalPrice == 0)
+            {
+                ModelState.AddModelError("MinOfTotalPrice", "Giá trị đơn tối thiểu không được để trống.");
+            }
+            if (coupon.MaxOfDiscount == 0)
+            {
+                ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được để trống.");
+            }
+            if (coupon.QuantityAvailable == 0)
+            {
+                ModelState.AddModelError("QuantityAvailable", "Số lượng không được để trống.");
+            }
+
+            // Các điều kiện logic
             if (coupon.DateStart < DateTime.Now.Date)
             {
                 ModelState.AddModelError("DateStart", "Ngày bắt đầu không được nhỏ hơn ngày hiện tại.");
             }
-
-            // Kiểm tra ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc
             if (coupon.DateStart >= coupon.DateEnd)
             {
                 ModelState.AddModelError("DateStart", "Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.");
             }
-
-            // Kiểm tra phần trăm giảm
             if (coupon.Percent <= 0 || coupon.Percent >= 40)
             {
                 ModelState.AddModelError("Percent", "Phần trăm giảm phải lớn hơn 0 và nhỏ hơn 40.");
             }
-
-            // Kiểm tra số lượng phải lớn hơn 0
             if (coupon.QuantityAvailable <= 0)
             {
                 ModelState.AddModelError("QuantityAvailable", "Số lượng phải lớn hơn 0.");
@@ -154,32 +237,30 @@ namespace Data_FishingBee.Controllers
             {
                 ModelState.AddModelError("MaxOfDiscount", "Giảm tối đa không được lớn hơn giá trị đơn tối thiểu.");
             }
-            // Thiết lập trạng thái
+
             if (!ModelState.IsValid)
             {
                 return View(coupon);
             }
 
-            // Kiểm tra và thay đổi trạng thái nếu ngày kết thúc đã qua
-            if (coupon.DateEnd < DateTime.Now.Date)
+            // Cập nhật trạng thái
+            if (coupon.QuantityAvailable == 0 || coupon.DateEnd < DateTime.Now.Date)
             {
                 coupon.Status = "Vô hiệu hóa";
             }
             else
             {
-                coupon.Status = "Hoạt động"; // Trạng thái vẫn là "Hoạt động" nếu còn hiệu lực
+                coupon.Status = "Hoạt động";
             }
 
-            // Cập nhật thời gian sửa đổi
             coupon.ModifiedTime = DateTime.Now;
-
-            // Cập nhật vào database
             _context.Update(coupon);
             await _context.SaveChangesAsync();
 
-            // Quay lại trang danh sách
             return RedirectToAction(nameof(Index));
         }
+
+
 
 
         public async Task<IActionResult> Delete(Guid id)

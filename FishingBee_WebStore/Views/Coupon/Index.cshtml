@@ -24,6 +24,7 @@
                 <th>Giảm tối đa</th>
                 <th>Số lượng</th>
                 <th>Mô tả</th>
+                <th>Trạng thái</th> <!-- ✅ Cột thêm -->
                 <th>Hành động</th>
             </tr>
         </thead>
@@ -38,7 +39,22 @@
                     <td class="text-end">@item.MinOfTotalPrice.ToString("N2")</td>
                     <td class="text-end">@item.MaxOfDiscount.ToString("N2")</td>
                     <td class="text-center">@item.QuantityAvailable</td>
-                     <td class="text-center">@item.Description</td>
+                    <td>@item.Description</td>
+                    <td class="text-center">
+                        @if (item.Status == "Hoạt động")
+                        {
+                            <span class="badge bg-success">Hoạt động</span>
+                        }
+                        else if (item.Status == "Vô hiệu hóa")
+                        {
+                            <span class="badge bg-danger">Vô hiệu hóa</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Không xác định</span>
+                        }
+                    </td>
+
                     <td class="text-center">
                         <div class="btn-group btn-group-sm" role="group">
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Xem">

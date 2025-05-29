@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Sửa Mã Giảm Giá";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    }
+}
+
 <div class="card shadow mb-4">
     <div class="card-header bg-primary text-white">
         <h4 class="mb-0"><i class="bi bi-ticket-perforated-fill"></i> Sửa Mã Giảm Giá</h4>
@@ -14,41 +15,49 @@
 
             <div class="mb-3">
                 <label asp-for="Name" class="form-label">Tên mã giảm giá</label>
-                <input asp-for="Name" class="form-control" required />
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Percent" class="form-label">Phần trăm giảm</label>
-                <input asp-for="Percent" type="number" class="form-control" required />
+                <input asp-for="Percent" type="number" class="form-control" />
                 <span asp-validation-for="Percent" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="DateStart" class="form-label">Ngày bắt đầu</label>
-                <input asp-for="DateStart" type="date" class="form-control" required />
+                <input asp-for="DateStart" type="date" class="form-control" />
                 <span asp-validation-for="DateStart" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="DateEnd" class="form-label">Ngày kết thúc</label>
-                <input asp-for="DateEnd" type="date" class="form-control" required />
+                <input asp-for="DateEnd" type="date" class="form-control" />
                 <span asp-validation-for="DateEnd" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label asp-for="MinOfTotalPrice" class="form-label">Giá trị đơn tối thiểu</label>
-                <input asp-for="MinOfTotalPrice" type="number" step="0.01" min="0.01" class="form-control" required />
+                <input asp-for="MinOfTotalPrice" type="number" step="0.01" min="0.01" class="form-control" />
                 <span asp-validation-for="MinOfTotalPrice" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="MaxOfDiscount" class="form-label">Giảm tối đa</label>
-                <input asp-for="MaxOfDiscount" type="number" step="0.01" min="0.01" class="form-control" required />
+                <input asp-for="MaxOfDiscount" type="number" step="0.01" min="0.01" class="form-control" />
                 <span asp-validation-for="MaxOfDiscount" class="text-danger"></span>
             </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
             <div class="mb-3">
                 <label asp-for="QuantityAvailable" class="form-label">Số lượng</label>
-                <input asp-for="QuantityAvailable" type="number" class="form-control" required />
+                <input asp-for="QuantityAvailable" type="number" class="form-control" />
                 <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
             </div>
 
@@ -71,4 +80,16 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        // Tắt unobtrusive validation
+        $.validator.unobtrusive.parse('form');
+        $('form').removeData('validator');
+        $('form').removeData('unobtrusiveValidation');
+
+        // Xóa thuộc tính required khỏi input nếu có
+        $('form').find('input, select, textarea').each(function () {
+            $(this).removeAttr('required');
+        });
+    </script>
 }

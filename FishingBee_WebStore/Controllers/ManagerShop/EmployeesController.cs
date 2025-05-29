@@ -175,11 +175,11 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
                     await _Employee.Create(employee);
 
                     // 7. Success notification
-                    TempData["SuccessMessage"] = "Employee created successfully!";
+                    TempData["SuccessMessage"] = "Nhân viên đã được tạo thành công!";
                     return RedirectToAction(nameof(Index));
                 }
 
-                TempData["ErrorMessage"] = "Invalid data.";
+                TempData["ErrorMessage"] = "Dữ liệu không hợp lệ.";
                 return View(employee);
             }
             catch (Exception ex)
@@ -196,7 +196,7 @@ namespace FishingBee_WebStore.Controllers.ManagerShop
 
                 await System.IO.File.AppendAllTextAsync(logFile, logMessage);
 
-                TempData["ErrorMessage"] = "An error occurred while creating the employee. Please try again.";
+                TempData["ErrorMessage"] = "Đã xảy ra lỗi trong quá trình tạo nhân viên. Vui lòng thử lại.";
                 return View(employee);
             }
             finally
