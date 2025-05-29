@@ -9,7 +9,7 @@ namespace Data_FishingBee.Repositories
 {
     public interface IProductImageRepository
     {
-        Task<IEnumerable<ProductImage>> GetByProductId(Guid productId);
+        Task<List<ProductImage>> GetByProductId(Guid productId);
 
     }
 }

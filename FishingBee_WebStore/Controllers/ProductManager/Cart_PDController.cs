@@ -271,7 +271,7 @@ namespace FishingBee_WebStore.Controllers
             {
                 return BadRequest($"Error deleting cart items: {ex.Message}");
             }
-
+            TempData["SuccessMessage"] = "Đặt hàng thành công!";
             return RedirectToAction("Index", "Home");
         }
 
