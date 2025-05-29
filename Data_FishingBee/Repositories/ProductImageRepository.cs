@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Data_FishingBee.Repositories
@@ -18,13 +17,20 @@ namespace Data_FishingBee.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ProductImage>> GetByProductId(Guid productId)
+        public async Task<List<ProductImage>> GetByProductId(Guid productId)
         {
-            return await _context.ProductImages
-                .Where(pi => pi.ProductId == productId)
-                .ToListAsync();
+            try
+            {
+                var images = await _context.ProductImages
+                    .Where(i => i.ProductId == productId)
+                    .ToListAsync();
+                return images; // ToListAsync() đã được await, trả về List<ProductImage> và được tự động bọc trong Task
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching images for product {productId}: {ex.Message}");
+                return await Task.FromResult(new List<ProductImage>()); // Bọc List<ProductImage> trong Task
+            }
         }
-
-        // Các hàm khác như Create(), Delete(), ...
     }
 }

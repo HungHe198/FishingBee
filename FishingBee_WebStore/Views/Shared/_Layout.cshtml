@@ -346,7 +346,7 @@
 	<script>
 		setTimeout(function () {
 			document.getElementById("successMessage").style.display = "none";
-		}, 1000); // 1000ms = 1 giây
+		}, 30000); // 1000ms = 1 giây
 	</script>
 }
 
@@ -427,7 +427,7 @@
 			<a asp-controller="Home" asp-action="AboutUs">Giới thiệu</a>
 			<a asp-controller="Home" asp-action="ContactUs">Liên hệ</a>
 			<a asp-controller="Home" asp-action="FishingTips">Kinh nghiệm câu</a>
-			<a asp-controller="BillStatus" asp-action="Index">Đơn đã đặt mua</a>
+			<a asp-controller="BillStatus" asp-action="Index" asp-route-status="1">Đơn đã đặt mua</a>
 
 		</nav>
 	</header>

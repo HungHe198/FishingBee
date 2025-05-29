@@ -29,7 +29,8 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             IWebHostEnvironment env,
             IAllRepositories<ProductDetail> productDetailRepo,
             IAllRepositories<ProductImage> productImageRepo,
-            IProductsRepositories productCRepo)
+            IProductsRepositories productCRepo,
+            IProductImageRepository pDImageRepo)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
@@ -38,6 +39,7 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             _productDetailRepo = productDetailRepo;
             _productImageRepo = productImageRepo;
             _productCRepo = productCRepo;
+            _pDImageRepo = pDImageRepo;
         }
 
         // GET: Products
@@ -174,13 +176,24 @@ namespace FishingBee_WebStore.Controllers.ProductManager
 
                 try
                 {
+                    List<ProductImage> images = new List<ProductImage>();
                     // CHỈ gọi khi đã chắc chắn product không null
-                    var images = await _pDImageRepo.GetByProductId(product.Id);
-                    ViewBag.ExistingImages = images;
+                    // đang không thể sửa nếu null
+                    if (await _pDImageRepo.GetByProductId(product.Id) == null)
+                    {
+                        return View(product);
+                    }
+                    else
+                    {
+                        images = (await _pDImageRepo.GetByProductId(product.Id))?.ToList() ?? new List<ProductImage>();
+                        ViewBag.ExistingImages = images;
+                    }
+                    
                 }
-                catch
+                catch(NullReferenceException ex)
                 {
                     ViewBag.ExistingImages = null; // fallback nếu lỗi khi lấy ảnh
+                    throw new NullReferenceException("Lỗi khi lấy ảnh sản phẩm: " + ex.Message);
                 }
             }
             catch (Exception ex)
@@ -192,13 +205,13 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                 ViewData["ManufacturerId"] = new SelectList(Enumerable.Empty<object>(), "Id", "Name");
                 ViewBag.ExistingImages = null;
             }
+            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name");
+            ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name");
 
             return View(product);
         }
 
 
-
-        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Product product, List<IFormFile> Images)
@@ -212,55 +225,85 @@ namespace FishingBee_WebStore.Controllers.ProductManager
             {
                 try
                 {
+                    // Cập nhật thông tin sản phẩm
                     await _productRepo.Update(id, product);
 
-                    // Xử lý lưu ảnh mới (nếu có)
-                    if (Images != null && Images.Count > 0)
+                    // Đường dẫn thư mục ảnh của sản phẩm
+                    string productFolder = Path.Combine(_env.WebRootPath, "images", product.Id.ToString());
+
+                    // Xóa thư mục ảnh cũ nếu tồn tại
+                    if (Directory.Exists(productFolder))
                     {
-                        string productFolder = Path.Combine(_env.WebRootPath, "images", product.Id.ToString());
-                        if (!Directory.Exists(productFolder))
+                        try
                         {
-                            Directory.CreateDirectory(productFolder);
+                            Directory.Delete(productFolder, true);
                         }
-
-                        // Tìm số thứ tự ảnh lớn nhất hiện tại
-                        var existingImages = await _pDImageRepo.GetByProductId(product.Id);
-                        int maxIndex = 0;
-                        if (existingImages != null && existingImages.Any())
+                        catch (Exception ex)
                         {
-                            var indexes = existingImages.Select(img =>
-                            {
-                                var fileName = Path.GetFileNameWithoutExtension(img.ImageUrl);
-                                return int.TryParse(fileName, out int n) ? n : 0;
-                            });
-                            maxIndex = indexes.Max();
+                            Console.WriteLine($"Không thể xóa thư mục ảnh cũ: {ex.Message}");
+                            ModelState.AddModelError("", "Không thể xóa ảnh cũ. Vui lòng thử lại.");
+                            throw;
                         }
+                    }
 
-                        int imageIndex = maxIndex + 1;
+                    // Tạo lại thư mục
+                    try
+                    {
+                        Directory.CreateDirectory(productFolder);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Lỗi khi tạo thư mục {productFolder}: {ex.Message}");
+                        ModelState.AddModelError("", "Không thể tạo thư mục lưu ảnh.");
+                        throw;
+                    }
 
+                    // Xóa bản ghi ảnh cũ trong database
+                    var existingImages = await _pDImageRepo.GetByProductId(product.Id);
+                    foreach (var image in existingImages)
+                    {
+                        await _productImageRepo.Delete(image.Id);
+                    }
+
+                    // Lưu ảnh mới
+                    if (Images != null && Images.Any())
+                    {
+                        int imageIndex = 1;
                         foreach (var image in Images)
                         {
                             if (image != null && image.Length > 0)
                             {
-                                string fileName = $"{imageIndex}.jpg";
+                                string fileExtension = Path.GetExtension(image.FileName)?.ToLower() ?? ".jpg";
+                                string fileName = $"{imageIndex}{fileExtension}";
                                 string filePath = Path.Combine(productFolder, fileName);
 
-                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                try
                                 {
-                                    await image.CopyToAsync(stream);
+                                    using (var stream = new FileStream(filePath, FileMode.Create))
+                                    {
+                                        await image.CopyToAsync(stream);
+                                    }
+
+                                    await _productImageRepo.Create(new ProductImage
+                                    {
+                                        Id = Guid.NewGuid(),
+                                        ProductId = product.Id,
+                                        ImageUrl = $"/images/{product.Id}/{fileName}"
+                                    });
+
+                                    imageIndex++;
                                 }
-
-                                await _productImageRepo.Create(new ProductImage
+                                catch (Exception ex)
                                 {
-                                    Id = Guid.NewGuid(),
-                                    ProductId = product.Id,
-                                    ImageUrl = $"/images/{product.Id}/{fileName}"
-                                });
-
-                                imageIndex++;
+                                    Console.WriteLine($"Lỗi khi lưu ảnh {fileName}: {ex.Message}");
+                                    ModelState.AddModelError("", $"Không thể lưu ảnh {fileName}.");
+                                    throw;
+                                }
                             }
                         }
                     }
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -274,14 +317,21 @@ namespace FishingBee_WebStore.Controllers.ProductManager
                         throw;
                     }
                 }
-
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi cập nhật sản phẩm {id}: {ex.Message}");
+                    ModelState.AddModelError("", "Đã xảy ra lỗi khi cập nhật sản phẩm.");
+                }
             }
 
+            // Nếu có lỗi, nạp lại dữ liệu cần thiết
             ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetAll(), "Id", "Name", product.CategoryId);
             ViewData["ManufacturerId"] = new SelectList(await _manufacturerRepo.GetAll(), "Id", "Name", product.ManufacturerId);
+            ViewBag.ExistingImages = await _pDImageRepo.GetByProductId(product.Id);
+
             return View(product);
         }
+
 
 
         // GET: Products/Delete/5

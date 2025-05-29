@@ -63,9 +63,6 @@ app.UseSession();
 app.UseAuthentication(); 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.MapControllerRoute(
@@ -80,6 +77,6 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Employees}/{action=Index}/{id?}");
+    pattern: "{controller=ShopManager}/{action=Index}/{id?}");
 
 app.Run();
