@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_FishingBee.Migrations
 {
     [DbContext(typeof(FishingBeeDbContext))]
-    [Migration("20250524155855_lan2")]
-    partial class lan2
+    [Migration("20250530000057_lan1")]
+    partial class lan1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,13 +70,13 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8cc1bb0e-b169-49d3-ab35-a453ff57fcee"),
+                            Id = new Guid("9fb5fb72-961b-404b-8391-76d41ac6bf61"),
                             CreatedTime = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descriptions = "Default Admin",
                             FullName = "Super Admin",
                             Permissions = "All",
                             Status = "1",
-                            UserId = new Guid("c54b913e-9c30-4388-8de8-ea5a71aa7caf"),
+                            UserId = new Guid("674367af-6d92-42ea-b35d-4637347839c5"),
                             UserType = "Admin"
                         });
                 });
@@ -330,57 +330,57 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c7519baa-cc88-4a48-8ca3-f3e88b6c1c4f"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2898),
+                            Id = new Guid("50cf21c2-6bbc-4edd-b1ae-ff9cd2b5c640"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3584),
                             Name = "Cần câu đài",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("5e56bb24-6157-42bf-9e06-f6d05e371d62"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2899),
+                            Id = new Guid("1d0a5c47-925a-4ef7-abb5-2775379876e5"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3586),
                             Name = "Trục",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("88e8c6e2-85d3-4842-9a2b-6852991287f0"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2900),
+                            Id = new Guid("44c39f6d-65cc-4f0f-b1dc-5916886aebec"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3587),
                             Name = "Thẻo",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("6a322810-999c-4649-9bbf-1e7970c67d6e"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2901),
+                            Id = new Guid("ef1f65ad-b713-407b-9091-c2c18100242d"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3587),
                             Name = "Phao",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("2fa7a546-25e6-45a4-89dd-4253d2a4373c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2901),
+                            Id = new Guid("359813a3-83ef-474c-9d85-5983a0fea813"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3588),
                             Name = "Thùng câu",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("6266b341-398f-40b8-8406-2297980018dd"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2903),
+                            Id = new Guid("88e6e248-dac8-4a71-b6d7-57a646cf95e4"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3589),
                             Name = "Giọ",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("edc49103-2048-404b-abec-18874007c13d"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2903),
+                            Id = new Guid("6177a049-5217-4006-bdb0-c9609c99ebfe"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3590),
                             Name = "Mồi",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("ad123586-6a58-4304-9efc-48f5e2fcf14c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2935),
+                            Id = new Guid("4ca63409-f2a8-4571-aa50-1fdbfdaa4169"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3592),
                             Name = "Gác cần",
                             Status = "1"
                         });
@@ -756,80 +756,80 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e9d04d1d-08a7-4c3f-922a-3d3164265058"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2856),
+                            Id = new Guid("4e0b6bd9-1556-42b4-8a94-57311888bf40"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3532),
                             Description = "Nhà sản xuất cần câu nổi tiếng từ Nhật Bản",
                             Name = "Daiwa",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("25e541e1-7ecc-4b65-9ee6-abadb629322c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2867),
+                            Id = new Guid("40bda0a9-5446-4b74-97fa-112b024ef882"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3544),
                             Description = "Thương hiệu đồ câu cá hàng đầu thế giới",
                             Name = "Shimano",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("d25e02f5-71d7-4bb7-934b-df2b6af96cd3"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2869),
+                            Id = new Guid("37810cb7-097d-458f-ab21-0b1fdc1e24c9"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3545),
                             Description = "Chuyên sản xuất mồi câu cá",
                             Name = "Rapala",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("28bdd7e5-0ffd-4743-883b-59a07ae08765"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2869),
+                            Id = new Guid("dffc33c8-8032-4521-96b3-f1473a0fb910"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3546),
                             Description = "Nhà sản xuất mồi và phụ kiện câu cá",
                             Name = "Berkley",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("5909c938-7f31-43e3-8e0e-1b0b952fd2bb"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2870),
+                            Id = new Guid("de5cfecb-5794-4d78-8828-22cbfcc3f4a8"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3547),
                             Description = "Thương hiệu trục câu nổi tiếng",
                             Name = "Abu Garcia",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("74cdc3c6-e537-4d4e-9394-7ae427823b20"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2871),
+                            Id = new Guid("7515168a-bb2d-4a3e-a784-5fe320670fb6"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3548),
                             Description = "Nhà sản xuất đồ câu chất lượng cao",
                             Name = "Okuma",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("07489e39-459e-4d3e-b99a-09c219342e43"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2872),
+                            Id = new Guid("bcdef1bd-8d7f-43bd-8c92-6c0f0ee8d103"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3549),
                             Description = "Chuyên về trục và cần câu biển",
                             Name = "Penn",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("7f9b4405-e4b7-4e84-b3db-7c7827a2922c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2873),
+                            Id = new Guid("d9939265-b197-4912-b7af-26aa8959b4de"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3550),
                             Description = "Nhà sản xuất dây câu chất lượng",
                             Name = "Sufix",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("a5ad5477-12f6-4721-b6f0-8de93703a66f"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2873),
+                            Id = new Guid("ad08042d-940a-4a8c-9632-9531d6b79b97"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3551),
                             Description = "Chuyên sản xuất lưỡi câu",
                             Name = "Gamakatsu",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("4e7d355c-3fda-4485-8307-a93c1450ab36"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2874),
+                            Id = new Guid("ae4f5137-a7d1-4e49-b6d8-26918b49cc92"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3551),
                             Description = "Thương hiệu lưỡi câu nổi tiếng",
                             Name = "Mustad",
                             Status = "1"
@@ -940,221 +940,221 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("04a6a42c-edc9-4a27-963d-dc996569683e"),
+                            Id = new Guid("77912245-2de7-471e-bdaf-018ad9f0f846"),
                             AttributeName = "Chiều dài",
                             AttributeUnit = "m",
-                            CategoryId = new Guid("c7519baa-cc88-4a48-8ca3-f3e88b6c1c4f"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2960),
-                            ManufacturerId = new Guid("e9d04d1d-08a7-4c3f-922a-3d3164265058"),
+                            CategoryId = new Guid("50cf21c2-6bbc-4edd-b1ae-ff9cd2b5c640"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3619),
+                            ManufacturerId = new Guid("4e0b6bd9-1556-42b4-8a94-57311888bf40"),
                             Name = "Sản phẩm 1 - Cần câu đài",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("a2ab4014-0fd1-4d26-a29b-8c21116a904e"),
+                            Id = new Guid("2063aca9-cde4-4919-a8db-2e2886ed1615"),
                             AttributeName = "Tỷ lệ truyền",
                             AttributeUnit = "",
-                            CategoryId = new Guid("5e56bb24-6157-42bf-9e06-f6d05e371d62"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2983),
-                            ManufacturerId = new Guid("25e541e1-7ecc-4b65-9ee6-abadb629322c"),
+                            CategoryId = new Guid("1d0a5c47-925a-4ef7-abb5-2775379876e5"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3643),
+                            ManufacturerId = new Guid("40bda0a9-5446-4b74-97fa-112b024ef882"),
                             Name = "Sản phẩm 2 - Trục",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("f8367804-90ee-4679-844c-66fec1c76ea4"),
+                            Id = new Guid("b9ee5c58-0884-449a-8eb8-f85b18ada50a"),
                             AttributeName = "Độ bền",
                             AttributeUnit = "lb",
-                            CategoryId = new Guid("88e8c6e2-85d3-4842-9a2b-6852991287f0"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2993),
-                            ManufacturerId = new Guid("d25e02f5-71d7-4bb7-934b-df2b6af96cd3"),
+                            CategoryId = new Guid("44c39f6d-65cc-4f0f-b1dc-5916886aebec"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3653),
+                            ManufacturerId = new Guid("37810cb7-097d-458f-ab21-0b1fdc1e24c9"),
                             Name = "Sản phẩm 3 - Thẻo",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("e56af974-93b8-47da-969c-828872ab4b4a"),
+                            Id = new Guid("c26fab98-9bea-4303-a6e1-f70f7f871fee"),
                             AttributeName = "Kích thước",
                             AttributeUnit = "cm",
-                            CategoryId = new Guid("6a322810-999c-4649-9bbf-1e7970c67d6e"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3001),
-                            ManufacturerId = new Guid("28bdd7e5-0ffd-4743-883b-59a07ae08765"),
+                            CategoryId = new Guid("ef1f65ad-b713-407b-9091-c2c18100242d"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3705),
+                            ManufacturerId = new Guid("dffc33c8-8032-4521-96b3-f1473a0fb910"),
                             Name = "Sản phẩm 4 - Phao",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("923f9fc0-a43c-4182-88fe-6eb58315db17"),
+                            Id = new Guid("590db8c3-cc86-412a-8137-53acae19a4ee"),
                             AttributeName = "Dung tích",
                             AttributeUnit = "lít",
-                            CategoryId = new Guid("2fa7a546-25e6-45a4-89dd-4253d2a4373c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3009),
-                            ManufacturerId = new Guid("5909c938-7f31-43e3-8e0e-1b0b952fd2bb"),
+                            CategoryId = new Guid("359813a3-83ef-474c-9d85-5983a0fea813"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3713),
+                            ManufacturerId = new Guid("de5cfecb-5794-4d78-8828-22cbfcc3f4a8"),
                             Name = "Sản phẩm 5 - Thùng câu",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("efdabc9c-e389-4c72-b170-8896d24229d3"),
+                            Id = new Guid("a5a84b81-f914-46e8-b9dc-3a9ac69853eb"),
                             AttributeName = "Kích thước",
                             AttributeUnit = "cm",
-                            CategoryId = new Guid("6266b341-398f-40b8-8406-2297980018dd"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3016),
-                            ManufacturerId = new Guid("74cdc3c6-e537-4d4e-9394-7ae427823b20"),
+                            CategoryId = new Guid("88e6e248-dac8-4a71-b6d7-57a646cf95e4"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3721),
+                            ManufacturerId = new Guid("7515168a-bb2d-4a3e-a784-5fe320670fb6"),
                             Name = "Sản phẩm 6 - Giọ",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("78a83551-1566-4eb7-9a38-dee2ec40c940"),
+                            Id = new Guid("340bae4a-825e-4225-9efd-a76be28484b7"),
                             AttributeName = "Loại mồi",
                             AttributeUnit = "",
-                            CategoryId = new Guid("edc49103-2048-404b-abec-18874007c13d"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3047),
-                            ManufacturerId = new Guid("07489e39-459e-4d3e-b99a-09c219342e43"),
+                            CategoryId = new Guid("6177a049-5217-4006-bdb0-c9609c99ebfe"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3729),
+                            ManufacturerId = new Guid("bcdef1bd-8d7f-43bd-8c92-6c0f0ee8d103"),
                             Name = "Sản phẩm 7 - Mồi",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("2543e6e4-8b1b-4aea-b8f1-53191531c5d9"),
+                            Id = new Guid("55833496-8dad-471c-bfc8-400c69d77c50"),
                             AttributeName = "Chất liệu",
                             AttributeUnit = "",
-                            CategoryId = new Guid("ad123586-6a58-4304-9efc-48f5e2fcf14c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3054),
-                            ManufacturerId = new Guid("7f9b4405-e4b7-4e84-b3db-7c7827a2922c"),
+                            CategoryId = new Guid("4ca63409-f2a8-4571-aa50-1fdbfdaa4169"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3737),
+                            ManufacturerId = new Guid("d9939265-b197-4912-b7af-26aa8959b4de"),
                             Name = "Sản phẩm 8 - Gác cần",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("decf12e5-2c7b-4b03-a610-4c0e9fed6519"),
+                            Id = new Guid("8f35d0e1-260d-4667-bc7b-c93c728a180b"),
                             AttributeName = "Chiều dài",
                             AttributeUnit = "m",
-                            CategoryId = new Guid("c7519baa-cc88-4a48-8ca3-f3e88b6c1c4f"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3062),
-                            ManufacturerId = new Guid("a5ad5477-12f6-4721-b6f0-8de93703a66f"),
+                            CategoryId = new Guid("50cf21c2-6bbc-4edd-b1ae-ff9cd2b5c640"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3745),
+                            ManufacturerId = new Guid("ad08042d-940a-4a8c-9632-9531d6b79b97"),
                             Name = "Sản phẩm 9 - Cần câu đài",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("532deea6-e3ab-4d24-9cc7-78bd4ea078ec"),
+                            Id = new Guid("05d2bd13-8521-4035-bfb8-338763616e04"),
                             AttributeName = "Tỷ lệ truyền",
                             AttributeUnit = "",
-                            CategoryId = new Guid("5e56bb24-6157-42bf-9e06-f6d05e371d62"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3070),
-                            ManufacturerId = new Guid("4e7d355c-3fda-4485-8307-a93c1450ab36"),
+                            CategoryId = new Guid("1d0a5c47-925a-4ef7-abb5-2775379876e5"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3752),
+                            ManufacturerId = new Guid("ae4f5137-a7d1-4e49-b6d8-26918b49cc92"),
                             Name = "Sản phẩm 10 - Trục",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("020acb93-0b77-4ecb-ae03-5045a4bd7c83"),
+                            Id = new Guid("faa14773-a87d-4928-9805-ffe043ffd734"),
                             AttributeName = "Độ bền",
                             AttributeUnit = "lb",
-                            CategoryId = new Guid("88e8c6e2-85d3-4842-9a2b-6852991287f0"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3080),
-                            ManufacturerId = new Guid("e9d04d1d-08a7-4c3f-922a-3d3164265058"),
+                            CategoryId = new Guid("44c39f6d-65cc-4f0f-b1dc-5916886aebec"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3783),
+                            ManufacturerId = new Guid("4e0b6bd9-1556-42b4-8a94-57311888bf40"),
                             Name = "Sản phẩm 11 - Thẻo",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("2612b89c-158f-4621-9521-55824929a16d"),
+                            Id = new Guid("13737c51-c345-4f5b-bbba-c77f83769a37"),
                             AttributeName = "Kích thước",
                             AttributeUnit = "cm",
-                            CategoryId = new Guid("6a322810-999c-4649-9bbf-1e7970c67d6e"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3087),
-                            ManufacturerId = new Guid("25e541e1-7ecc-4b65-9ee6-abadb629322c"),
+                            CategoryId = new Guid("ef1f65ad-b713-407b-9091-c2c18100242d"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3791),
+                            ManufacturerId = new Guid("40bda0a9-5446-4b74-97fa-112b024ef882"),
                             Name = "Sản phẩm 12 - Phao",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("b5ed5903-c90d-407d-888a-b06a99c8d135"),
+                            Id = new Guid("5ebd6b86-f18c-4ff1-8f00-de9fa00c3c81"),
                             AttributeName = "Dung tích",
                             AttributeUnit = "lít",
-                            CategoryId = new Guid("2fa7a546-25e6-45a4-89dd-4253d2a4373c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3095),
-                            ManufacturerId = new Guid("d25e02f5-71d7-4bb7-934b-df2b6af96cd3"),
+                            CategoryId = new Guid("359813a3-83ef-474c-9d85-5983a0fea813"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3799),
+                            ManufacturerId = new Guid("37810cb7-097d-458f-ab21-0b1fdc1e24c9"),
                             Name = "Sản phẩm 13 - Thùng câu",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("857b451f-e6aa-4a45-8656-b5b5c92f8512"),
+                            Id = new Guid("b0acab70-6b39-4b2a-a359-3c91fb099d01"),
                             AttributeName = "Kích thước",
                             AttributeUnit = "cm",
-                            CategoryId = new Guid("6266b341-398f-40b8-8406-2297980018dd"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3138),
-                            ManufacturerId = new Guid("28bdd7e5-0ffd-4743-883b-59a07ae08765"),
+                            CategoryId = new Guid("88e6e248-dac8-4a71-b6d7-57a646cf95e4"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3806),
+                            ManufacturerId = new Guid("dffc33c8-8032-4521-96b3-f1473a0fb910"),
                             Name = "Sản phẩm 14 - Giọ",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("0fa22a96-bb76-4800-b514-5bc234bc6184"),
+                            Id = new Guid("0b141f6d-bbb0-48d9-beb0-72e63047ba3b"),
                             AttributeName = "Loại mồi",
                             AttributeUnit = "",
-                            CategoryId = new Guid("edc49103-2048-404b-abec-18874007c13d"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3147),
-                            ManufacturerId = new Guid("5909c938-7f31-43e3-8e0e-1b0b952fd2bb"),
+                            CategoryId = new Guid("6177a049-5217-4006-bdb0-c9609c99ebfe"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3814),
+                            ManufacturerId = new Guid("de5cfecb-5794-4d78-8828-22cbfcc3f4a8"),
                             Name = "Sản phẩm 15 - Mồi",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("71887ce0-3415-4fa8-95c9-4f0616261337"),
+                            Id = new Guid("af6c847e-e4e1-447a-90df-c9acc6235bbb"),
                             AttributeName = "Chất liệu",
                             AttributeUnit = "",
-                            CategoryId = new Guid("ad123586-6a58-4304-9efc-48f5e2fcf14c"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3154),
-                            ManufacturerId = new Guid("74cdc3c6-e537-4d4e-9394-7ae427823b20"),
+                            CategoryId = new Guid("4ca63409-f2a8-4571-aa50-1fdbfdaa4169"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3821),
+                            ManufacturerId = new Guid("7515168a-bb2d-4a3e-a784-5fe320670fb6"),
                             Name = "Sản phẩm 16 - Gác cần",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("f94289af-84a9-4c29-bdbf-8840c2e08fee"),
+                            Id = new Guid("41fcf891-ea1e-45f8-a29f-023e3001e8e6"),
                             AttributeName = "Chiều dài",
                             AttributeUnit = "m",
-                            CategoryId = new Guid("c7519baa-cc88-4a48-8ca3-f3e88b6c1c4f"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3162),
-                            ManufacturerId = new Guid("07489e39-459e-4d3e-b99a-09c219342e43"),
+                            CategoryId = new Guid("50cf21c2-6bbc-4edd-b1ae-ff9cd2b5c640"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3828),
+                            ManufacturerId = new Guid("bcdef1bd-8d7f-43bd-8c92-6c0f0ee8d103"),
                             Name = "Sản phẩm 17 - Cần câu đài",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("b5d5d4e7-428d-4cba-a9b0-200aa3053ca0"),
+                            Id = new Guid("5c6778f2-a040-4af9-b348-2444928c255b"),
                             AttributeName = "Tỷ lệ truyền",
                             AttributeUnit = "",
-                            CategoryId = new Guid("5e56bb24-6157-42bf-9e06-f6d05e371d62"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3170),
-                            ManufacturerId = new Guid("7f9b4405-e4b7-4e84-b3db-7c7827a2922c"),
+                            CategoryId = new Guid("1d0a5c47-925a-4ef7-abb5-2775379876e5"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3860),
+                            ManufacturerId = new Guid("d9939265-b197-4912-b7af-26aa8959b4de"),
                             Name = "Sản phẩm 18 - Trục",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("0aad8302-6e3e-4c40-9d8b-e0287cd91e6e"),
+                            Id = new Guid("c01bdc82-42c3-4ebf-be46-67658c631632"),
                             AttributeName = "Độ bền",
                             AttributeUnit = "lb",
-                            CategoryId = new Guid("88e8c6e2-85d3-4842-9a2b-6852991287f0"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3177),
-                            ManufacturerId = new Guid("a5ad5477-12f6-4721-b6f0-8de93703a66f"),
+                            CategoryId = new Guid("44c39f6d-65cc-4f0f-b1dc-5916886aebec"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3868),
+                            ManufacturerId = new Guid("ad08042d-940a-4a8c-9632-9531d6b79b97"),
                             Name = "Sản phẩm 19 - Thẻo",
                             Status = "1"
                         },
                         new
                         {
-                            Id = new Guid("a563ef5c-5a94-4d41-b67b-ff8fc156b405"),
+                            Id = new Guid("0c4c9457-1e69-445a-986d-fe1f30e0969f"),
                             AttributeName = "Kích thước",
                             AttributeUnit = "cm",
-                            CategoryId = new Guid("6a322810-999c-4649-9bbf-1e7970c67d6e"),
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3183),
-                            ManufacturerId = new Guid("4e7d355c-3fda-4485-8307-a93c1450ab36"),
+                            CategoryId = new Guid("ef1f65ad-b713-407b-9091-c2c18100242d"),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3873),
+                            ManufacturerId = new Guid("ae4f5137-a7d1-4e49-b6d8-26918b49cc92"),
                             Name = "Sản phẩm 20 - Phao",
                             Status = "1"
                         });
@@ -1205,661 +1205,661 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f4f77883-15d9-49e5-8bc9-cbdf86b6aae9"),
+                            Id = new Guid("b8130841-74a4-447b-819e-76913e7b34be"),
                             AttributeValue = "3.6",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2967),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3629),
                             Description = "Biến thể 1 của Sản phẩm 1 - Cần câu đài",
                             Price = 150000m,
-                            ProductId = new Guid("04a6a42c-edc9-4a27-963d-dc996569683e"),
+                            ProductId = new Guid("77912245-2de7-471e-bdaf-018ad9f0f846"),
                             Status = "1",
                             Stock = 20
                         },
                         new
                         {
-                            Id = new Guid("7c837ebf-79fe-433e-b02e-dafa933d6ba1"),
+                            Id = new Guid("a77f269b-c748-4995-9a58-4254683c6324"),
                             AttributeValue = "4.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2973),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3633),
                             Description = "Biến thể 2 của Sản phẩm 1 - Cần câu đài",
                             Price = 200000m,
-                            ProductId = new Guid("04a6a42c-edc9-4a27-963d-dc996569683e"),
+                            ProductId = new Guid("77912245-2de7-471e-bdaf-018ad9f0f846"),
                             Status = "1",
                             Stock = 15
                         },
                         new
                         {
-                            Id = new Guid("f25df2ff-a684-4470-b3d4-35b47ad6d772"),
+                            Id = new Guid("d84bf9fc-6b4e-4dc5-8e2e-6da41167ca95"),
                             AttributeValue = "5.4",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2975),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3634),
                             Description = "Biến thể 3 của Sản phẩm 1 - Cần câu đài",
                             Price = 250000m,
-                            ProductId = new Guid("04a6a42c-edc9-4a27-963d-dc996569683e"),
+                            ProductId = new Guid("77912245-2de7-471e-bdaf-018ad9f0f846"),
                             Status = "1",
                             Stock = 10
                         },
                         new
                         {
-                            Id = new Guid("2be064b7-1e8b-4654-84c1-36dcb4651c7e"),
+                            Id = new Guid("d9bec677-e371-4e3d-9d2a-6f1366bb67bf"),
                             AttributeValue = "5.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2987),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3647),
                             Description = "Biến thể 1 của Sản phẩm 2 - Trục",
                             Price = 300000m,
-                            ProductId = new Guid("a2ab4014-0fd1-4d26-a29b-8c21116a904e"),
+                            ProductId = new Guid("2063aca9-cde4-4919-a8db-2e2886ed1615"),
                             Status = "1",
                             Stock = 25
                         },
                         new
                         {
-                            Id = new Guid("2f670fb2-821a-4bd2-b65c-17f322e685bc"),
+                            Id = new Guid("7eaff5ec-968f-49df-9bc3-43a1ce637aea"),
                             AttributeValue = "6.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2989),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3649),
                             Description = "Biến thể 2 của Sản phẩm 2 - Trục",
                             Price = 350000m,
-                            ProductId = new Guid("a2ab4014-0fd1-4d26-a29b-8c21116a904e"),
+                            ProductId = new Guid("2063aca9-cde4-4919-a8db-2e2886ed1615"),
                             Status = "1",
                             Stock = 20
                         },
                         new
                         {
-                            Id = new Guid("9ae94a79-fd5a-4d70-a499-c465a80e8583"),
+                            Id = new Guid("e347cb86-9880-4f38-ae57-483f60a45205"),
                             AttributeValue = "7.0:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2990),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3650),
                             Description = "Biến thể 3 của Sản phẩm 2 - Trục",
                             Price = 400000m,
-                            ProductId = new Guid("a2ab4014-0fd1-4d26-a29b-8c21116a904e"),
+                            ProductId = new Guid("2063aca9-cde4-4919-a8db-2e2886ed1615"),
                             Status = "1",
                             Stock = 15
                         },
                         new
                         {
-                            Id = new Guid("0afdbd6b-cf54-4b1a-a6e1-5366ddeeebb7"),
+                            Id = new Guid("0b157f8f-a1b4-4a13-83a9-f3235cc28ea4"),
                             AttributeValue = "10",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2994),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3654),
                             Description = "Biến thể 1 của Sản phẩm 3 - Thẻo",
                             Price = 50000m,
-                            ProductId = new Guid("f8367804-90ee-4679-844c-66fec1c76ea4"),
+                            ProductId = new Guid("b9ee5c58-0884-449a-8eb8-f85b18ada50a"),
                             Status = "1",
                             Stock = 50
                         },
                         new
                         {
-                            Id = new Guid("b2bb3cb0-911c-4f0b-a40b-6e6ffcaa1dc7"),
+                            Id = new Guid("cdcd72fa-e672-4be5-84fd-7cd138c92481"),
                             AttributeValue = "20",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2996),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3658),
                             Description = "Biến thể 2 của Sản phẩm 3 - Thẻo",
                             Price = 60000m,
-                            ProductId = new Guid("f8367804-90ee-4679-844c-66fec1c76ea4"),
+                            ProductId = new Guid("b9ee5c58-0884-449a-8eb8-f85b18ada50a"),
                             Status = "1",
                             Stock = 40
                         },
                         new
                         {
-                            Id = new Guid("fff03146-eaec-49a0-a875-b20cee61b9a3"),
+                            Id = new Guid("920de269-ea82-4b5f-b0fc-50dba3889bbb"),
                             AttributeValue = "30",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(2997),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3660),
                             Description = "Biến thể 3 của Sản phẩm 3 - Thẻo",
                             Price = 70000m,
-                            ProductId = new Guid("f8367804-90ee-4679-844c-66fec1c76ea4"),
+                            ProductId = new Guid("b9ee5c58-0884-449a-8eb8-f85b18ada50a"),
                             Status = "1",
                             Stock = 30
                         },
                         new
                         {
-                            Id = new Guid("f7ec26af-7fde-4aab-8ab3-90c6c579f268"),
+                            Id = new Guid("18646d14-319d-49bb-8701-276b56ea3bc3"),
                             AttributeValue = "2.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3004),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3708),
                             Description = "Biến thể 1 của Sản phẩm 4 - Phao",
                             Price = 20000m,
-                            ProductId = new Guid("e56af974-93b8-47da-969c-828872ab4b4a"),
+                            ProductId = new Guid("c26fab98-9bea-4303-a6e1-f70f7f871fee"),
                             Status = "1",
                             Stock = 60
                         },
                         new
                         {
-                            Id = new Guid("87f3fe5f-8c4d-479a-a7ed-12525f74afb9"),
+                            Id = new Guid("70e8ef21-ab21-4889-97ad-b80e3bb7c533"),
                             AttributeValue = "3.0",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3005),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3710),
                             Description = "Biến thể 2 của Sản phẩm 4 - Phao",
                             Price = 25000m,
-                            ProductId = new Guid("e56af974-93b8-47da-969c-828872ab4b4a"),
+                            ProductId = new Guid("c26fab98-9bea-4303-a6e1-f70f7f871fee"),
                             Status = "1",
                             Stock = 50
                         },
                         new
                         {
-                            Id = new Guid("2e235f32-210d-4cd7-8257-1cfe95fde210"),
+                            Id = new Guid("07a0dc92-e51b-4c3e-8547-83ea6ef7f40a"),
                             AttributeValue = "3.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3007),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3711),
                             Description = "Biến thể 3 của Sản phẩm 4 - Phao",
                             Price = 30000m,
-                            ProductId = new Guid("e56af974-93b8-47da-969c-828872ab4b4a"),
+                            ProductId = new Guid("c26fab98-9bea-4303-a6e1-f70f7f871fee"),
                             Status = "1",
                             Stock = 40
                         },
                         new
                         {
-                            Id = new Guid("54398130-ecfe-4be3-87bb-c9c8d7973cef"),
+                            Id = new Guid("c08210b2-dc77-4526-a061-6f79384bd478"),
                             AttributeValue = "30",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3011),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3716),
                             Description = "Biến thể 1 của Sản phẩm 5 - Thùng câu",
                             Price = 500000m,
-                            ProductId = new Guid("923f9fc0-a43c-4182-88fe-6eb58315db17"),
+                            ProductId = new Guid("590db8c3-cc86-412a-8137-53acae19a4ee"),
                             Status = "1",
                             Stock = 10
                         },
                         new
                         {
-                            Id = new Guid("e2f85b6b-9abd-4352-b3a6-8d2111208624"),
+                            Id = new Guid("bc28d6c2-59f6-4ecd-a27f-f113943ff1f4"),
                             AttributeValue = "40",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3012),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3717),
                             Description = "Biến thể 2 của Sản phẩm 5 - Thùng câu",
                             Price = 600000m,
-                            ProductId = new Guid("923f9fc0-a43c-4182-88fe-6eb58315db17"),
+                            ProductId = new Guid("590db8c3-cc86-412a-8137-53acae19a4ee"),
                             Status = "1",
                             Stock = 8
                         },
                         new
                         {
-                            Id = new Guid("44672daa-5640-4af2-8283-8592088c1625"),
+                            Id = new Guid("fd96e039-feed-40cd-a70b-22f57e7c912a"),
                             AttributeValue = "50",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3014),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3719),
                             Description = "Biến thể 3 của Sản phẩm 5 - Thùng câu",
                             Price = 700000m,
-                            ProductId = new Guid("923f9fc0-a43c-4182-88fe-6eb58315db17"),
+                            ProductId = new Guid("590db8c3-cc86-412a-8137-53acae19a4ee"),
                             Status = "1",
                             Stock = 6
                         },
                         new
                         {
-                            Id = new Guid("07bdb82f-f717-4590-98f4-5abf28cd0153"),
+                            Id = new Guid("7aa4a3c3-0171-40e0-beab-c86d75c064f6"),
                             AttributeValue = "50",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3019),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3724),
                             Description = "Biến thể 1 của Sản phẩm 6 - Giọ",
                             Price = 100000m,
-                            ProductId = new Guid("efdabc9c-e389-4c72-b170-8896d24229d3"),
+                            ProductId = new Guid("a5a84b81-f914-46e8-b9dc-3a9ac69853eb"),
                             Status = "1",
                             Stock = 30
                         },
                         new
                         {
-                            Id = new Guid("0e9d6411-06ad-4146-a855-c9458c5f37db"),
+                            Id = new Guid("bb7e8078-4ff5-463b-95ae-e85e0d7794ab"),
                             AttributeValue = "60",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3021),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3725),
                             Description = "Biến thể 2 của Sản phẩm 6 - Giọ",
                             Price = 120000m,
-                            ProductId = new Guid("efdabc9c-e389-4c72-b170-8896d24229d3"),
+                            ProductId = new Guid("a5a84b81-f914-46e8-b9dc-3a9ac69853eb"),
                             Status = "1",
                             Stock = 25
                         },
                         new
                         {
-                            Id = new Guid("5134019d-70af-445a-96d2-630db7661687"),
+                            Id = new Guid("ac67bc03-084b-4cb6-a012-091d2260a287"),
                             AttributeValue = "70",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3022),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3726),
                             Description = "Biến thể 3 của Sản phẩm 6 - Giọ",
                             Price = 140000m,
-                            ProductId = new Guid("efdabc9c-e389-4c72-b170-8896d24229d3"),
+                            ProductId = new Guid("a5a84b81-f914-46e8-b9dc-3a9ac69853eb"),
                             Status = "1",
                             Stock = 20
                         },
                         new
                         {
-                            Id = new Guid("afa73375-8ce3-4161-aea8-919adbcec626"),
+                            Id = new Guid("962eac73-745e-470c-8afb-5819d539f614"),
                             AttributeValue = "Mồi giả",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3049),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3731),
                             Description = "Biến thể 1 của Sản phẩm 7 - Mồi",
                             Price = 30000m,
-                            ProductId = new Guid("78a83551-1566-4eb7-9a38-dee2ec40c940"),
+                            ProductId = new Guid("340bae4a-825e-4225-9efd-a76be28484b7"),
                             Status = "1",
                             Stock = 100
                         },
                         new
                         {
-                            Id = new Guid("5056d461-c867-431a-ac8d-0dbbba674767"),
+                            Id = new Guid("d097057a-9329-4435-bfa6-f67aface897a"),
                             AttributeValue = "Mồi tự nhiên",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3050),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3732),
                             Description = "Biến thể 2 của Sản phẩm 7 - Mồi",
                             Price = 35000m,
-                            ProductId = new Guid("78a83551-1566-4eb7-9a38-dee2ec40c940"),
+                            ProductId = new Guid("340bae4a-825e-4225-9efd-a76be28484b7"),
                             Status = "1",
                             Stock = 90
                         },
                         new
                         {
-                            Id = new Guid("c00392d5-f610-48d5-b1be-2668cec73ad7"),
+                            Id = new Guid("3885ea88-bfb9-45e2-89ad-12da1c1adb37"),
                             AttributeValue = "Mồi tổng hợp",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3052),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3736),
                             Description = "Biến thể 3 của Sản phẩm 7 - Mồi",
                             Price = 40000m,
-                            ProductId = new Guid("78a83551-1566-4eb7-9a38-dee2ec40c940"),
+                            ProductId = new Guid("340bae4a-825e-4225-9efd-a76be28484b7"),
                             Status = "1",
                             Stock = 80
                         },
                         new
                         {
-                            Id = new Guid("ed98091b-1d1a-4356-99bd-41f142cefaa8"),
+                            Id = new Guid("6e1c147b-f200-4ff9-8d66-b6a3a0981602"),
                             AttributeValue = "Nhôm",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3056),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3740),
                             Description = "Biến thể 1 của Sản phẩm 8 - Gác cần",
                             Price = 80000m,
-                            ProductId = new Guid("2543e6e4-8b1b-4aea-b8f1-53191531c5d9"),
+                            ProductId = new Guid("55833496-8dad-471c-bfc8-400c69d77c50"),
                             Status = "1",
                             Stock = 35
                         },
                         new
                         {
-                            Id = new Guid("6eadd83f-41f9-41e3-bd8f-9f0fb61332e9"),
+                            Id = new Guid("6240c634-d3b5-44cb-afb0-2bac585878e4"),
                             AttributeValue = "Thép",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3059),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3741),
                             Description = "Biến thể 2 của Sản phẩm 8 - Gác cần",
                             Price = 90000m,
-                            ProductId = new Guid("2543e6e4-8b1b-4aea-b8f1-53191531c5d9"),
+                            ProductId = new Guid("55833496-8dad-471c-bfc8-400c69d77c50"),
                             Status = "1",
                             Stock = 30
                         },
                         new
                         {
-                            Id = new Guid("e99136f7-b5c6-415a-bf3c-7b6c6c603cc5"),
+                            Id = new Guid("adc56c02-bc1b-4b48-8e88-8a1cad691349"),
                             AttributeValue = "Carbon",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3060),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3743),
                             Description = "Biến thể 3 của Sản phẩm 8 - Gác cần",
                             Price = 100000m,
-                            ProductId = new Guid("2543e6e4-8b1b-4aea-b8f1-53191531c5d9"),
+                            ProductId = new Guid("55833496-8dad-471c-bfc8-400c69d77c50"),
                             Status = "1",
                             Stock = 25
                         },
                         new
                         {
-                            Id = new Guid("27a4aed8-af16-474e-a7b1-fe113c84dde6"),
+                            Id = new Guid("df6cffe9-10de-48c2-b578-21ce8792e237"),
                             AttributeValue = "3.6",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3065),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3747),
                             Description = "Biến thể 1 của Sản phẩm 9 - Cần câu đài",
                             Price = 160000m,
-                            ProductId = new Guid("decf12e5-2c7b-4b03-a610-4c0e9fed6519"),
+                            ProductId = new Guid("8f35d0e1-260d-4667-bc7b-c93c728a180b"),
                             Status = "1",
                             Stock = 18
                         },
                         new
                         {
-                            Id = new Guid("71c1732d-7656-40c6-a757-8cc53f56dab7"),
+                            Id = new Guid("dd2c36cd-8c09-48a0-9f7c-1a543948bb49"),
                             AttributeValue = "4.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3066),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3749),
                             Description = "Biến thể 2 của Sản phẩm 9 - Cần câu đài",
                             Price = 210000m,
-                            ProductId = new Guid("decf12e5-2c7b-4b03-a610-4c0e9fed6519"),
+                            ProductId = new Guid("8f35d0e1-260d-4667-bc7b-c93c728a180b"),
                             Status = "1",
                             Stock = 14
                         },
                         new
                         {
-                            Id = new Guid("dd77ae5d-e861-4dfc-b965-c415fc92ec16"),
+                            Id = new Guid("da50230a-5ec8-4bd0-b404-0cd6a016199f"),
                             AttributeValue = "5.4",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3068),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3750),
                             Description = "Biến thể 3 của Sản phẩm 9 - Cần câu đài",
                             Price = 260000m,
-                            ProductId = new Guid("decf12e5-2c7b-4b03-a610-4c0e9fed6519"),
+                            ProductId = new Guid("8f35d0e1-260d-4667-bc7b-c93c728a180b"),
                             Status = "1",
                             Stock = 12
                         },
                         new
                         {
-                            Id = new Guid("9fb61427-e8f0-415a-b60b-9ab23d2246b1"),
+                            Id = new Guid("8ea8887f-04d7-4083-aa7f-2675d05dbb5b"),
                             AttributeValue = "5.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3073),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3754),
                             Description = "Biến thể 1 của Sản phẩm 10 - Trục",
                             Price = 310000m,
-                            ProductId = new Guid("532deea6-e3ab-4d24-9cc7-78bd4ea078ec"),
+                            ProductId = new Guid("05d2bd13-8521-4035-bfb8-338763616e04"),
                             Status = "1",
                             Stock = 22
                         },
                         new
                         {
-                            Id = new Guid("14770db9-8eac-4bd7-967c-b4ac934becca"),
+                            Id = new Guid("de09ef18-b701-4789-a47d-adb945b2f3d0"),
                             AttributeValue = "6.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3075),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3780),
                             Description = "Biến thể 2 của Sản phẩm 10 - Trục",
                             Price = 360000m,
-                            ProductId = new Guid("532deea6-e3ab-4d24-9cc7-78bd4ea078ec"),
+                            ProductId = new Guid("05d2bd13-8521-4035-bfb8-338763616e04"),
                             Status = "1",
                             Stock = 18
                         },
                         new
                         {
-                            Id = new Guid("fdb1b6e2-9df4-4265-928d-ef9166ba12aa"),
+                            Id = new Guid("6e5f835f-6e26-48af-a760-5bc79abd0819"),
                             AttributeValue = "7.0:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3079),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3782),
                             Description = "Biến thể 3 của Sản phẩm 10 - Trục",
                             Price = 410000m,
-                            ProductId = new Guid("532deea6-e3ab-4d24-9cc7-78bd4ea078ec"),
+                            ProductId = new Guid("05d2bd13-8521-4035-bfb8-338763616e04"),
                             Status = "1",
                             Stock = 14
                         },
                         new
                         {
-                            Id = new Guid("00368896-f333-4435-b0b7-1684bb3aa360"),
+                            Id = new Guid("59d8ccd4-aac7-47fa-9de6-d9ee9b4b9a1a"),
                             AttributeValue = "10",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3082),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3785),
                             Description = "Biến thể 1 của Sản phẩm 11 - Thẻo",
                             Price = 55000m,
-                            ProductId = new Guid("020acb93-0b77-4ecb-ae03-5045a4bd7c83"),
+                            ProductId = new Guid("faa14773-a87d-4928-9805-ffe043ffd734"),
                             Status = "1",
                             Stock = 55
                         },
                         new
                         {
-                            Id = new Guid("630f4ad8-9e4a-41e2-abe3-3378ddadc832"),
+                            Id = new Guid("1565e2dd-ee67-4665-81bd-65520fbdc291"),
                             AttributeValue = "20",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3083),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3787),
                             Description = "Biến thể 2 của Sản phẩm 11 - Thẻo",
                             Price = 65000m,
-                            ProductId = new Guid("020acb93-0b77-4ecb-ae03-5045a4bd7c83"),
+                            ProductId = new Guid("faa14773-a87d-4928-9805-ffe043ffd734"),
                             Status = "1",
                             Stock = 45
                         },
                         new
                         {
-                            Id = new Guid("f5d848bd-ff59-49f9-a577-0425e54cb8d9"),
+                            Id = new Guid("f3cf143a-3db0-4b7e-8d9c-cec1e511ca04"),
                             AttributeValue = "30",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3084),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3788),
                             Description = "Biến thể 3 của Sản phẩm 11 - Thẻo",
                             Price = 75000m,
-                            ProductId = new Guid("020acb93-0b77-4ecb-ae03-5045a4bd7c83"),
+                            ProductId = new Guid("faa14773-a87d-4928-9805-ffe043ffd734"),
                             Status = "1",
                             Stock = 35
                         },
                         new
                         {
-                            Id = new Guid("0d4bef91-d493-4dee-93e4-6568574927cb"),
+                            Id = new Guid("52e67a7b-785d-4f47-acb6-bc500c5330ff"),
                             AttributeValue = "2.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3090),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3794),
                             Description = "Biến thể 1 của Sản phẩm 12 - Phao",
                             Price = 22000m,
-                            ProductId = new Guid("2612b89c-158f-4621-9521-55824929a16d"),
+                            ProductId = new Guid("13737c51-c345-4f5b-bbba-c77f83769a37"),
                             Status = "1",
                             Stock = 65
                         },
                         new
                         {
-                            Id = new Guid("b68056dc-4ae9-4973-943f-93367ca13245"),
+                            Id = new Guid("203d71c4-bb91-420e-b7c5-f27c85d2e3e9"),
                             AttributeValue = "3.0",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3092),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3795),
                             Description = "Biến thể 2 của Sản phẩm 12 - Phao",
                             Price = 27000m,
-                            ProductId = new Guid("2612b89c-158f-4621-9521-55824929a16d"),
+                            ProductId = new Guid("13737c51-c345-4f5b-bbba-c77f83769a37"),
                             Status = "1",
                             Stock = 55
                         },
                         new
                         {
-                            Id = new Guid("bfb6abfd-6af6-4fd1-84ac-db12481d6e62"),
+                            Id = new Guid("240a5f6a-4416-40e6-84c6-93bfac67b62d"),
                             AttributeValue = "3.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3093),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3797),
                             Description = "Biến thể 3 của Sản phẩm 12 - Phao",
                             Price = 32000m,
-                            ProductId = new Guid("2612b89c-158f-4621-9521-55824929a16d"),
+                            ProductId = new Guid("13737c51-c345-4f5b-bbba-c77f83769a37"),
                             Status = "1",
                             Stock = 45
                         },
                         new
                         {
-                            Id = new Guid("566cb44b-f991-4bca-9c08-cb131c55c1e6"),
+                            Id = new Guid("52149f90-0afc-4124-acf9-fec6d2796aa2"),
                             AttributeValue = "30",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3133),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3801),
                             Description = "Biến thể 1 của Sản phẩm 13 - Thùng câu",
                             Price = 510000m,
-                            ProductId = new Guid("b5ed5903-c90d-407d-888a-b06a99c8d135"),
+                            ProductId = new Guid("5ebd6b86-f18c-4ff1-8f00-de9fa00c3c81"),
                             Status = "1",
                             Stock = 12
                         },
                         new
                         {
-                            Id = new Guid("293b741f-be26-476f-98a0-668d88345fe5"),
+                            Id = new Guid("bf773f50-07d2-4891-83fc-6d3d504c84ea"),
                             AttributeValue = "40",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3134),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3803),
                             Description = "Biến thể 2 của Sản phẩm 13 - Thùng câu",
                             Price = 610000m,
-                            ProductId = new Guid("b5ed5903-c90d-407d-888a-b06a99c8d135"),
+                            ProductId = new Guid("5ebd6b86-f18c-4ff1-8f00-de9fa00c3c81"),
                             Status = "1",
                             Stock = 10
                         },
                         new
                         {
-                            Id = new Guid("8a8a275b-daa2-40bf-b178-5ff901471d67"),
+                            Id = new Guid("e97e86e1-d583-4222-8355-cc241ae560b9"),
                             AttributeValue = "50",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3136),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3804),
                             Description = "Biến thể 3 của Sản phẩm 13 - Thùng câu",
                             Price = 710000m,
-                            ProductId = new Guid("b5ed5903-c90d-407d-888a-b06a99c8d135"),
+                            ProductId = new Guid("5ebd6b86-f18c-4ff1-8f00-de9fa00c3c81"),
                             Status = "1",
                             Stock = 8
                         },
                         new
                         {
-                            Id = new Guid("bd7f821a-1b67-4207-8163-397fd4d12285"),
+                            Id = new Guid("ea07fff7-b097-45c6-a9ff-448043888722"),
                             AttributeValue = "50",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3142),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3809),
                             Description = "Biến thể 1 của Sản phẩm 14 - Giọ",
                             Price = 110000m,
-                            ProductId = new Guid("857b451f-e6aa-4a45-8656-b5b5c92f8512"),
+                            ProductId = new Guid("b0acab70-6b39-4b2a-a359-3c91fb099d01"),
                             Status = "1",
                             Stock = 28
                         },
                         new
                         {
-                            Id = new Guid("79d4a0cf-ccbc-4392-a272-4f0855f979d9"),
+                            Id = new Guid("54f4e706-adda-45e6-bd0b-22006d12144f"),
                             AttributeValue = "60",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3143),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3810),
                             Description = "Biến thể 2 của Sản phẩm 14 - Giọ",
                             Price = 130000m,
-                            ProductId = new Guid("857b451f-e6aa-4a45-8656-b5b5c92f8512"),
+                            ProductId = new Guid("b0acab70-6b39-4b2a-a359-3c91fb099d01"),
                             Status = "1",
                             Stock = 22
                         },
                         new
                         {
-                            Id = new Guid("c7020673-a6a1-4658-9988-7d29c849391a"),
+                            Id = new Guid("27ab3e87-1658-40f8-b82e-4c6620389117"),
                             AttributeValue = "70",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3144),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3813),
                             Description = "Biến thể 3 của Sản phẩm 14 - Giọ",
                             Price = 150000m,
-                            ProductId = new Guid("857b451f-e6aa-4a45-8656-b5b5c92f8512"),
+                            ProductId = new Guid("b0acab70-6b39-4b2a-a359-3c91fb099d01"),
                             Status = "1",
                             Stock = 18
                         },
                         new
                         {
-                            Id = new Guid("43326e00-d0fa-417b-ad8b-1c8c3cd4dc8f"),
+                            Id = new Guid("7da9e27e-3c1e-4653-821f-93bd3560c7c1"),
                             AttributeValue = "Mồi giả",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3149),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3816),
                             Description = "Biến thể 1 của Sản phẩm 15 - Mồi",
                             Price = 32000m,
-                            ProductId = new Guid("0fa22a96-bb76-4800-b514-5bc234bc6184"),
+                            ProductId = new Guid("0b141f6d-bbb0-48d9-beb0-72e63047ba3b"),
                             Status = "1",
                             Stock = 95
                         },
                         new
                         {
-                            Id = new Guid("92f120a9-3d8e-4c9b-b837-da22e50e7e68"),
+                            Id = new Guid("071e6cbe-4a67-43f5-9f94-662008fa4275"),
                             AttributeValue = "Mồi tự nhiên",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3150),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3818),
                             Description = "Biến thể 2 của Sản phẩm 15 - Mồi",
                             Price = 37000m,
-                            ProductId = new Guid("0fa22a96-bb76-4800-b514-5bc234bc6184"),
+                            ProductId = new Guid("0b141f6d-bbb0-48d9-beb0-72e63047ba3b"),
                             Status = "1",
                             Stock = 85
                         },
                         new
                         {
-                            Id = new Guid("ee13751b-e425-41a8-83da-24a15eac15f9"),
+                            Id = new Guid("5e278e2d-e5a6-4785-8dc8-51f2f3c346be"),
                             AttributeValue = "Mồi tổng hợp",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3151),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3819),
                             Description = "Biến thể 3 của Sản phẩm 15 - Mồi",
                             Price = 42000m,
-                            ProductId = new Guid("0fa22a96-bb76-4800-b514-5bc234bc6184"),
+                            ProductId = new Guid("0b141f6d-bbb0-48d9-beb0-72e63047ba3b"),
                             Status = "1",
                             Stock = 75
                         },
                         new
                         {
-                            Id = new Guid("3e340e7d-9344-43a2-8522-d4427c84ac3d"),
+                            Id = new Guid("5663bc40-4c4f-4271-9a90-3a123cf82e74"),
                             AttributeValue = "Nhôm",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3156),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3823),
                             Description = "Biến thể 1 của Sản phẩm 16 - Gác cần",
                             Price = 85000m,
-                            ProductId = new Guid("71887ce0-3415-4fa8-95c9-4f0616261337"),
+                            ProductId = new Guid("af6c847e-e4e1-447a-90df-c9acc6235bbb"),
                             Status = "1",
                             Stock = 32
                         },
                         new
                         {
-                            Id = new Guid("35478750-e8e0-4e64-bb8e-6eee6cba9447"),
+                            Id = new Guid("d24c4c78-886a-4fd1-8e76-de046ae3c6f8"),
                             AttributeValue = "Thép",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3159),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3825),
                             Description = "Biến thể 2 của Sản phẩm 16 - Gác cần",
                             Price = 95000m,
-                            ProductId = new Guid("71887ce0-3415-4fa8-95c9-4f0616261337"),
+                            ProductId = new Guid("af6c847e-e4e1-447a-90df-c9acc6235bbb"),
                             Status = "1",
                             Stock = 28
                         },
                         new
                         {
-                            Id = new Guid("09fca895-8b5b-44e0-8d76-61a9681b3603"),
+                            Id = new Guid("8bb8acba-ee23-4995-b9c0-6b6b603ccb4c"),
                             AttributeValue = "Carbon",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3160),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3826),
                             Description = "Biến thể 3 của Sản phẩm 16 - Gác cần",
                             Price = 105000m,
-                            ProductId = new Guid("71887ce0-3415-4fa8-95c9-4f0616261337"),
+                            ProductId = new Guid("af6c847e-e4e1-447a-90df-c9acc6235bbb"),
                             Status = "1",
                             Stock = 22
                         },
                         new
                         {
-                            Id = new Guid("e92ab8d4-f8ae-4e7b-9473-013d95317cd1"),
+                            Id = new Guid("bb04a2c1-8a76-47e1-aa1d-52dbf953d308"),
                             AttributeValue = "3.6",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3166),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3855),
                             Description = "Biến thể 1 của Sản phẩm 17 - Cần câu đài",
                             Price = 170000m,
-                            ProductId = new Guid("f94289af-84a9-4c29-bdbf-8840c2e08fee"),
+                            ProductId = new Guid("41fcf891-ea1e-45f8-a29f-023e3001e8e6"),
                             Status = "1",
                             Stock = 16
                         },
                         new
                         {
-                            Id = new Guid("45d1a1cb-6240-43e5-92b5-126722ae1eff"),
+                            Id = new Guid("b247ffc7-5113-41f9-b6f6-5f0177b8db04"),
                             AttributeValue = "4.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3167),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3857),
                             Description = "Biến thể 2 của Sản phẩm 17 - Cần câu đài",
                             Price = 220000m,
-                            ProductId = new Guid("f94289af-84a9-4c29-bdbf-8840c2e08fee"),
+                            ProductId = new Guid("41fcf891-ea1e-45f8-a29f-023e3001e8e6"),
                             Status = "1",
                             Stock = 12
                         },
                         new
                         {
-                            Id = new Guid("e9767470-29e4-4b89-bfb5-d58b93d50be3"),
+                            Id = new Guid("5658ef33-0723-41e1-8018-ae7951789748"),
                             AttributeValue = "5.4",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3168),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3858),
                             Description = "Biến thể 3 của Sản phẩm 17 - Cần câu đài",
                             Price = 270000m,
-                            ProductId = new Guid("f94289af-84a9-4c29-bdbf-8840c2e08fee"),
+                            ProductId = new Guid("41fcf891-ea1e-45f8-a29f-023e3001e8e6"),
                             Status = "1",
                             Stock = 10
                         },
                         new
                         {
-                            Id = new Guid("e384247b-2f03-4ba2-bab4-342f6c502036"),
+                            Id = new Guid("fb0f65f0-4ab5-4128-a0ce-a8ceb722167d"),
                             AttributeValue = "5.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3173),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3863),
                             Description = "Biến thể 1 của Sản phẩm 18 - Trục",
                             Price = 320000m,
-                            ProductId = new Guid("b5d5d4e7-428d-4cba-a9b0-200aa3053ca0"),
+                            ProductId = new Guid("5c6778f2-a040-4af9-b348-2444928c255b"),
                             Status = "1",
                             Stock = 20
                         },
                         new
                         {
-                            Id = new Guid("7307917f-edad-4a96-9990-010d2353d68a"),
+                            Id = new Guid("acf7088c-3721-4b81-9772-21f06805e1c8"),
                             AttributeValue = "6.2:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3174),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3865),
                             Description = "Biến thể 2 của Sản phẩm 18 - Trục",
                             Price = 370000m,
-                            ProductId = new Guid("b5d5d4e7-428d-4cba-a9b0-200aa3053ca0"),
+                            ProductId = new Guid("5c6778f2-a040-4af9-b348-2444928c255b"),
                             Status = "1",
                             Stock = 16
                         },
                         new
                         {
-                            Id = new Guid("70c1d226-7420-4230-ac63-734aec3142c7"),
+                            Id = new Guid("427146ba-daa7-4cbf-8bc9-c4e8d99b9987"),
                             AttributeValue = "7.0:1",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3176),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3866),
                             Description = "Biến thể 3 của Sản phẩm 18 - Trục",
                             Price = 420000m,
-                            ProductId = new Guid("b5d5d4e7-428d-4cba-a9b0-200aa3053ca0"),
+                            ProductId = new Guid("5c6778f2-a040-4af9-b348-2444928c255b"),
                             Status = "1",
                             Stock = 12
                         },
                         new
                         {
-                            Id = new Guid("90e1980f-5755-43d6-a2b3-b5cba5a46d80"),
+                            Id = new Guid("c276bd85-2fcc-4cfd-a4a1-896e5204dc06"),
                             AttributeValue = "10",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3179),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3869),
                             Description = "Biến thể 1 của Sản phẩm 19 - Thẻo",
                             Price = 60000m,
-                            ProductId = new Guid("0aad8302-6e3e-4c40-9d8b-e0287cd91e6e"),
+                            ProductId = new Guid("c01bdc82-42c3-4ebf-be46-67658c631632"),
                             Status = "1",
                             Stock = 50
                         },
                         new
                         {
-                            Id = new Guid("8eda6ea1-8916-4e5d-922f-907868ac0421"),
+                            Id = new Guid("afab228d-db72-42d7-bc56-36b362ffeaf0"),
                             AttributeValue = "20",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3180),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3870),
                             Description = "Biến thể 2 của Sản phẩm 19 - Thẻo",
                             Price = 70000m,
-                            ProductId = new Guid("0aad8302-6e3e-4c40-9d8b-e0287cd91e6e"),
+                            ProductId = new Guid("c01bdc82-42c3-4ebf-be46-67658c631632"),
                             Status = "1",
                             Stock = 40
                         },
                         new
                         {
-                            Id = new Guid("6b579886-c391-4475-aae2-0cc58529032c"),
+                            Id = new Guid("4f67af0d-0c0b-45e4-91f3-0ed8eddc4fca"),
                             AttributeValue = "30",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3181),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3872),
                             Description = "Biến thể 3 của Sản phẩm 19 - Thẻo",
                             Price = 80000m,
-                            ProductId = new Guid("0aad8302-6e3e-4c40-9d8b-e0287cd91e6e"),
+                            ProductId = new Guid("c01bdc82-42c3-4ebf-be46-67658c631632"),
                             Status = "1",
                             Stock = 30
                         },
                         new
                         {
-                            Id = new Guid("e7e7a759-9735-4bed-87e1-bf92ce88e53b"),
+                            Id = new Guid("2378d418-ff61-4d44-9b00-dbd9b15d694b"),
                             AttributeValue = "2.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3211),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3876),
                             Description = "Biến thể 1 của Sản phẩm 20 - Phao",
                             Price = 23000m,
-                            ProductId = new Guid("a563ef5c-5a94-4d41-b67b-ff8fc156b405"),
+                            ProductId = new Guid("0c4c9457-1e69-445a-986d-fe1f30e0969f"),
                             Status = "1",
                             Stock = 60
                         },
                         new
                         {
-                            Id = new Guid("a7643b7b-8aad-4bfe-9ef3-a3d976764de2"),
+                            Id = new Guid("b698f39e-ce60-46b4-ba35-bd64e243556c"),
                             AttributeValue = "3.0",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3212),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3877),
                             Description = "Biến thể 2 của Sản phẩm 20 - Phao",
                             Price = 28000m,
-                            ProductId = new Guid("a563ef5c-5a94-4d41-b67b-ff8fc156b405"),
+                            ProductId = new Guid("0c4c9457-1e69-445a-986d-fe1f30e0969f"),
                             Status = "1",
                             Stock = 50
                         },
                         new
                         {
-                            Id = new Guid("a2fa2eb9-750f-4d5b-8beb-59c2546352de"),
+                            Id = new Guid("9a39a043-8375-4d41-9590-2b15dec278ab"),
                             AttributeValue = "3.5",
-                            CreatedTime = new DateTime(2025, 5, 24, 22, 58, 54, 172, DateTimeKind.Local).AddTicks(3213),
+                            CreatedTime = new DateTime(2025, 5, 30, 7, 0, 56, 508, DateTimeKind.Local).AddTicks(3879),
                             Description = "Biến thể 3 của Sản phẩm 20 - Phao",
                             Price = 33000m,
-                            ProductId = new Guid("a563ef5c-5a94-4d41-b67b-ff8fc156b405"),
+                            ProductId = new Guid("0c4c9457-1e69-445a-986d-fe1f30e0969f"),
                             Status = "1",
                             Stock = 40
                         });
@@ -2007,10 +2007,10 @@ namespace Data_FishingBee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c54b913e-9c30-4388-8de8-ea5a71aa7caf"),
+                            Id = new Guid("674367af-6d92-42ea-b35d-4637347839c5"),
                             CreatedTime = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "fishingbee2024@gmail.com",
-                            Password = "AQAAAAEAACcQAAAAEMExeYHLQCcVXXEUhfBnQ9RkpwFn8kI3qhqko/wSy+Ch3Ok0Geuvi7RgTa6kybcmsg==",
+                            Password = "AQAAAAEAACcQAAAAEL9IgiIQTdAGw/yHRLdbhIeCHUumdBTcK3fArvjDdF1jBigsOIZylQsBlP+PXZ/jiQ==",
                             PhoneNumber = "0123456789",
                             Status = "1",
                             UserType = "Admin",
